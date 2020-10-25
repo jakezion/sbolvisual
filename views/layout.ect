@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="<%- @language %>">
+<head>
+
+    <title><%- @title %></title>
+
+    <meta charset="utf-8">
+    <meta name="tagline" content="<%- @tagline %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="<%- @data %>">  <!-- fix -->
+    <meta name="description" content="<%- @description %>">
+    <meta name="keywords" content="<%- @keywords %>"/>
+    <meta name="language" content="EN">
+    <meta name="copyright" content="<%- @copyright %>">
+
+<!-- import styles.css-->
+    <link rel="stylesheet" href="../public/stylesheets/styles.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+
+</head>
+<body>
+
+<% include 'header' %>
+<% content %>
+<% include 'footer' %>
+
+</body>
+</html>
+

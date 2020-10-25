@@ -1,0 +1,34 @@
+<% extend 'layout' %>
+
+
+<div id="main" class="container-fluid ">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center"></h1>
+        </div>
+    </div>
+    <div class="row">
+        <!--        <div class="col-md-2"></div> added -->
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data">
+                <label for="input" class="mx-auto"><h3>Text Area</h3></label>
+                <input type="submit" class="btn btn-secondary btn-block" id="input" formaction="/display"
+                       value="List View">
+                <input type="submit" class="btn btn-secondary btn-block" name="glyph" id="input2" formaction="/"
+                       value="Glyph View">
+                <textarea class="form-control" rows="30" id="glyph" name="json"></textarea>
+            </form>
+        </div>
+        <!--        <div class="col-md-2"></div> added -->
+
+        <div class="col-md-6 ">
+            <h3 class="mx-auto">Glyph View</h3>
+            <div id="slider"></div>
+            <div id="slider-value"></div>
+            <div class="row">
+                <div class="col-md-12 ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
