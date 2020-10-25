@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="42bac3f8-ef48-4dbf-842e-1432e5f65e15" name="Default Changelist" comment="" />
+    <list default="true" id="42bac3f8-ef48-4dbf-842e-1432e5f65e15" name="Default Changelist" comment="Initial commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +24,9 @@
         <option value="CSS File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jKfAFLbs1NbkzhrrNs4ygMnO8T" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -61,11 +73,42 @@
       <workItem from="1603639756531" duration="13668000" />
       <workItem from="1603658358866" duration="17000" />
       <workItem from="1603658377111" duration="383000" />
+      <workItem from="1603658769898" duration="360000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <created>1603658820022</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1603658820022</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initial commit">
+      <created>1603658942120</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1603658942120</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1041" y="507" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603645048436">
@@ -76,10 +119,22 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="460" key="FileChooserDialogImpl/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603658374633" />
+    <state x="918" y="466" key="MultipleFileMergeDialog" timestamp="1603658962379">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="918" y="466" key="MultipleFileMergeDialog/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603658962379" />
     <state x="799" y="333" width="998" height="708" key="SettingsEditor" timestamp="1603658724733">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="799" y="333" width="998" height="708" key="SettingsEditor/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603658724733" />
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1603658986484">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603658986484" />
+    <state x="1091" y="439" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1603658805153">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1091" y="439" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603658805153" />
     <state x="1273" y="0" width="1294" height="1417" key="dock-window-1" timestamp="1603646421449">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>

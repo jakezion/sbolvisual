@@ -15,5 +15,25 @@
     "jquery": "^3.5.1",
     "morgan": "~1.9.1",
     "popper.js": "^1.16.1"
-  }
+  },
+  "description": "SBOL Visual is a web-based visualisation tool for the 3rd iteration of the SBOL specification",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeSumner11/sbolvisual.git"
+  },
+  "keywords": [
+    "SBOL",
+    "javascript",
+    "nodejs",
+    "expressjs",
+    "ect"
+  ],
+  "author": "Jake Sumner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeSumner11/sbolvisual/issues"
+  },
+  "homepage": "https://github.com/JakeSumner11/sbolvisual#readme"
 }
