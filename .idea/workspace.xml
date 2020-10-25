@@ -10,7 +10,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42bac3f8-ef48-4dbf-842e-1432e5f65e15" name="Default Changelist" comment="Initial commit" />
+    <list default="true" id="42bac3f8-ef48-4dbf-842e-1432e5f65e15" name="Default Changelist" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +78,8 @@
       <workItem from="1603639756531" duration="13668000" />
       <workItem from="1603658358866" duration="17000" />
       <workItem from="1603658377111" duration="383000" />
-      <workItem from="1603658769898" duration="360000" />
+      <workItem from="1603658769898" duration="693000" />
+      <workItem from="1603666813026" duration="597000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1603658820022</created>
@@ -89,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603658942120</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Initial commit">
+      <created>1603659412821</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1603659412821</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -105,6 +118,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
@@ -127,14 +141,18 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="799" y="333" width="998" height="708" key="SettingsEditor/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603658724733" />
-    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1603658986484">
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1603659416938">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603658986484" />
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603659416938" />
     <state x="1091" y="439" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1603658805153">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1091" y="439" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603658805153" />
+    <state x="1097" y="619" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603659407053">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1097" y="619" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603659407053" />
     <state x="1273" y="0" width="1294" height="1417" key="dock-window-1" timestamp="1603646421449">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>

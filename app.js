@@ -1,5 +1,6 @@
 const express = require('express'),
     path = require('path'),
+    helmet = require('helmet'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan'),
     indexRouter = require('./routes/index'),
@@ -30,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/list', listRouter);
 
 //bash popup to show connection recieved
+app.use(helmet());
 app.listen(port, function () {
     console.log(`Server hosted at http://${hostname}:${port}`);
 });
