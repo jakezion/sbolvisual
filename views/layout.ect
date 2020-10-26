@@ -13,11 +13,10 @@
     <meta name="language" content="EN">
     <meta name="copyright" content="<%- @copyright %>">
 
-<!-- import styles.css-->
-    <link rel="stylesheet" href="../public/stylesheets/styles.css"/>  <!-- TODO: not working fix-->
-    <link rel="stylesheet" href="/css/bootstrap.css" />
-    <link rel="stylesheet" href="../public/fonts/ionicons.min.css">
 
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!--    <link rel="stylesheet" type="text/css" href="./font/ionicons.min.css"/>-->
+    <link rel="stylesheet" type="text/css" href="./style/monotony.css"/>
 
 
 </head>
@@ -26,11 +25,12 @@
 <% include 'header' %>
 <% content %>
 <% include 'footer' %>
+<!-- TODO: FIX TEXTAREA OVERLAP-->
 
-
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap.js"></script>
+<script src="/jq/jquery.js"></script>
 <!--<script src="/popper/popper.js"></script>-->
+<script src="/js/bootstrap.js"></script>
+
 </body>
 </html>
 

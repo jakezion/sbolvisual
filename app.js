@@ -1,11 +1,15 @@
 const express = require('express'),
     path = require('path'), //possible remove
     helmet = require('helmet'),
-    bootstrap = require('bootstrap'),
+    // bootstrap = require('bootstrap'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan'),
     indexRouter = require('./routes/index'),
-    listRouter = require('./routes/list'),
+    dragdropRouter = require('./routes/dragdrop'),
+    customiserRouter = require('./routes/customiser'),
+    githubRouter = require('./routes/github'),
+    aboutRouter = require('./routes/about'),
+    descriptionRouter = require('./routes/description'),
     ect = require('ect'),
     ectRenderer = ect({watch: true, root: path.join(__dirname, 'views'), ext: '.ect'}),
     app = express(),
@@ -22,34 +26,30 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(bootstrap());
+// app.use(bootstrap());
+app.use(helmet());
 
 //static directory names
 app.use(express.static(path.join(__dirname, 'views')));
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
-app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+app.use('/jq', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
+app.use('/style', express.static(path.join(__dirname, 'public/stylesheets')));
+app.use('/font', express.static(path.join(__dirname, 'public/fonts')));
 
 //routing paths
 app.use('/', indexRouter);
-app.use('/list', listRouter);
+app.use('/dragdrop', dragdropRouter);
+app.use('/customiser', customiserRouter);
+app.use('/github', githubRouter);
+app.use('/about', aboutRouter);
+app.use('/description', descriptionRouter);
+
 
 //bash popup to show connection recieved
-app.use(helmet());
 app.listen(port, function () {
     console.log(`Server hosted at http://${hostname}:${port}`);
 });
 
 module.exports = app;
-
-
-/*
-NOTES
-
-function interchangeable with =>
-app.use to add extra routing
-create external functions in pulbic javascripts or possibly put in routes but unknown how expressJS handles these atm
-
-
- */
