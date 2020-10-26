@@ -95,12 +95,15 @@
     color: #f0f0f0
 }
 
+
+
 .navigation-clean .navbar-brand img {
     height: 100%;
     display: inline-block;
     margin-right: 10px;
     width: auto
 }
+
 
 .navigation-clean .navbar-toggler {
     border-color: #ddd;
@@ -236,4 +239,10 @@
 
 .container, .container-lg, .container-md, .container-sm, .container-xl, body, html {
     height: 100%
+}
+
+.header{
+    padding-bottom: 50px;
+    border-bottom: 5px;
+    border-bottom-color: #333333;
 }

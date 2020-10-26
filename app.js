@@ -1,5 +1,5 @@
 const express = require('express'),
-    path = require('path'),
+    path = require('path'), //possible remove
     helmet = require('helmet'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan'),
@@ -26,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views')));
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+app.use('/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
 
 //routing paths
 app.use('/', indexRouter);
