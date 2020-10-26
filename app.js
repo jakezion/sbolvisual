@@ -1,6 +1,7 @@
 const express = require('express'),
     path = require('path'), //possible remove
     helmet = require('helmet'),
+    bootstrap = require('bootstrap'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan'),
     indexRouter = require('./routes/index'),
@@ -21,6 +22,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(bootstrap());
 
 //static directory names
 app.use(express.static(path.join(__dirname, 'views')));
