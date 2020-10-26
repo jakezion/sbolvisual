@@ -1,34 +1,67 @@
 <% extend 'layout' %>
 
-
-<div id="main" class="container-fluid ">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="text-center"></h1>
-        </div>
-    </div>
-    <div class="row">
-        <!--        <div class="col-md-2"></div> added -->
-        <div class="col-md-6">
-            <form method="post" enctype="multipart/form-data">
-                <label for="input" class="mx-auto"><h3>Text Area</h3></label>
-                <input type="submit" class="btn btn-secondary btn-block" id="input" formaction="/display"
-                       value="List View">
-                <input type="submit" class="btn btn-secondary btn-block" name="glyph" id="input2" formaction="/"
-                       value="Glyph View">
-                <textarea class="form-control" rows="30" id="glyph" name="json"></textarea>
-            </form>
-        </div>
-        <!--        <div class="col-md-2"></div> added -->
-
-        <div class="col-md-6 ">
-            <h3 class="mx-auto">Glyph View</h3>
-            <div id="slider"></div>
-            <div id="slider-value"></div>
-            <div class="row">
-                <div class="col-md-12 ">
+<main>
+    <div class="container">
+        <div class="row stretch">
+            <div class="col-md-6">
+                <div>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">JSON-LD</a></li>
+                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Simplified</a></li>
+                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-3">{EXT}</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel" id="tab-1"><textarea class="textarea"></textarea></div>
+                        <div class="tab-pane" role="tabpanel" id="tab-2"><textarea class="textarea"></textarea></div>
+                        <div class="tab-pane" role="tabpanel" id="tab-3"><textarea class="textarea"></textarea></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-4">Glyph</a></li>
+                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-5">List</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel" id="tab-4"></div>
+                        <div class="tab-pane" role="tabpanel" id="tab-5">
+                            <div role="tablist" id="accordion-1">
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1">Accordion Item</a></h5>
+                                    </div>
+                                    <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
+                                        <div class="card-body">
+                                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2" href="#accordion-1 .item-2">Accordion Item</a></h5>
+                                    </div>
+                                    <div class="collapse item-2" role="tabpanel" data-parent="#accordion-1">
+                                        <div class="card-body">
+                                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-3" href="#accordion-1 .item-3">Accordion Item</a></h5>
+                                    </div>
+                                    <div class="collapse item-3" role="tabpanel" data-parent="#accordion-1">
+                                        <div class="card-body">
+                                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</main>
