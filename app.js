@@ -36,7 +36,7 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/
 app.use('/jq', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
 app.use('/style', express.static(path.join(__dirname, 'public/stylesheets')));
-app.use('/font', express.static(path.join(__dirname, 'public/fonts')));
+app.use('/line', express.static(path.join(__dirname, 'public/javascripts')));
 
 //routing paths
 app.use('/', indexRouter);

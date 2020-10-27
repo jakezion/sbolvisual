@@ -923,7 +923,7 @@ pre code {
 }
 
 .form-control {
-    margin-top: 2%;
+
     overflow: auto;
     display: flex;
     width: 100%;
@@ -4281,6 +4281,10 @@ input[type="button"].btn-block {
     color: #fff;
     background-color: #090909;
     border-color: #090909;
+}
+
+.list{
+    margin-bottom: 2%;
 }
 
 .close {

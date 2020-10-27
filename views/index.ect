@@ -5,21 +5,25 @@
         <div class="row stretch">
             <div class="col-md-6">
                 <div>
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs list">
                         <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">JSON-LD</a></li>
-                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Simplified</a></li>
-                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-3">{EXT}</a></li>
+                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#tab-2">Simplified</a></li>
+                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#tab-3">{EXT}</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" role="tabpanel" id="tab-1"><textarea class="form-control"   rows="40" cols="1"></textarea></div>
-                        <div class="tab-pane" role="tabpanel" id="tab-2"><textarea class="form-control " rows="40" cols="1"></textarea></div>
-                        <div class="tab-pane" role="tabpanel" id="tab-3"><textarea class="form-control "rows="40" cols="1"></textarea></div>
+                        <div class="tab-pane active" role="tabpanel" id="tab-1"><textarea class="form-control"  id="main-textarea" rows="40" cols="1"></textarea></div>
+
+
+                        <div class="tab-pane " role="tabpanel" id="tab-2"><textarea class="form-control " id="simplified-textarea" rows="40" cols="1" ></textarea></div>
+                        <div class="tab-pane " role="tabpanel" id="tab-3"><textarea class="form-control " id="ext-textarea" rows="40" cols="1" ></textarea></div>
+
+
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div>
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs list">
                         <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-4">Glyph</a></li>
                         <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-5">List</a></li>
                     </ul>
@@ -65,3 +69,5 @@
         </div>
     </div>
 </main>
+
+
