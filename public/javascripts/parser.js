@@ -1,11 +1,18 @@
+
+
+function jsonParser(){
+JSON.parse()
+return getJson(parser);
+}
+
 //get json data from textarea and continuously update when next text is entered
-function getJson() {
+function getJson(parser) {
 
 
-    var text = $('#jsonData').val();
+    let json = $('#jsonData').val();
 
     $('#jsonData').change(function () {
-        text = $(this).val();
+        json = $(this).val();
     });
 
 }
