@@ -17,7 +17,7 @@
             // Create the new textarea and style it
             $(this).before('<textarea data-name="linenumbers" style="width:'+new_textarea_width+'px;height:'+textarea_height+'px;float:left;margin-right:'+'-'+new_textarea_width+'px;white-space:pre;overflow:hidden;" disabled="disabled"></textarea>');
             // Edit the existing textarea's styles
-            $(this).css({'width':new_textarea_width+'px','height':textarea_height+'px','float':'right'});
+            $(this).css({'width':new_textarea_width+'px','height':textarea_height+'px','float':'right' });
             // Add a clearing div.
             $(this).after('<div style="clear:both;"></div>');
             // Define a simple variable for the line-numbers box

@@ -9,7 +9,7 @@ const express = require('express'),
     customiserRouter = require('./routes/customiser'),
     githubRouter = require('./routes/github'),
     aboutRouter = require('./routes/about'),
-    descriptionRouter = require('./routes/description'),
+    usefullinksRouter = require('./routes/usefullinks'),
     ect = require('ect'),
     ectRenderer = ect({watch: true, root: path.join(__dirname, 'views'), ext: '.ect'}),
     app = express(),
@@ -44,7 +44,7 @@ app.use('/dragdrop', dragdropRouter);
 app.use('/customiser', customiserRouter);
 app.use('/github', githubRouter);
 app.use('/about', aboutRouter);
-app.use('/description', descriptionRouter);
+app.use('/description', usefullinksRouter);
 
 
 //bash popup to show connection recieved

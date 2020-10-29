@@ -6,16 +6,14 @@
             <div class="col-md-6">
                 <div>
                     <ul class="nav nav-tabs list">
-                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">JSON-LD</a></li>
-                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#tab-2">Simplified</a></li>
-                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#tab-3">{EXT}</a></li>
+                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#jsonld">JSON-LD</a></li>
+                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#simplified">Simplified</a></li> <!-- TODO: remove disable to let tab be active -->
+                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ext">{EXT}</a></li>  <!-- TODO: remove disable to let tab be active -->
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" role="tabpanel" id="tab-1"><textarea class="form-control"  id="main-textarea" rows="40" cols="1"></textarea></div>
-
-
-                        <div class="tab-pane " role="tabpanel" id="tab-2"><textarea class="form-control " id="simplified-textarea" rows="40" cols="1" ></textarea></div>
-                        <div class="tab-pane " role="tabpanel" id="tab-3"><textarea class="form-control " id="ext-textarea" rows="40" cols="1" ></textarea></div>
+                        <div class="tab-pane active" role="tabpanel" id="jsonld"><textarea class="form-control"  id="main-textarea" rows="40" cols="1"></textarea></div>
+                        <div class="tab-pane " role="tabpanel" id="simplified"><textarea class="form-control " id="simplified-textarea" rows="40" cols="1" ></textarea></div>
+                        <div class="tab-pane " role="tabpanel" id="ext"><textarea class="form-control " id="ext-textarea" rows="40" cols="1" ></textarea></div>
 
 
                     </div>
@@ -24,16 +22,16 @@
             <div class="col-md-6">
                 <div>
                     <ul class="nav nav-tabs list">
-                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-4">Glyph</a></li>
-                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-5">List</a></li>
+                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#glyph">Glyph</a></li>
+                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#list">List</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" role="tabpanel" id="tab-4"></div>
-                        <div class="tab-pane" role="tabpanel" id="tab-5">
+                        <div class="tab-pane active" role="tabpanel" id="glyph"></div>
+                        <div class="tab-pane" role="tabpanel" id="list">
                             <div role="tablist" id="accordion-1">
                                 <div class="card">
                                     <div class="card-header" role="tab">
-                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1">Accordion Item</a></h5>
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1">Accordion Item</a></h5>
                                     </div>
                                     <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
                                         <div class="card-body">
