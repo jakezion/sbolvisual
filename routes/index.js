@@ -1,5 +1,8 @@
 const express = require('express'),
+    parser = require('../public/javascripts/parser'),
+    // parser = require('./public/javascripts/parser'),
     router = express.Router();
+
 
 
 router.get('/', function (req, res) {
@@ -19,3 +22,5 @@ router.get('/', function (req, res) {
 
 
 module.exports = router;
+let val = parser.getJSON();
+console.log(val);
