@@ -12,6 +12,7 @@
     <meta name="keywords" content="<%- @keywords %>"/>
     <meta name="language" content="EN">
     <meta name="copyright" content="<%- @copyright %>">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
@@ -19,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="./style/monotony.css"/>
 
 <!--    TODO: move scripts to correct location-->
-    <script>$('#main-textarea').linenumbers('5%');</script>
+<!--    <script>$('#main-textarea').linenumbers('5%');</script>-->
 <!--    <script>$('document').ready(function(){$('#simplified-textarea').linenumbers({col_width:'25px'});})</script>-->
 <!--    <script>$('document').ready(function(){$('#ext-textarea').linenumbers({col_width:'25px'});})</script>-->
 </head>
@@ -31,9 +32,9 @@
 <!-- TODO: FIX TEXTAREA OVERLAP-->
 
 <script src="/jq/jquery.js"></script>
-<!--<script src="/popper/popper.js"></script>-->
 <script src="/js/bootstrap.js"></script>
-<script src="/line/textarea.js"></script>
+<script src="/javascripts/textarea.js"></script>
+<script src="/javascripts/parser.js"></script>
 </body>
 </html>
 

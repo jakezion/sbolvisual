@@ -82,6 +82,6 @@
         });
     };
 })(jQuery);
-$('textarea').linenumbers();
+$('textarea').linenumbers('5%');
 
 //https://github.com/pgooch/jQueryLinenNumbersPlugin

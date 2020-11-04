@@ -1,11 +1,11 @@
 const express = require('express'),
-    parser = require('../public/javascripts/parser'),
-    // parser = require('./public/javascripts/parser'),
+    //parser = require('../public/javascripts/parser'),
     router = express.Router();
 
 
-
 router.get('/', function (req, res) {
+
+    res.setHeader('Cache-Control', 'no-cache');
 
     res.render('index', {
 
@@ -17,10 +17,13 @@ router.get('/', function (req, res) {
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
 
+
     });
+
+
 });
 
 
 module.exports = router;
-let val = parser.getJSON();
-console.log(val);
+
+

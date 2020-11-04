@@ -8,12 +8,14 @@
   "dependencies": {
     "@popperjs/core": "^2.5.3",
     "bootstrap": "^4.5.3",
+    "cheerio": "^1.0.0-rc.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ect": "^0.5.9",
     "express": "~4.16.1",
     "helmet": "^4.1.1",
     "jquery": "^3.5.1",
+    "jsdom": "^16.4.0",
     "morgan": "~1.9.1",
     "popper.js": "^1.16.1"
   },

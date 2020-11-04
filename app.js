@@ -1,3 +1,5 @@
+//TODO: GLOBAL increase reqiure effiecnecy and reduce code reuse with module.export file. set up cheeriojs instead of jsdom + jquery, more efficient
+
 const express = require('express'),
     path = require('path'), //possible remove
     helmet = require('helmet'),
@@ -29,6 +31,7 @@ app.use(cookieParser());
 // app.use(bootstrap());
 app.use(helmet());
 
+
 //static directory names
 app.use(express.static(path.join(__dirname, 'views')));
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
@@ -36,7 +39,7 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/
 app.use('/jq', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
 app.use('/style', express.static(path.join(__dirname, 'public/stylesheets')));
-app.use('/line', express.static(path.join(__dirname, 'public/javascripts')));
+app.use('/javascripts', express.static(path.join(__dirname, 'public/javascripts')));
 
 //routing paths
 app.use('/', indexRouter);
