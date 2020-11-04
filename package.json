@@ -2,18 +2,19 @@
   "name": "sbolvisual",
   "version": "0.0.1",
   "private": true,
+
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "@popperjs/core": "^2.5.3",
+    "@popperjs/core": "^2.5.4",
     "bootstrap": "^4.5.3",
     "cheerio": "^1.0.0-rc.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ect": "^0.5.9",
     "express": "~4.16.1",
-    "helmet": "^4.1.1",
+    "helmet": "^4.2.0",
     "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
     "morgan": "~1.9.1",

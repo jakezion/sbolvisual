@@ -18,6 +18,7 @@ const express = require('express'),
     port = 80,
     hostname = 'localhost';
 
+
 app.enable('strict routing');
 
 //sets view engine

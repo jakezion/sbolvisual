@@ -1,14 +1,15 @@
+
 //TODO: jquery event listener for when text entered into text area, when entered, getJson called,
 // data is updated onto new value and then sent to the parser that attempts to stringify it
 // and uses java api to put into correct glyphs. possible use of res to dynamically get value
 
 //get json data from textarea and continuously update when next text is entered
-const events = require('events');
-const eventEmitter = new events.EventEmitter();
+
 const cheerio = require('cheerio');
 const fs = require('fs');
-const $ = cheerio().load(fs.readFileSync('./layout.ect'));
-
+const $ = cheerio().load(fs.readFileSync('./views/layout.ect'));
+const events = require('events');
+const eventEmitter = new events.EventEmitter();
 
 
 
