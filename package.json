@@ -2,13 +2,13 @@
   "name": "sbolvisual",
   "version": "0.0.1",
   "private": true,
-
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
     "@popperjs/core": "^2.5.4",
     "bootstrap": "^4.5.3",
+    "brfs": "^2.0.2",
     "cheerio": "^1.0.0-rc.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

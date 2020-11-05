@@ -5,7 +5,7 @@ const express = require('express'),
 
 router.get('/', function (req, res) {
 
-    res.setHeader('Cache-Control', 'no-cache');
+    // res.setHeader('Cache-Control', 'no-cache');
 
     res.render('index', {
 

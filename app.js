@@ -40,7 +40,8 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/
 app.use('/jq', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
 app.use('/style', express.static(path.join(__dirname, 'public/stylesheets')));
-app.use('/javascripts', express.static(path.join(__dirname, 'public/javascripts')));
+// app.use('/javascripts', express.static(path.join(__dirname, 'public/javascripts')));
+app.use('/public', express.static(path.join(__dirname, "public")));
 
 //routing paths
 app.use('/', indexRouter);
