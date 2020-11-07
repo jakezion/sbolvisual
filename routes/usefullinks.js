@@ -2,7 +2,7 @@ const express = require('express'),
     router = express.Router();
 
 
-router.get('/description', function (req, res) {
+router.get('/description', (req, res) => {
 
     res.render('description', {
 

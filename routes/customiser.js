@@ -2,7 +2,7 @@ const express = require('express'),
     router = express.Router();
 
 
-router.get('/customiser', function (req, res) {
+router.get('/customiser', (req, res) => {
 
     res.render('customiser', {
 

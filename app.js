@@ -14,11 +14,11 @@ const express = require('express'),
     usefullinksRouter = require('./routes/usefullinks'),
     ect = require('ect'),
     ectRenderer = ect({watch: true, root: path.join(__dirname, 'views'), ext: '.ect'}),
-    app = express(),
-    port = 80,
-    hostname = 'localhost';
+    app = express();
 
 
+app.hostname = 'http://localhost';
+app.port = 3000;
 app.enable('strict routing');
 
 //sets view engine
@@ -51,10 +51,18 @@ app.use('/github', githubRouter);
 app.use('/about', aboutRouter);
 app.use('/description', usefullinksRouter);
 
+app.use((req, res, next) => {
+    res.status(404).send("Sorry can't find that!")
+});
 
-//bash popup to show connection recieved
-app.listen(port, function () {
-    console.log(`Server hosted at http://${hostname}:${port}`);
+app.use( (req, res, next) => {
+    res.status(500).send('Something broke!')
+});
+
+
+app.listen(app.port, () => {
+
+    console.log(`Server hosted at ${app.hostname}:${app.port}`);
 });
 
 module.exports = app;

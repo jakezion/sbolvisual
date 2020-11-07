@@ -2,7 +2,7 @@ const express = require('express'),
     router = express.Router();
 
 
-router.get('/dragdrop', function (req, res) {
+router.get('/dragdrop', (req, res) => {
 
     res.render('dragdrop', {
 

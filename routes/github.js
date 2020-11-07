@@ -2,7 +2,7 @@ const express = require('express'),
     router = express.Router();
 
 
-router.get('/guthub', function (req, res) {
+router.get('/guthub', (req, res) => {
 
     res.render('github', {
 
