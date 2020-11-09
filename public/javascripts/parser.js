@@ -1,38 +1,14 @@
-const events = require('events');
-const eventEmitter = new events.EventEmitter();
-
-
-
-
-
-
-
-
-
 /*
+String output = SBOLIO.write(sboldata, "N-TRIPLES");
+SBOlDocument doc2 = SBOLIO.read(output, "N-TRIPLES");
 
-//TODO: jquery event listener for when text entered into text area, when entered, getJson called,
-// data is updated onto new value and then sent to the parser that attempts to stringify it
-// and uses java api to put into correct glyphs. possible use of res to dynamically get value
+Sequence rbsSeq=(Sequence)sboldata.getIdentified(rbs.getSequences().get(0), Sequence.class);
+String nucleotides=rbsSeq.getElements();
 
-//get json data from textarea and continuously update when next text is entered
+List<Component> components=(List<Component>)sboldata.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", Component.class);
+System.out.println("Graph query results:");
+for (Component component:components){
+    System.out.println("  " +  component.getDisplayId());
+}
 
-const cheerio = require('cheerio');
-const fs = require('fs');
-const $ = cheerio().load(fs.readFileSync('./views/layout.ect'));
-
-//if the value changes, via input or paste, it will emit the input event with the param of json
-
-$('textarea[id="main-textarea"]').on('input', function () { // propertychange paste
-
-    let json = $('textarea[id="main-textarea"]').val();
-    eventEmitter.emit('input', json);
-
-});
-
-//on recieving the event, the value will be parsed
-eventEmitter.on('input', function (json) {
-    $('div[id="tester"]').val(json).html();
-
-});
 */

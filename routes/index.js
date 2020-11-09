@@ -1,7 +1,7 @@
 
 const express = require('express'),
-    JsonLdParser = require('jsonld-streaming-parser').JsonLdParser,
-    jsonParser = new JsonLdParser(),
+    // JsonLdParser = require('jsonld-streaming-parser').JsonLdParser,
+    // jsonParser = new JsonLdParser(),
     // RdfXmlParser = require('rdfxml-streaming-parser').RdfXmlParser,
     // rdfParser = new RdfXmlParser();
     // jsonld = require('jsonld'),
@@ -30,8 +30,11 @@ router.all('/', (req, res) => {
     const output = parserJsonld.import(input);
 
     output.on('data', quad => {
+     //   console.log(Array.prototype.forEach(quad));
         console.log(`Subject: ${quad.subject.value} \nPredicate: ${quad.predicate.value}\nObject: ${quad.object.value} \n`);
     });
+
+
 
     res.setHeader('Cache-Control', 'no-cache');
 
