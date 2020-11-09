@@ -15,67 +15,10 @@
   <component name="ChangeListManager">
     <list default="true" id="42bac3f8-ef48-4dbf-842e-1432e5f65e15" name="Default Changelist" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/HISTORY.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/lib/read.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/lib/types/json.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/lib/types/raw.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/lib/types/text.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/lib/types/urlencoded.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/body-parser/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bytes/History.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bytes/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bytes/Readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bytes/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bytes/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/Changelog.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/dbcs-codec.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/dbcs-data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/internal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/sbcs-codec.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/sbcs-data-generated.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/sbcs-data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/tables/big5-added.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/tables/cp936.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/tables/cp949.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/tables/cp950.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/tables/eucjp.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/tables/gbk-added.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/tables/shiftjis.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/utf16.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/encodings/utf7.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/lib/bom-handling.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/lib/extend-node.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/lib/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/lib/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/lib/streams.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/raw-body/HISTORY.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/raw-body/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/raw-body/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/raw-body/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/raw-body/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/raw-body/package.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/about.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/about.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/customiser.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/customiser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/dragdrop.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/dragdrop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/github.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/github.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/usefullinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/usefullinks.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/index.ect" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ect" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/layout.ect" beforeDir="false" afterPath="$PROJECT_DIR$/views/layout.ect" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,16 +63,16 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\public\stylesheets\sass" />
-      <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\routes" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\public\stylesheets" />
       <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\public" />
       <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\public\javascripts" />
       <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\public\images" />
       <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\views" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\public\stylesheets\sass" />
+      <recent name="C:\Users\jakes\WebstormProjects\sbolvisual\routes" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.bin\www">
@@ -204,6 +147,13 @@
       <workItem from="1604775065058" duration="2532000" />
       <workItem from="1604778190269" duration="903000" />
       <workItem from="1604781450813" duration="3412000" />
+      <workItem from="1604790234472" duration="32000" />
+      <workItem from="1604836892628" duration="3471000" />
+      <workItem from="1604846030867" duration="586000" />
+      <workItem from="1604853797031" duration="10449000" />
+      <workItem from="1604869526281" duration="368000" />
+      <workItem from="1604877087058" duration="3786000" />
+      <workItem from="1604920519243" duration="2833000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1603658820022</created>
@@ -366,7 +316,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604571212473</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Initial commit">
+      <created>1604790247260</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1604790247260</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,11 +388,11 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="746" y="575" width="998" height="708" key="SettingsEditor/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1604595485193" />
-    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1604571216844">
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1604790251275">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="-816" y="356" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@-1080.-231.1080.1890" timestamp="1603931699122" />
-    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1604571216844" />
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1604790251275" />
     <state x="1091" y="439" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1604516192766">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -448,5 +405,9 @@
       <screen x="-1080" y="-231" width="1080" height="1890" />
     </state>
     <state x="-1068" y="-243" width="1096" height="1396" maximized="true" key="dock-window-1/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1604507776161" />
+    <state x="642" y="337" key="run.anything.popup" timestamp="1604838398122">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="642" y="337" key="run.anything.popup/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1604838398122" />
   </component>
 </project>

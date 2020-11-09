@@ -1,9 +1,13 @@
-const express = require('express'),
 
+const express = require('express'),
     JsonLdParser = require('jsonld-streaming-parser').JsonLdParser,
     jsonParser = new JsonLdParser(),
     // RdfXmlParser = require('rdfxml-streaming-parser').RdfXmlParser,
     // rdfParser = new RdfXmlParser();
+    // jsonld = require('jsonld'),
+    ParserJsonld = require('@rdfjs/parser-jsonld'),
+    Readable = require('stream').Readable,
+
     router = express.Router();
 
 
@@ -12,43 +16,25 @@ router.use(express.json());
 //router.use(express.text({type: 'text/html'}));
 
 
-router.get('/', (req, res) => {
+router.all('/', (req, res) => {
+    const parserJsonld = new ParserJsonld();
+    let sboldata = req.body.sboldata;
+
+    const input = new Readable({
+        read: () => {
+            input.push(sboldata);
+            input.push(null);
+        }
+    });
+
+    const output = parserJsonld.import(input);
+
+    output.on('data', quad => {
+        console.log(`Subject: ${quad.subject.value} \nPredicate: ${quad.predicate.value}\nObject: ${quad.object.value} \n`);
+    });
 
     res.setHeader('Cache-Control', 'no-cache');
 
-    res.render('index', {
-
-        description: 'SBOL Visual Homepage',
-        language: 'en-GB',
-        data: {author: 'Jake Sumner', university: 'Keele University'},
-        title: 'SBOL Visual',
-        tagline: 'SBOL Visual is a web-based visualisation tool',
-        keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
-        copyright: 'Jake Sumner &copy; 2020',
-
-    });
-
-
-});
-
-
-router.post('/jsonld', (req, res) => {
-    let sboldata = req.body.sboldata;
-
-    jsonParser
-        .on('data', console.log)
-        .on('context', console.log)
-        .on('error', console.error)
-        .on('end', () => console.log('All triples were parsed.'));
-
-
-    jsonParser.write(sboldata);
-    jsonParser.end();
-
-
-    //  const quads = parser.import(sboldata);
-
-    //console.log(quads);
     res.render('index', {
 
         description: 'SBOL Visual Homepage',
@@ -65,6 +51,34 @@ router.post('/jsonld', (req, res) => {
 
 });
 
+// router.post('/', (req, res) => {
+//
+//
+//
+//     res.setHeader('Cache-Control', 'no-cache');
+//
+//     res.render('index', {
+//
+//         description: 'SBOL Visual Homepage',
+//         language: 'en-GB',
+//         data: {author: 'Jake Sumner', university: 'Keele University'},
+//         title: 'SBOL Visual',
+//         tagline: 'SBOL Visual is a web-based visualisation tool',
+//         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
+//         copyright: 'Jake Sumner &copy; 2020',
+//         sboldata: sboldata
+//
+//     });
+//
+//
+// });
+
+// jsonParser.on('context', (context) => {
+//     console.log('context = ', context);
+// });
+//
+// jsonParser.write(sboldata);
+// jsonParser.end();
 
 // router.post('/rdfxml', (req , res) =>{
 //
