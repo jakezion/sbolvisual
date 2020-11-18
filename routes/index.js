@@ -1,45 +1,29 @@
-
 const express = require('express'),
     // JsonLdParser = require('jsonld-streaming-parser').JsonLdParser,
     // jsonParser = new JsonLdParser(),
-    // RdfXmlParser = require('rdfxml-streaming-parser').RdfXmlParser,
-    // rdfParser = new RdfXmlParser();
     // jsonld = require('jsonld'),
     ParserJsonld = require('@rdfjs/parser-jsonld'),
+    parserJsonld = new ParserJsonld(),
     Readable = require('stream').Readable,
-
+    //fs = require('fs'),
+    java = require('java'),
     router = express.Router();
 
 
-//router.use(express.urlencoded({extended: true}));
+router.use(express.urlencoded({extended: true}));
 router.use(express.json());
-//router.use(express.text({type: 'text/html'}));
 
 
 router.all('/', (req, res) => {
-    const parserJsonld = new ParserJsonld();
-    let sboldata = req.body.sboldata;
-
-    const input = new Readable({
-        read: () => {
-            input.push(sboldata);
-            input.push(null);
-        }
-    });
-
-    const output = parserJsonld.import(input);
-
-    output.on('data', quad => {
-     //   console.log(Array.prototype.forEach(quad));
-        console.log(`Subject: ${quad.subject.value} \nPredicate: ${quad.predicate.value}\nObject: ${quad.object.value} \n`);
-    });
+    const sboldata = req.body.sboldata;
 
 
+    parser(sboldata);
+    // list(detailed);
 
     res.setHeader('Cache-Control', 'no-cache');
 
     res.render('index', {
-
         description: 'SBOL Visual Homepage',
         language: 'en-GB',
         data: {author: 'Jake Sumner', university: 'Keele University'},
@@ -47,71 +31,68 @@ router.all('/', (req, res) => {
         tagline: 'SBOL Visual is a web-based visualisation tool',
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
-        sboldata: sboldata
-
+        sboldata: sboldata,
+        textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld')
+        //send array list with list data that then uses the built in loop system of ECTjs to parse the data into their own cards
     });
 
 
 });
 
-// router.post('/', (req, res) => {
-//
-//
-//
-//     res.setHeader('Cache-Control', 'no-cache');
-//
-//     res.render('index', {
-//
-//         description: 'SBOL Visual Homepage',
-//         language: 'en-GB',
-//         data: {author: 'Jake Sumner', university: 'Keele University'},
-//         title: 'SBOL Visual',
-//         tagline: 'SBOL Visual is a web-based visualisation tool',
-//         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
-//         copyright: 'Jake Sumner &copy; 2020',
-//         sboldata: sboldata
-//
-//     });
-//
-//
-// });
+
+
+function parser(data) {
+    const input = new Readable({
+        read: () => {
+            input.push(data);
+            input.push(null);
+        }
+    });
+    const output = parserJsonld.import(input);
+
+    output.on('data', sbol => {
+        setValue(sbol.object.value);
+        console.log(`Subject: ${sbol.subject.value} \nPredicate: ${sbol.predicate.value}\n  `);
+    });
+}
+
+function list(detailed) {
+    if (!detailed) {
+        Array.forEach((item) => {
+            let displayID = item.displayId.value;
+            let description = item.description.value;
+            let role = item.role.value;
+            let roleGlyph = item.roleGlyph.value;
+            let type = item.type.value;
+            let typeGlyph = item.typeGlyph.value;
+            let elements = item.elements.value;
+
+
+        })
+    } else if (detailed) {
+        Array.forEach((item) => {
+            let list = item.whole.value;
+
+        })
+    } else {
+
+    }
+}
+
+function setValue(value) {
+    console.log("Object", value);
+
+}
 
 // jsonParser.on('context', (context) => {
-//     console.log('context = ', context);
+//     const parserJsonld = new ParserJsonld({
+//         context: context
+//     })
+//     console.log(context);
 // });
-//
+
 // jsonParser.write(sboldata);
 // jsonParser.end();
-
-// router.post('/rdfxml', (req , res) =>{
-//
-//     let sboldata = req.body.sboldata;
-//
-//     rdfParser
-//         .on('data', console.log)
-//         .on('context', console.log)
-//         .on('error', console.error)
-//         .on('end', () => console.log('All triples were parsed.'));
-//
-//
-//     rdfParser.write(sboldata);
-//     rdfParser.end();
-//     res.render('index', {
-//
-//         description: 'SBOL Visual Homepage',
-//         language: 'en-GB',
-//         data: {author: 'Jake Sumner', university: 'Keele University'},
-//         title: 'SBOL Visual',
-//         tagline: 'SBOL Visual is a web-based visualisation tool',
-//         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
-//         copyright: 'Jake Sumner &copy; 2020',
-//         sboldata: sboldata
-//
-//     });
-//
-//
-// });
-
 
 module.exports = router;
 

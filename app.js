@@ -3,15 +3,12 @@
 const express = require('express'),
     path = require('path'), //possible remove
     helmet = require('helmet'),
-    // bootstrap = require('bootstrap'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan'),
     indexRouter = require('./routes/index'),
     dragdropRouter = require('./routes/dragdrop'),
     customiserRouter = require('./routes/customiser'),
-    githubRouter = require('./routes/github'),
-    aboutRouter = require('./routes/about'),
-    usefullinksRouter = require('./routes/usefullinks'),
+    staticRouter = require('./routes/static'),
     ect = require('ect'),
     ectRenderer = ect({watch: true, root: path.join(__dirname, 'views'), ext: '.ect'}),
     app = express();
@@ -29,12 +26,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-// app.use(bootstrap());
 app.use(helmet());
 
 
 //static directory names
 app.use(express.static(path.join(__dirname, 'views')));
+app.use('/libSBOLj3', express.static(path.join(__dirname, 'src/main/java/org/sbolstandard')));
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
 app.use('/jq', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
@@ -47,9 +44,9 @@ app.use('/public', express.static(path.join(__dirname, "public")));
 app.use('/', indexRouter);
 app.use('/dragdrop', dragdropRouter);
 app.use('/customiser', customiserRouter);
-app.use('/github', githubRouter);
-app.use('/about', aboutRouter);
-app.use('/description', usefullinksRouter);
+app.use('/github', staticRouter);
+app.use('/about', staticRouter);
+app.use('/description', staticRouter);
 
 app.use((req, res, next) => {
     res.status(404).send("Sorry can't find that!")
@@ -58,7 +55,6 @@ app.use((req, res, next) => {
 app.use( (req, res, next) => {
     res.status(500).send('Something broke!')
 });
-
 
 app.listen(app.port, () => {
 

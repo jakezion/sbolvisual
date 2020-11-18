@@ -16,11 +16,13 @@
     "ect": "^0.5.9",
     "express": "~4.16.1",
     "helmet": "^4.2.0",
+    "java": "^0.12.1",
     "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
     "jsonld": "^3.2.0",
     "jsonld-streaming-parser": "^2.1.1",
     "morgan": "~1.9.1",
+    "node-gyp": "^7.1.2",
     "popper.js": "^1.16.1",
     "rdfxml-streaming-parser": "^1.4.0"
   },
