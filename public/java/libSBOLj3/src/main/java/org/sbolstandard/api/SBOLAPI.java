@@ -46,48 +46,9 @@ public class SBOLAPI {
 	    	return interactions;
 	    }
 	
-	  /*public static List<Interaction> createInteraction(List<URI> interactionTypes, Component parent, SubComponent participantContainer, Component participant1, List<URI> participant1Roles, Component participant2, List<URI> participant2Roles) throws SBOLGraphException
-	    {
-	    	List<Interaction> interactions=new ArrayList<Interaction>();
-	    	List<ComponentReference> features1=createComponentReference(parent, participantContainer, child)
-	    			createSubComponents(parent, participant1);
-	    	List<SubComponent> features2=createSubComponents(parent, participant2);
-	    	if (features1!=null && features2!=null)
-	    	{
-		    	for (Feature feature1: features1)
-		    	{
-		    		for (Feature feature2: features2)
-		    		{
-		    			Interaction interaction=createInteraction(interactionTypes, parent, feature1, participant1Roles, feature2, participant2Roles);	
-		    			interactions.add(interaction);
-		    		}
-		    	}
-	    	}
-	    	return interactions;
-	    }
-	    */
-	
-	 /* public static List<Interaction> createNonCovalentBindingInteraction(Component container, List<Component> reactants, List<Component> products)
-	  {
-		  	List<SubComponent> reactantSubComponents=new ArrayList<SubComponent>();
-		  	if (reactants!=null)
-		  	{
-		  		for (Component component:reactants)
-		  		{
-		  			
-		  		}
-		  	}
-		  	String localName=createLocalName(DataModel.Interaction.uri, container.getInteractions()); 
-	    	Interaction interaction= container.createInteraction(append(container.getUri(), localName), Arrays.asList(InteractionType.NonCovalentBinding));
-	    	
-	    	createParticipation(interaction, participant1Roles, participant1);
-	    	createParticipation(interaction, participant2Roles, participant2);
-	    	return interaction;
-		  
-	  }*/
-      
-	  
-	  	private static List<SubComponent> createSubComponents (Component parent, Component child) throws SBOLGraphException 
+
+
+	  	private static List<SubComponent> createSubComponents (Component parent, Component child) throws SBOLGraphException
 	  	{
 	    	List<SubComponent> subComponents=getSubComponents(parent, child);
 	    	//If not DNA and there is no subComponent yet, add a subcomponent for the child
@@ -102,7 +63,7 @@ public class SBOLAPI {
 	    	}
 	    	return subComponents;
 	  	}
-	    
+
 	    public static List<SubComponent> getSubComponents(Component parent, Component child) throws SBOLGraphException
 	    {
 	    	List<SubComponent> found= null;
@@ -123,8 +84,8 @@ public class SBOLAPI {
 	    	}
 	    	return found;
 	    }
-	    
-	    
+
+
 	    public static  Interaction createInteraction(List<URI> interactionTypes, Component container, Feature participant1, List<URI> participant1Roles, Feature participant2, List<URI> participant2Roles) throws SBOLGraphException
 	    {
 	    	Interaction interaction= container.createInteraction(interactionTypes);
@@ -457,19 +418,7 @@ public class SBOLAPI {
 	    }
 	    
 	   
-	    
-	    /*public static void mapTo(SubComponent subComponentInContainer,Component container, Component parent, Component child) throws SBOLGraphException
-		{
-			 List<ComponentReference> childReferences=createComponentReference(container, parent, child);
-			 if (childReferences!=null)
-			 {
-				 for (ComponentReference compRef: childReferences)
-				 {
-					 String localName=SBOLAPI.createLocalName(DataModel.Constraint.uri, container.getConstraints());
-					 container.createConstraint(SBOLAPI.append(container.getUri(), localName), RestrictionType.Identity.verifyIdentical, subComponentInContainer.getUri(), compRef.getUri());
-				 } 
-			 }
-		}*/
+
 	    
 	    public static void mapTo(Component container, Component parent1, Component child1, Component parent2, Component child2) throws SBOLGraphException
 	    {
@@ -487,20 +436,7 @@ public class SBOLAPI {
 			 }	 
 				
 	    }
-	    
-	   /* private static <T extends Feature> void createConstraint(Component container, List<T> subjects, List<T> objects) throws SBOLGraphException
-	    {
-	    	if (subjects!=null && objects!=null){
-		    	for (Feature compRef1: subjects)
-				 {
-					 for (Feature compRef2: objects)
-					 {
-						 String localName=SBOLAPI.createLocalName(DataModel.Constraint.uri, container.getConstraints());
-						 container.createConstraint(SBOLAPI.append(container.getUri(), localName), RestrictionType.Identity.verifyIdentical, compRef1.getUri(), compRef2.getUri());
-					 }
-				 } 
-			 }
-	    }*/
+
 	    
 	    public static void mapTo(Component container, Component parent1, Component child1, Component containerChild) throws SBOLGraphException
 	    {
@@ -587,78 +523,6 @@ public class SBOLAPI {
 	    	}
 	    	return result;
 	    }
-	    
-		/*private static List<URI> getSubComponent(Component parent, Component child) throws SBOLGraphException
-		{
-			List<URI> result=null;
-			for (SubComponent subComponent:parent.getSubComponents())
-			{
-				if (subComponent.getIsInstanceOf().equals(child.getUri()))
-				{
-					if (result==null)
-					{
-						result=new ArrayList<URI>();
-					}
-					result.add(subComponent.getUri());
-				}
-				
-			}
-			return result;
-		}
-		*/
-		
-	   /* 
-	    public static List<Interaction> createInteractionDel(List<URI> interactionTypes, Component parent, Component participant1, List<URI> participant1Roles, Component participant2, List<URI> participant2Roles) throws SBOLGraphException, SBOLException
-	    {
-	    	List<Interaction> interactions=new ArrayList<Interaction>();
-	    	List<SubComponent> features1=getSubComponents(parent, participant1);
-	    	List<SubComponent> features2=getSubComponents(parent, participant2);
-	    	
-	    	for (Feature feature1: features1)
-	    	{
-	    		for (Feature feature2: features2)
-	    		{
-	    			Interaction interaction=createInteractionDel(interactionTypes, parent, feature1, participant1Roles, feature2, participant2Roles);	
-	    			interactions.add(interaction);
-	    		}
-	    	}
-	    	return interactions;
-	    }
-	    
-	    public static  Interaction createInteractionDel(List<URI> interactionTypes, Component container, Feature participant1, List<URI> participant1Roles, Feature participant2, List<URI> participant2Roles) throws SBOLGraphException, SBOLException
-	    {
-	    	int index=getIndex(container.getInteractionsDel());
-	    	Interaction interaction= container.createInteractionDel(append(container.getUri(), "interaction" + index), interactionTypes);
-	    	createParticipation(interaction, participant1Roles, participant1);
-	    	createParticipation(interaction, participant2Roles, participant2);
-	    	return interaction;
-	    }
-	    
-	    public static Set<Interaction> createInteractionDel2(List<URI> interactionTypes, Component parent, Component participant1, List<URI> participant1Roles, Component participant2, List<URI> participant2Roles) throws SBOLGraphException, SBOLException
-	    {
-	    	Set<Interaction> interactions=new HashSet<Interaction>();
-	    	List<SubComponent> features1=getSubComponents(parent, participant1);
-	    	List<SubComponent> features2=getSubComponents(parent, participant2);
-	    	
-	    	for (Feature feature1: features1)
-	    	{
-	    		for (Feature feature2: features2)
-	    		{
-	    			Interaction interaction=createInteractionDel2(interactionTypes, parent, feature1, participant1Roles, feature2, participant2Roles);	
-	    			interactions.add(interaction);
-	    		}
-	    	}
-	    	return interactions;
-	    }
-	    
-	    public static  Interaction createInteractionDel2(List<URI> interactionTypes, Component container, Feature participant1, List<URI> participant1Roles, Feature participant2, List<URI> participant2Roles) throws SBOLGraphException, SBOLException
-	    {
-	    	int index=getIndex(container.getInteractionsDel2());
-	    	Interaction interaction= container.createInteractionDel2(append(container.getUri(), "interaction" + index), interactionTypes);
-	    	createParticipation(interaction, participant1Roles, participant1);
-	    	createParticipation(interaction, participant2Roles, participant2);
-	    	return interaction;
-	    }
-	    */
+
 	    
 }
