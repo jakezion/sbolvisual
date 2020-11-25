@@ -38,7 +38,7 @@ router.all('/', (req, res) => {
         tagline: 'SBOL Visual is a web-based visualisation tool',
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
-        sboldata:  JSON.stringify(SBOL), //TODO: proper json stringify
+        sboldata:  JSON.stringify(SBOL,null, 4), //TODO: proper json stringify
         textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld') //fix
 
         //send array list with list data that then uses the built in loop system of ECTjs to parse the data into their own cards
@@ -64,15 +64,21 @@ function parser(data) {
 
     if (typeof object['@context'] === 'object') { //gets context
     //    console.log(object['@context']);
+        //Object.keys(object['@graph']).forEach((prefix) => {
+          //  this.emit('prefix', prefix, this.factory.namedNode(object['@context'][prefix])); //fix
+       // })
     }
 
     if (typeof object['@graph'] === 'object') { //gets context
-        return object['@graph'];
+
        // return list(detailed,object['@graph']);
 
+        return object['@graph'];
 
     }
-
+    // on('error', (err) => {
+    //     this.emit('error', err)
+    // })
       // console.log(dataArray);
 }
 
