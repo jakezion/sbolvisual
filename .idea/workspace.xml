@@ -17,8 +17,172 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42bac3f8-ef48-4dbf-842e-1432e5f65e15" name="Default Changelist" comment="Initial commit">
+      <change afterPath="$PROJECT_DIR$/public/javascripts/API.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/input/gfp.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/BBa_F2620_PoPSReceiver/BBa_F2620_PoPSReceiver.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/BBa_F2620_PoPSReceiver/BBa_F2620_PoPSReceiver.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/BBa_F2620_PoPSReceiver/BBa_F2620_PoPSReceiver.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/BBa_F2620_PoPSReceiver/BBa_F2620_PoPSReceiver.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/BBa_F2620_PoPSReceiver/BBa_F2620_PoPSReceiver.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/combine2020/combine2020.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/combine2020/combine2020.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/combine2020/combine2020.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/combine2020/combine2020.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/combine2020/combine2020.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/annotation/annotation.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/annotation/annotation.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/annotation/annotation.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/annotation/annotation.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/annotation/annotation.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/attachment/attachment.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/attachment/attachment.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/attachment/attachment.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/attachment/attachment.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/attachment/attachment.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/collection/collection.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/collection/collection.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/collection/collection.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/collection/collection.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/collection/collection.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/component_urn_uri/component_urn_uri.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/component_urn_uri/component_urn_uri.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/component_urn_uri/component_urn_uri.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/component_urn_uri/component_urn_uri.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/component_urn_uri/component_urn_uri.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/implementation/implementation.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/implementation/implementation.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/implementation/implementation.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/implementation/implementation.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/implementation/implementation.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/interface/interface.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/interface/interface.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/interface/interface.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/interface/interface.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/interface/interface.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/model/model.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/model/model.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/model/model.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/model/model.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/entity/model/model.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement/catalog-v001.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement/measurement.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement/measurement.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement/measurement.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement/measurement.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement/measurement.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement_using_units_From_OM/measurement_using_units_From_OM.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement_using_units_From_OM/measurement_using_units_From_OM.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement_using_units_From_OM/measurement_using_units_From_OM.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement_using_units_From_OM/measurement_using_units_From_OM.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/measurement_entity/measurement_using_units_From_OM/measurement_using_units_From_OM.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular/multicellular.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular/multicellular.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular/multicellular.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular/multicellular.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular/multicellular.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular_simple/catalog-v001.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular_simple/multicellular_simple.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular_simple/multicellular_simple.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular_simple/multicellular_simple.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular_simple/multicellular_simple.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/multicellular_simple/multicellular_simple.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/activity/activity.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/activity/activity.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/activity/activity.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/activity/activity.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/activity/activity.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/agent/agent.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/agent/agent.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/agent/agent.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/agent/agent.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/agent/agent.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/plan/plan.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/plan/plan.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/plan/plan.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/plan/plan.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/provenance_entity/plan/plan.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/toggle_switch/catalog-v001.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/toggle_switch/toggle_switch.jsonld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/toggle_switch/toggle_switch.nt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/toggle_switch/toggle_switch.rdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/toggle_switch/toggle_switch.rj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/output/toggle_switch/toggle_switch.ttl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/api/SBOLAPI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Attachment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Collection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/CombinatorialDerivation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Component.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/ComponentReference.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Constraint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/CutLocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/EntireSequenceLocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Experiment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/ExperimentalData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/ExternallyDefined.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Feature.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Identified.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Implementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Interaction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Interface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/LocalSubComponent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Location.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Metadata.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Model.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Namespace.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Participation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/RangeLocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/SBOLDocument.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/Sequence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/SequenceFeature.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/SubComponent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/TopLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/VariableComponent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/BinaryPrefix.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/CompountUnit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/Measure.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/Prefix.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/PrefixedUnit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/SIPrefix.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/SingularUnit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/Unit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/UnitDivision.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/UnitExponentiation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/measure/UnitMultiplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/provenance/Activity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/provenance/Agent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/provenance/Association.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/provenance/Plan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/entity/provenance/Usage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/io/RDFFormat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/io/SBOLIO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/util/RDFUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/util/SBOLGraphException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/util/URINameSpace.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/ActivityType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/CombinatorialDerivationStrategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/ComponentType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/DataModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/Encoding.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/InteractionType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/MeasureDataModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/ModelFramework.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/ModelLanguage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/Orientation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/ParticipationRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/ProvenanceDataModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/RestrictionType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/java/libSBOLj3/src/main/java/org/sbolstandard/vocabulary/VariableComponentCardinality.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/javascripts/parser.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/index.ect" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ect" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layout.ect" beforeDir="false" afterPath="$PROJECT_DIR$/views/layout.ect" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +214,6 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.14.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="14.14.0" />
@@ -199,6 +362,35 @@
       <workItem from="1606237340532" duration="5445000" />
       <workItem from="1606247534924" duration="342000" />
       <workItem from="1606249250274" duration="9998000" />
+      <workItem from="1606264885974" duration="19000" />
+      <workItem from="1606304943341" duration="10293000" />
+      <workItem from="1606331066185" duration="750000" />
+      <workItem from="1606338969126" duration="644000" />
+      <workItem from="1606345555557" duration="4003000" />
+      <workItem from="1606391913610" duration="1311000" />
+      <workItem from="1606395246374" duration="9349000" />
+      <workItem from="1606409556860" duration="224000" />
+      <workItem from="1606411131182" duration="1374000" />
+      <workItem from="1606413506124" duration="2399000" />
+      <workItem from="1606427069224" duration="621000" />
+      <workItem from="1606494572475" duration="8777000" />
+      <workItem from="1606562515267" duration="2926000" />
+      <workItem from="1606588481386" duration="5178000" />
+      <workItem from="1606647945288" duration="3617000" />
+      <workItem from="1606655859764" duration="595000" />
+      <workItem from="1606672821120" duration="719000" />
+      <workItem from="1606692622993" duration="998000" />
+      <workItem from="1606826963744" duration="68000" />
+      <workItem from="1606928044648" duration="1188000" />
+      <workItem from="1606936451108" duration="370000" />
+      <workItem from="1607019594183" duration="828000" />
+      <workItem from="1607038332933" duration="57000" />
+      <workItem from="1607106241043" duration="9000" />
+      <workItem from="1607279239918" duration="594000" />
+      <workItem from="1607294593195" duration="55000" />
+      <workItem from="1607295958934" duration="1514000" />
+      <workItem from="1607345079576" duration="603000" />
+      <workItem from="1607369783506" duration="3910000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1603658820022</created>
@@ -403,7 +595,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606255976529</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Initial commit">
+      <created>1606264894304</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1606264894304</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -428,10 +627,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1041" y="507" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603741513207">
+    <state x="1041" y="507" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1607372754900">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1041" y="507" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1603741513207" />
+    <state x="1041" y="507" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1607372754900" />
     <state x="0" y="573" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1603805591971">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -468,11 +667,11 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1029" y="577" width="998" height="708" key="SettingsEditor/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1605095069534" />
-    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1606255980875">
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1606264897760">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="-816" y="356" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@-1080.-231.1080.1890" timestamp="1603931699122" />
-    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1606255980875" />
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1606264897760" />
     <state x="1091" y="439" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1604942159247">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -485,13 +684,14 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1274" y="0" width="1293" height="1417" key="dock-window-1/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1606085243404" />
-    <state x="642" y="337" key="run.anything.popup" timestamp="1604838398122">
+    <state x="642" y="337" key="run.anything.popup" timestamp="1606510666165">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="642" y="337" key="run.anything.popup/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1604838398122" />
-    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup" timestamp="1605095194262">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="642" y="337" key="run.anything.popup/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1606510666165" />
+    <state x="-682" y="194" width="284" height="909" key="search.everywhere.popup" timestamp="1606502374285">
+      <screen x="-1080" y="-231" width="1080" height="1890" />
     </state>
-    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1605095194262" />
+    <state x="-682" y="194" width="284" height="909" key="search.everywhere.popup/0.0.2560.1410/-1080.-231.1080.1890@-1080.-231.1080.1890" timestamp="1606502374285" />
+    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410/-1080.-231.1080.1890@0.0.2560.1410" timestamp="1606327167067" />
   </component>
 </project>
