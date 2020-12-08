@@ -3,7 +3,7 @@ const express = require('express'),
     Readable = require('stream').Readable,
     //java = require('java'),
     router = express.Router(),
-    API = require('../public/javascripts/API.java');
+    API = require('../public/javascripts/API.java'),
     http = require("http");
 
 // detailed = false;
@@ -49,7 +49,7 @@ router.all('/', (req, res) => {
     });
 });
 
-console.log(API);
+//console.log(API);
 
 /*TODO: need to parse context in as well
    add to array and call array whilst adding to context, reform json data and then send through formatter
