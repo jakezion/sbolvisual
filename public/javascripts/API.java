@@ -19,14 +19,14 @@ java.classpath.push("java.util.List");
 java.classpath.push("org.sbolstandard.entity.Component");
 java.classpath.push("org.sbolstandard.entity.Identified");
 
-var base = java.import("java.net.URI", URI.create("https://synbiohub.org/public/igem/"));
-var doc = java.import("org.sbolstandard.entity.SBOLDocument", new SBOLDocument(base));
+//var base = java.import("java.net.URI", URI.create("https://synbiohub.org/public/igem/"));
+//var doc = java.import("org.sbolstandard.entity.SBOLDocument", new SBOLDocument(base));
 
 //List<Component> components=(List<Component>)doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", Component.class);
-System.out.println("Graph query results:");
-for (Component component:components){
-    System.out.println("  " +  component.getDisplayId());
-}
+//System.out.println("Graph query results:");
+//for (Component component:components){
+//    System.out.println("  " +  component.getDisplayId());
+//}
 
 
 
