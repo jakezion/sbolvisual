@@ -3,7 +3,7 @@ const express = require('express'),
     Readable = require('stream').Readable,
     //java = require('java'),
     router = express.Router(),
-    API = require('../public/javascripts/API.java'),
+    API = require('../public/javascripts/API'),
     http = require("http");
 
 // detailed = false;
@@ -22,7 +22,7 @@ router.use(express.json());
 router.all('/', (req, res) => {
     let sboldata = req.body.sboldata;
 
-    if (typeof sboldata !== 'undefined') SBOL = parser(sboldata)
+    if (typeof sboldata !== 'undefined') parser(sboldata)
         // .then(parsed => console.log(parsed.co, parsed.gr))//test
         //if setGlyph then formatter, setGlyph, otherwise just setList
         // .then(data => formatter())
@@ -42,7 +42,7 @@ router.all('/', (req, res) => {
         tagline: 'SBOL Visual is a web-based visualisation tool',
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
-        sboldata: JSON.stringify(SBOL, null, 4), //TODO: proper json stringify
+        sboldata: JSON.stringify(SBOL), //TODO: proper json stringify
         textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld') //fix
 
         //send array setList with setList data that then uses the built in loop system of ECTjs to parse the data into their own cards
@@ -51,11 +51,13 @@ router.all('/', (req, res) => {
 
 //console.log(API);
 
-/*TODO: need to parse context in as well
+/*
+TODO: need to parse context in as well
    add to array and call array whilst adding to context, reform json data and then send through formatter
    if typeof context set context to this value
    if typeof graph, for each send through parser with given context
-   console log to check */
+   console log to check
+    */
 
 const parser = async (sbol) => {
 
@@ -72,15 +74,21 @@ const parser = async (sbol) => {
     }
 }
 
-
-function getJSON(json) {
-    try {
-        return JSON.parse(json);
-    } catch (e) {
-        throw new Error(`Parsing Error`);
+module.exports = {
+    getJSON: function (json){
+        try {
+            return JSON.parse(json);
+        } catch (e) {
+            throw new Error(`Parsing Error`);
+        }
     }
+}
+
+/*
+function getJSON(json) {
 
 }
+*/
 
 function getContext(object) {
     if (typeof object['@context'] === 'object') { //gets context
@@ -104,10 +112,10 @@ function getGraph(object) {
 function getGlyph(glyph, val) {
     switch (val) {
         case 'role':
-            console.log("Role glyph: ", glyph);
+            //console.log("Role glyph: ", glyph);
             break;
         case 'type':
-            console.log("Type glyph: ", glyph);
+            //console.log("Type glyph: ", glyph);
             break;
 
     }
@@ -115,7 +123,7 @@ function getGlyph(glyph, val) {
 }
 
 function setValue(value, attribute) {
-    console.log(attribute, ": ", value);
+   // console.log(attribute, ": ", value);
 
 }
 
@@ -147,7 +155,7 @@ function formatter(context, data) {
 }
 
 function setList(data) {
-    console.log('\n');
+    //console.log('\n');
     //  if (!detailed) {
     for (let set in data) {
         //gets each dataset
@@ -164,7 +172,7 @@ function setList(data) {
             getGlyph(data[set]['type'], 'type');
         }
 
-        console.log('\n');
+        //console.log('\n');
     }
 
     // } else if (detailed) {
@@ -174,12 +182,10 @@ function setList(data) {
             if (data[set].hasOwnProperty('type')) setValue(data[set]['type'], "Type");
         } catch (e) {
             throw new Error(`parse err`);
-        } finally {
-            console.log(data[set]);
         }
     }
     //     }
-    // }
+    SBOL = data; //TODO: FIX
 }
 
 
@@ -187,7 +193,7 @@ module.exports = router;
 
 /*
 POST recieved, data parsed to json-ld format
-data then sent through API.java to get correct glyph type
+data then sent through API.js to get correct glyph type
 and other details relating to the glyph for the setList view
 data sent back to parser where it will rendered in router request
 and displayed in the correct locations, using the view engine.

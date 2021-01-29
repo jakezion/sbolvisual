@@ -2,7 +2,7 @@
     $.fn.linenumbers = function (in_opts) {
 
         // Settings and Defaults
-        var opt = $.extend({
+        let opt = $.extend({
 
             col_width: '65px',
             start: 1,
@@ -16,9 +16,9 @@
         return this.each(function () {
 
             // Get some numbers sorted out for the CSS changes
-            var textarea_width = $(this).prop("offsetWidth");
-            var textarea_height = $(this).prop("offsetHeight");
-            var new_textarea_width = parseInt(textarea_width) - parseInt(opt.col_width);
+            let textarea_width = $(this).prop("offsetWidth");
+            let textarea_height = $(this).prop("offsetHeight");
+            let new_textarea_width = parseInt(textarea_width) - parseInt(opt.col_width);
 
             // Create the new textarea and style it
             $(this).before('<textarea data-name="linenumbers" style="width:' + new_textarea_width + 'px;height:' + textarea_height + 'px;float:left;margin-right:' + '-' + new_textarea_width + 'px;white-space:pre;overflow:hidden;" disabled="disabled"></textarea>');
@@ -29,22 +29,22 @@
             // Add a clearing div.
             $(this).after('<div style="clear:both;"></div>');
 
-            // Define a simple variable for the line-numbers box
-            var lnbox = $(this).parent().find('textarea[disabled="disabled"]');
+            // Define a simple letiable for the line-numbers box
+            let lnbox = $(this).parent().find('textarea[disabled="disabled"]');
 
             // Bind some actions to all sorts of events that may change it's contents
             $(this).bind('blur focus change keyup keydown', function () {
 
                 // Break apart and regex the lines, everything to spaces sans linebreaks
-                var lines = "\n" + $(this).val();
+                let lines = "\n" + $(this).val();
                 lines = lines.match(/[^\n]*\n[^\n]*/gi);
 
-                // declare output var
-                var line_number_output = '';
+                // declare output let
+                let line_number_output = '';
 
-                // declare spacers and max_spacers vars, and set defaults
-                var max_spacers = '';
-                var spacers = '';
+                // declare spacers and max_spacers lets, and set defaults
+                let max_spacers = '';
+                let spacers = '';
                 for (i = 0; i < opt.digits; i++) {
                     max_spacers += ' ';
                 }
@@ -61,7 +61,7 @@
                     lencheck = k + opt.start + '!';
                     spacers = max_spacers.substr(lencheck.length - 1);
 
-                    // Add the line with out line number, to the output variable
+                    // Add the line with out line number, to the output letiable
                     line_number_output += spacers + (k + opt.start) + ':';
                 });
 
