@@ -3,8 +3,12 @@ const express = require('express'),
     Readable = require('stream').Readable,
     //java = require('java'),
     router = express.Router(),
-    API = require('../public/javascripts/API'),
     http = require("http");
+    const API = require('../public/javascripts/API');
+
+
+
+
 
 // detailed = false;
 // JsonLdParser = require('jsonld-streaming-parser').JsonLdParser,
@@ -16,21 +20,26 @@ let SBOL;
 /*TODO: setup maven for nodejs, then import the libSBOLj3 dependency then use node java to set up link */
 
 router.use(express.urlencoded({extended: true}));
+
 router.use(express.json());
 
-
 router.all('/', (req, res) => {
+
     let sboldata = req.body.sboldata;
 
-    if (typeof sboldata !== 'undefined') parser(sboldata)
+
+
+    if (sboldata !== undefined)
+        parser(sboldata)
         // .then(parsed => console.log(parsed.co, parsed.gr))//test
         //if setGlyph then formatter, setGlyph, otherwise just setList
         // .then(data => formatter())
-        .then(data => setList(data.gr))
+       // .then(data => setList(data.gr))
         .catch(function (e) {
             console.error(e.message);
         })
-    // setList(detailed);
+
+
 
     res.setHeader('Cache-Control', 'no-cache');
 
@@ -42,11 +51,16 @@ router.all('/', (req, res) => {
         tagline: 'SBOL Visual is a web-based visualisation tool',
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
-        sboldata: JSON.stringify(SBOL), //TODO: proper json stringify
-        textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld') //fix
+        //sboldata: JSON.stringify(SBOL), //TODO: proper json stringify
+        sboldata: sboldata, //TODO: proper json stringify
+       // textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld') //fix
 
         //send array setList with setList data that then uses the built in loop system of ECTjs to parse the data into their own cards
     });
+
+   // res.end(json);
+
+
 });
 
 //console.log(API);
@@ -57,48 +71,48 @@ TODO: need to parse context in as well
    if typeof context set context to this value
    if typeof graph, for each send through parser with given context
    console log to check
-    */
+*/
 
 const parser = async (sbol) => {
 
     try {
+
+
+
         let data = await getJSON(sbol);
         let context = await getContext(data);
         let graph = await getGraph(data);
 
-        return {co: context, gr: graph};
 
+        API.setDocument(context,graph);
+
+        //const APIInstance = new API();
+       // APIInstance.run();
+      //  return {co: context, gr: graph};
 
     } catch (e) {
         throw new Error(`Parsing Error`);
     }
 }
 
-module.exports = {
-    getJSON: function (json){
-        try {
-            return JSON.parse(json);
-        } catch (e) {
-            throw new Error(`Parsing Error`);
-        }
+function getJSON(json) {
+    try {
+        return JSON.parse(json);
+    } catch (e) {
+        throw new Error(`Parsing Error`);
     }
 }
 
-/*
-function getJSON(json) {
-
-}
-*/
 
 function getContext(object) {
     if (typeof object['@context'] === 'object') { //gets context
-        return object['@context'];
+        context = object['@context'];
+        return context;
         //Object.keys(object['@graph']).forEach((prefix) => {
         //  this.emit('prefix', prefix, this.factory.namedNode(object['@context'][prefix])); //fix
         // })
     }
 }
-
 
 function getGraph(object) {
 
