@@ -27,6 +27,7 @@
   "dependencies": {
     "@popperjs/core": "^2.5.4",
     "@rdfjs/parser-jsonld": "^1.2.1",
+    "autoprefixer": "^10.2.4",
     "bootstrap": "^4.5.3",
     "brfs": "^2.0.2",
     "cheerio": "^1.0.0-rc.3",
@@ -44,7 +45,9 @@
     "node-gyp": "^7.1.2",
     "node-java-maven": "^0.1.2",
     "popper.js": "^1.16.1",
-    "rdfxml-streaming-parser": "^1.4.0"
+    "postcss": "^8.2.5",
+    "rdfxml-streaming-parser": "^1.4.0",
+    "tailwindcss": "^2.0.3"
   },
   "description": "SBOL Visual is a web-based visualisation tool for the 3rd iteration of the SBOL specification",
   "main": "app.js",
