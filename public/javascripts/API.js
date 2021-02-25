@@ -39,7 +39,7 @@ module.exports = {
 //console.log(typeof data.toString());
 //TODO: make doc SBOLDocument object then pass read
            // console.log(data);
-            let doc2 = java.callMethodSync(io, "read", data.toString(), "JSON-LD");
+            let doc2 = java.callMethodSync(io, "read", JSON.stringify(data), "JSON-LD");
 
             //java.setStaticFieldValue("org.sbolstandard.entity.SBOLDocument", "doc2", java.callMethodSync(api, "read", data.toString(), "JSON-LD"));
             //let doc2 = java.getStaticFieldValue("org.sbolstandard.entity.SBOLDocument", "doc2");
@@ -47,7 +47,7 @@ module.exports = {
             //  let doc2 = java.callMethodSync(api,"write",doc,"JSON-LD",function (err,result) {
             //      return err ?  "no" : "yes";
             //  });
-            console.log("Doc: ",doc2);
+            //console.log("Doc: ",doc2);
 
 
             //SBOLDocument doc2=SBOLIO.read(output, "JSON-LD");
@@ -83,14 +83,14 @@ module.exports = {
 
             console.log("Doc: ", components.toStringSync());
 
-
-            //let identify = new identified();
-            //console.log(java.callMethodSync(identify, "getDisplayId"));
-
+/*
             for (data of components) {
                 console.log(data);
                 console.log("  " + java.callMethodSync(data, "getDisplayId")); //TODO: FIX
             }
+*/
+
+
 
             /*
                                                                                 EXAMPLE EXAMPLE
