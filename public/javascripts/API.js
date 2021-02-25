@@ -15,29 +15,99 @@ java.classpath.push("./public/libSBOLj3.jar");
 module.exports = {
 
 
-    setDocument: (context, graph) => {
+    setDocument: (context, graph, data) => {
 
-        console.log(context);
+        //console.log(context);
 
         let SBOLDocument = java.import("org.sbolstandard.entity.SBOLDocument");
-        let List = java.newInstanceSync("java.util.ArrayList");
+        let SBOLIO = java.import("org.sbolstandard.io.SBOLIO");
+        let File = java.import("java.io.File");
+        let SBOLAPI = java.import("org.sbolstandard.api.SBOLAPI");
         let identified = java.import("org.sbolstandard.entity.Identified");
         let component = java.import("org.sbolstandard.entity.Component");
         let URI = java.import("java.net.URI");
         try {
             let uri = new URI("");
             let base = java.callMethodSync(uri, "create", "https://synbiohub.org/public/igem/");
+            // console.log("base", base.toString());
             let doc = new SBOLDocument(base);
 
-            let components = java.callMethodSync(doc, "getIdentifieds", "?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", component.class);
+            //console.log("doc" ,doc.valueOf());
 
-            console.log("Graph query results:");
-            let identify = new identified();
+            let io = new SBOLIO();
+//console.log(data.toString());
+//console.log(typeof data.toString());
+//TODO: make doc SBOLDocument object then pass read
+           // console.log(data);
+            let doc2 = java.callMethodSync(io, "read", data.toString(), "JSON-LD");
+
+            //java.setStaticFieldValue("org.sbolstandard.entity.SBOLDocument", "doc2", java.callMethodSync(api, "read", data.toString(), "JSON-LD"));
+            //let doc2 = java.getStaticFieldValue("org.sbolstandard.entity.SBOLDocument", "doc2");
+            //let doc2 = java.callMethodSync(api, "read", data.toString(), "JSON-LD");
+            //  let doc2 = java.callMethodSync(api,"write",doc,"JSON-LD",function (err,result) {
+            //      return err ?  "no" : "yes";
+            //  });
+            console.log("Doc: ",doc2);
 
 
-            for (component in components) {
-                console.log("  " + component.java.callMethodSync(identify, "getDisplayId")); //TODO: FIX
+            //SBOLDocument doc2=SBOLIO.read(output, "JSON-LD");
+
+            //String output=SBOLIO.write(doc, "Turtle");
+            //Read using the RDF Turtle format
+            //SBOLDocument doc2=SBOLIO.read(output, "Turtle");
+
+
+            // Component device= SBOLAPI.createDnaComponent(doc, "i13504", "i13504", "Screening plasmid intermediate", ComponentType.DNA.getUrl(), null);
+            /*
+            SBOLAPI.appendComponent(doc, device,rbs,Orientation.inline);
+            SBOLAPI.appendSequenceFeature(doc, device, "tactag", Orientation.inline);
+            SBOLAPI.appendComponent(doc, device,gfp, Orientation.inline);
+            SBOLAPI.appendSequenceFeature(doc, device, "tactagag", Orientation.inline);
+            SBOLAPI.appendComponent(doc, device,term, Orientation.inline);
+
+            for (SubComponent subComp: device.getSubComponents()){
+                System.out.println(subComp.getIsInstanceOf());
             }
+            */
+
+
+            //let List = java.newArray("org.sbolstandard.entity.Component"); //, component.class
+            let components = java.callMethodSync(doc, "getIdentifieds", "?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", component);
+            //let List = java.newInstanceSync("java.util.ArrayList");
+            //let test = java.callMethodSync(List, "add", "item1");
+            //console.log("Test 2: ", List.sizeSync());
+            //console.log("Test line: ", List.toStringSync());
+            console.log("Graph query results:");
+
+            // console.log("compon" ,components);
+
+            console.log("Doc: ", components.toStringSync());
+
+
+            //let identify = new identified();
+            //console.log(java.callMethodSync(identify, "getDisplayId"));
+
+            for (data of components) {
+                console.log(data);
+                console.log("  " + java.callMethodSync(data, "getDisplayId")); //TODO: FIX
+            }
+
+            /*
+                                                                                EXAMPLE EXAMPLE
+            URI base=URI.create("https://synbiohub.org/public/igem/");
+            SBOLDocument doc=new SBOLDocument(base);
+
+            String output=SBOLIO.write(doc, "JSON-LD");
+            //Read using the RDF Turtle format
+            SBOLDocument doc2=SBOLIO.read(output, "JSON-LD");
+
+
+            List<Component> components=(List<Component>)doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", Component.class);
+            System.out.println("Graph query results:");
+            for (Component component:components){
+                System.out.println("  " +  component.getDisplayId());
+            }
+            */
 
 
             //let base = URI.create;
@@ -48,7 +118,7 @@ module.exports = {
 
 
             // List<Component> components=(List<Component>)doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", Component.class);
-            List.newArray = ("org.sbolstandard.entity.Component"); //, component.class
+            //List.newArray = ("org.sbolstandard.entity.Component"); //, component.class
 
             //console.log(List.newArray );
             // SBOLDocument.getIdentifieds = List.newArray;
@@ -70,44 +140,6 @@ module.exports = {
         //    let components = java.newArray("org.sbolstandard.entity.Component", doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", component.class));
 
 
-        //list(comp) components =  componentsdoc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", comp().class);
-
-
-        /*
-
-        URI base=URI.create("https://synbiohub.org/public/igem/");
-        SBOLDocument doc=new SBOLDocument(base);
-
-        List<Component> components=(List<Component>)doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", Component.class);
-        System.out.println("Graph query results:");
-        for (Component component:components){
-            System.out.println("  " +  component.getDisplayId());
-        }
-        */
-
-
-        //   console.log("step 5");
-        //Write using the RDF Turtle format
-        /*
-                var output = java.netInstance("org.sbolstandard.io.SBOLIO",SBOLIO.write(doc, "JSON-LD"));
-                //Read using the RDF Turtle format
-                var doc2 = java.newInstance("org.sbolstandard.entity.SBOLDocument", output);
-        */
-        /*
-
-
-                //var newArray = java.newArray("java.lang.String", ["item1", "item2", "item3"])
-
-                //var indentified = java.import("org.sbolstandard.entity.Identified");
-               // var components = (list<java.import("org.sbolstandard.entity.Component")>)doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", comp.class);
-               // list(comp) components = doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", comp.class);
-
-                console.log("Graph query results:");
-
-                for (comp component:components){
-                    console.log("  " +  component.getDisplayId());
-                }
-        */
     }
 };
 

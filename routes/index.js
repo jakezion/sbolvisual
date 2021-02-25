@@ -84,7 +84,7 @@ const parser = async (sbol) => {
         let graph = await getGraph(data);
 
 
-        API.setDocument(context,graph);
+        API.setDocument(context,graph,data);
 
         //const APIInstance = new API();
        // APIInstance.run();
