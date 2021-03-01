@@ -46,12 +46,20 @@ module.exports = {
         let identified = java.import("org.sbolstandard.entity.Identified");
         let component = java.import("org.sbolstandard.entity.Component");
         let URI = java.import("java.net.URI");
+        //let testUtil = java.import("org.sbolstandard.TestUtil");
         try {
+            let json = JSON.stringify(data);
+            // let json = JSON.stringify(graph);
             let uri = new URI("");
             //console.log(uri.equalsSync("https://synbiohub.org/public/igem/"));
             // console.log(uri => create_("https://synbiohub.org/public/igem/"));
-            let base = java.callMethodSync(uri, "create", "https://synbiohub.org/public/igem/");
+            //let base = java.callMethodSync(uri, "create", "https://synbiohub.org/public/igem/");
+            let base = URI.create_("https://synbiohub.org/public/igem/");
+            // console.log(context);
+            //let base = URI.create_(JSON.stringify(context));
+            // let base = java.callMethodSync(uri, "create", JSON.stringify(context));
             let doc = new SBOLDocument(base);
+            // let doc = new SBOLDocument(json);
             // console.log(JSON.stringify(doc.getBaseURISync()));
 
             //let doc = new SBOLDocument(data);
@@ -60,7 +68,7 @@ module.exports = {
             //console.log("doc" ,doc.valueOf());
 
 //TODO:  _________________________________________
-            let json = JSON.stringify(data);
+
             let SBOLIO = java.import("org.sbolstandard.io.SBOLIO");
 
             //-------------------------------------------//
@@ -69,9 +77,61 @@ module.exports = {
             // let test = io.read_( json, "JSON-LD");
 
             //-------------------------------------------//
+            // console.log(SBOLIO);
+            // let doc = SBOLIO.read_(json, "JSON-LD");
+            let b = doc.createExperimentalData_("BBa_J100252/1");
+            console.log("Test data", b);
 
-            let test = SBOLIO.read_(json, "JSON-LD");
+            /* TODO
+                        String baseUri="https://s  bolstandard.org/examples/";
+                        SBOLDocument doc=new SBOLDocument(URI.create(baseUri));
+                        Component TetR_protein=SBOLAPI.createComponent(doc, SBOLAPI.append(baseUri, "TetR_protein"), ComponentType.Protein.getUrl(), "TetR", "TetR protein", Role.TF);
+                        Component LacI_protein=SBOLAPI.createComponent(doc, SBOLAPI.append(baseUri, "LacI_protein"), ComponentType.Protein.getUrl(), "LacI", "LacI protein", Role.TF);
+                        Collection col=doc.createCollection(SBOLAPI.append(baseUri,"col1"));
+                        col.setTopLevels(Arrays.asList(TetR_protein.getUri(), LacI_protein.getUri()));
+                        TestUtil.serialise(doc, "entity/collection", "collection");
+                        System.out.println(SBOLIO.write(doc, "Turtle"));
+                        TestUtil.assertReadWrite(doc);
 
+             */
+
+
+            //addToList()
+
+            let test3 = SBOLIO.write_(doc, "JSON-LD");
+            let test = SBOLIO.read_(test3, "JSON-LD");
+            //let test4 = SBOLIO.write_(doc, "RDF/XML-ABBREV");
+
+            //let tu = new testUtil();
+            //let util = testUtil.assertReadWrite_(test);
+            // let test3 = SBOLIO.write_(test,"JSON-LD");
+
+            //console.log("util",util);
+            console.log("test3", test3);
+            console.log("test", test);
+            // console.log("test4", test4);
+            /*
+                        TestUtil.assertReadWrite(doc2);
+                        String output2=SBOLIO.write(doc2, "RDF/XML-ABBREV");
+                        System.out.println(output2);
+                        */
+            //let test2 = test.getRDFModel_();
+            //console.log(test2.size_());
+
+
+            //let testTypes = java.getStaticFieldValue("org.sbolstandard.io.SBOLIO", "doc");
+            //console.log(testTypes);
+
+            // t.deepEqual(testTypes, [json, "JSON-LD"]);
+
+
+            //console.log(SBOLIO);
+            // console.log(test);
+            //console.log(test.is);
+            //console.log(test.model);
+            //test.doc = SBOLIO.read_(json, "JSON-LD");
+            //let b = test.doc;
+            //console.log(b);
 
             //-------------------------------------------//
 
@@ -93,16 +153,17 @@ module.exports = {
                         console.log(test);
             */
             //-------------------------------------------//
-            let comptest = java.newArray("org.sbolstandard.entity.Component",[]);
-            let components = java.callMethodSync(test, "getIdentifieds", "?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
+            let comptest = java.newArray("org.sbolstandard.entity.Component", []);
+            let components = test.getIdentifieds_("?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
+            //let components = java.callMethodSync(test, "getIdentifieds", "?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
             console.log("Graph query results:");
-            for(const v of components){
+            for (let i = 0; i < components.size_(); i++) {
                 comptest.add_(v);
                 console.log("Components", comptest.toString_());
             }
             // console.log("compon" ,components);
 
-            console.log("Doc: ", components);
+            console.log("Doc: ", components.size_());
             console.log("n");
 
             //-------------------------------------------//
