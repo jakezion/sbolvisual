@@ -51,14 +51,14 @@ router.all('/', (req, res) => {
         tagline: 'SBOL Visual is a web-based visualisation tool',
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
-        //sboldata: JSON.stringify(SBOL), //TODO: proper json stringify
-        sboldata: sboldata, //TODO: proper json stringify
+        //sboldata: JSON.stringify(SBOL), //TODO: proper json.json stringify
+        sboldata: sboldata, //TODO: proper json.json stringify
        // textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld') //fix
 
         //send array setList with setList data that then uses the built in loop system of ECTjs to parse the data into their own cards
     });
 
-   // res.end(json);
+   // res.end(json.json);
 
 
 });
@@ -67,7 +67,7 @@ router.all('/', (req, res) => {
 
 /*
 TODO: need to parse context in as well
-   add to array and call array whilst adding to context, reform json data and then send through formatter
+   add to array and call array whilst adding to context, reform json.json data and then send through formatter
    if typeof context set context to this value
    if typeof graph, for each send through parser with given context
    console log to check
@@ -206,7 +206,7 @@ function setList(data) {
 module.exports = router;
 
 /*
-POST recieved, data parsed to json-ld format
+POST recieved, data parsed to json.json-ld format
 data then sent through API.js to get correct glyph type
 and other details relating to the glyph for the setList view
 data sent back to parser where it will rendered in router request

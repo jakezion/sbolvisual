@@ -1,6 +1,6 @@
 //const index = require("./routes/index");
 
-
+const fs = require('fs');
 const java = require('java');
 const mvn = require('node-java-maven');
 //const Util = require('util');
@@ -32,15 +32,136 @@ java.asyncOptions = {
 
 module.exports = {
 
+    dataModel: (data) => {
 
+    },
+
+    getRole: (SO,GO) => {
+        let search = SO.replace("SO:","");
+        let search2 = GO.replace("GO:","");
+        console.log(search)
+        switch(search){
+            case "0000167":
+                //Promoter
+                break;
+            case "0000139":
+                //RBS
+                break;
+            case "0000316":
+                //CDS
+                break;
+            case "0000141":
+                //Terminator
+                break;
+            case "0000704":
+                //Gene
+                break;
+            case "0000057":
+                //Operator
+                break;
+            case "0000704":
+                //EngineeredGene
+                break;
+            case "0000234":
+                //mRNA
+                break;
+            case "35224":
+                //Effector
+                break;
+            case "0003700":
+                //TF
+                break;
+            case "0000289":
+                //FunctionalCompartment
+                break;
+            case "0000290":
+                //PhysicalCompartment
+                break;
+            default:
+                break;
+        }
+    },
+
+
+    componentType: (SBO) => {
+        let search = SBO.replace("SBO:","");
+        console.log(search);
+        switch(search){
+            case "0000251":
+                //DNA
+                break;
+            case "0000250":
+                //RNA
+                break;
+            case "0000252":
+                //Protein
+                break;
+            case "0000247":
+                //SimpleChemical
+                break;
+            case "0000253":
+                //NoncovalentComplex
+                break;
+            case "0000241":
+                //FunctionalEntity
+                break;
+            case "0005623":
+                //Cell
+                break;
+            default:
+                break;
+        }
+    },
+    interactionType: (SBO) => {
+        let search = SBO.replace("SBO:","");
+        console.log(search);
+        switch(search){
+            case "000169":
+               // Inhibition
+                break;
+            case "0000170":
+                //Stimulation
+                break;
+            case "0000176":
+                //BiochemicalReaction
+                break;
+            case "0000177":
+                //NonCovalentBinding
+                break;
+            case "0000179":
+                //Degradation
+                break;
+            case "0000589":
+                //GeneticProduction
+                break;
+            case "0000168":
+                //Control
+                break;
+            default:
+                break;
+        }
+    },
+
+    storeData: (json) => {
+        try {
+            fs.writeFileSync("./public/json.json", JSON.stringify(json));
+        } catch (e) {
+            console.error(e);
+        }
+    },
     setDocument: (context, graph, data) => {
         // console.log(java.isJvmCreated());
 
         //console.log(context);
+       // let json = fs.writeFileSync("./public/json.json", JSON.stringify(data));
+
+
 
         let SBOLDocument = java.import("org.sbolstandard.entity.SBOLDocument");
-
+        let ComponentType = java.import("org.sbolstandard.vocabulary.ComponentType");
+        let Role = java.import("org.sbolstandard.vocabulary.Role");
         //let SBOLIO = java.newInstanceSync("org.sbolstandard.io.SBOLIO");
+        let SBOLIO = java.import("org.sbolstandard.io.SBOLIO");
         let File = java.import("java.io.File");
         let SBOLAPI = java.import("org.sbolstandard.api.SBOLAPI");
         let identified = java.import("org.sbolstandard.entity.Identified");
@@ -48,18 +169,28 @@ module.exports = {
         let URI = java.import("java.net.URI");
         //let testUtil = java.import("org.sbolstandard.TestUtil");
         try {
-            let json = JSON.stringify(data);
-            // let json = JSON.stringify(graph);
             let uri = new URI("");
+            let API = new SBOLAPI();
+            let io = new SBOLIO();
+            let base = URI.create_("https://synbiohub.org/public/igem/"); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
+            let doc = new SBOLDocument(base);
+
+            let test3 = SBOLIO.write_(doc, "JSON-LD"); //TODO CHECK
+            let test = SBOLIO.read_(test3, "JSON-LD");
+            // let json = JSON.stringify(graph);
+
+            //let componentRole = new Role();
+            //let componentType = new ComponentType();
             //console.log(uri.equalsSync("https://synbiohub.org/public/igem/"));
             // console.log(uri => create_("https://synbiohub.org/public/igem/"));
             //let base = java.callMethodSync(uri, "create", "https://synbiohub.org/public/igem/");
-            let base = URI.create_("https://synbiohub.org/public/igem/");
+           // let base = URI.create_("https://synbiohub.org/public/igem/"); /
+
             // console.log(context);
             //let base = URI.create_(JSON.stringify(context));
             // let base = java.callMethodSync(uri, "create", JSON.stringify(context));
-            let doc = new SBOLDocument(base);
-            // let doc = new SBOLDocument(json);
+
+           // let doc = new SBOLDocument();
             // console.log(JSON.stringify(doc.getBaseURISync()));
 
             //let doc = new SBOLDocument(data);
@@ -69,18 +200,22 @@ module.exports = {
 
 //TODO:  _________________________________________
 
-            let SBOLIO = java.import("org.sbolstandard.io.SBOLIO");
+
 
             //-------------------------------------------//
 
-            let io = new SBOLIO();
+
             // let test = io.read_( json, "JSON-LD");
 
             //-------------------------------------------//
             // console.log(SBOLIO);
             // let doc = SBOLIO.read_(json, "JSON-LD");
-            let b = doc.createExperimentalData_("BBa_J100252/1");
-            console.log("Test data", b);
+
+
+            //TODO let TetR_protein = SBOLAPI.createComponent_(doc, SBOLAPI.append_(baseUri, "TetR_protein"), ComponentType.Protein.getUrl(), "TetR", "TetR protein", Role.TF);
+
+            //let b = doc.createExperimentalData_("BBa_J100252/1");
+            //console.log("Test data", b);
 
             /* TODO
                         String baseUri="https://s  bolstandard.org/examples/";
@@ -98,8 +233,8 @@ module.exports = {
 
             //addToList()
 
-            let test3 = SBOLIO.write_(doc, "JSON-LD");
-            let test = SBOLIO.read_(test3, "JSON-LD");
+           // let test3 = SBOLIO.write_(doc, File(json), "JSON-LD"); //TODO CHECK
+
             //let test4 = SBOLIO.write_(doc, "RDF/XML-ABBREV");
 
             //let tu = new testUtil();
