@@ -30,17 +30,236 @@ java.asyncOptions = {
 };
 
 
+//class API {
+
+
+// setIdentified = (ident) => {
+// }
+//
+// getRoles = (XO) => {
+//     let search = XO.replace(["SO:", "GO:"], "");
+//     // let search2 = XO.replace("GO:", "");
+//     console.log(search)
+//     switch (search) {
+//         case "0000167":
+//             //Promoter
+//             break;
+//         case "0000139":
+//             //RBS
+//             break;
+//         case "0000316":
+//             //CDS
+//             break;
+//         case "0000141":
+//             //Terminator
+//             break;
+//         case "0000704":
+//             //Gene
+//             break;
+//         case "0000057":
+//             //Operator
+//             break;
+//         case "0000704":
+//             //EngineeredGene
+//             break;
+//         case "0000234":
+//             //mRNA
+//             break;
+//         case "35224":
+//             //Effector
+//             break;
+//         case "0003700":
+//             //TF
+//             break;
+//         case "0000289":
+//             //FunctionalCompartment
+//             break;
+//         case "0000290":
+//             //PhysicalCompartment
+//             break;
+//         default:
+//             break;
+//     }
+// }
+//
+// dataModel = (data) => {
+//     switch (data) {
+//         case "Identified":
+//
+//     }
+// }
+//
+// getData = () => {
+//     fs.readFile("./public/json.jsonld", function (err, json) {
+//         if (err) return console.error(err);
+//         return json.toString();
+//     });
+//
+// }
+//
+// storeData = (json) => {
+//     try {
+//         fs.writeFileSync("./public/json.jsonld", JSON.stringify(json));
+//     } catch (e) {
+//         console.error(e);
+//     }
+// }
+// componentType = (SBO) => {
+//         let search = SBO.replace("SBO:", "");
+//         console.log(search);
+//         switch (search) {
+//             case "0000251":
+//                 //DNA
+//                 break;
+//             case "0000250":
+//                 //RNA
+//                 break;
+//             case "0000252":
+//                 //Protein
+//                 break;
+//             case "0000247":
+//                 //SimpleChemical
+//                 break;
+//             case "0000253":
+//                 //NoncovalentComplex
+//                 break;
+//             case "0000241":
+//                 //FunctionalEntity
+//                 break;
+//             case "0005623":
+//                 //Cell
+//                 break;
+//             default:
+//                 break;
+//         }
+//     }
+// interactionType = (SBO) => {
+//     let search = SBO.replace("SBO:", "");
+//     console.log(search);
+//     switch (search) {
+//         case "000169":
+//             // Inhibition
+//             break;
+//         case "0000170":
+//             //Stimulation
+//             break;
+//         case "0000176":
+//             //BiochemicalReaction
+//             break;
+//         case "0000177":
+//             //NonCovalentBinding
+//             break;
+//         case "0000179":
+//             //Degradation
+//             break;
+//         case "0000589":
+//             //GeneticProduction
+//             break;
+//         case "0000168":
+//             //Control
+//             break;
+//         default:
+//             break;
+//     }
+// }
+// setDocument = (context, graph, data) => {
+//     // console.log(java.isJvmCreated());
+//
+//     //console.log(context);
+//     let json = JSON.stringify(data);
+//
+//
+//     let SBOLDocument = java.import("org.sbolstandard.entity.SBOLDocument");
+//     let ComponentType = java.import("org.sbolstandard.vocabulary.ComponentType");
+//     let Role = java.import("org.sbolstandard.vocabulary.Role");
+//     let Arrays = java.import("java.util.Arrays");
+//     let List = java.import("java.util.ArrayList")
+//     //let SBOLIO = java.newInstanceSync("org.sbolstandard.io.SBOLIO");
+//     let SBOLIO = java.import("org.sbolstandard.io.SBOLIO");
+//     let File = java.import("java.io.File");
+//     let SBOLAPI = java.import("org.sbolstandard.api.SBOLAPI");
+//     let identified = java.import("org.sbolstandard.entity.Identified");
+//     let component = java.import("org.sbolstandard.entity.Component");
+//     let URI = java.import("java.net.URI");
+//     //let testUtil = java.import("org.sbolstandard.TestUtil");
+//     try {
+//         let ArrayList = new List();
+//         let uri = new URI("");
+//         let API = new SBOLAPI();
+//         let io = new SBOLIO();
+//         // let base = URI.create_("https://synbiohub.org/public/igem/"); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
+//         let base = URI.create_(""); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
+//
+//         let doc = new SBOLDocument(base);
+//
+//
+//         this.storeData(data);
+//         let file = new File(this.getData());
+//         let test3 = SBOLIO.write_(doc, file, "JSON-LD"); //TODO CHECK
+//         // let test3 = SBOLIO.write_(doc, "JSON-LD"); //TODO CHECK
+//         let test = SBOLIO.read_(test3, "JSON-LD");
+//
+//         //console.log("util",util);
+//         console.log("test3", test3);
+//         console.log("test3", test3);
+//         console.log("test", test);
+//         // console.log("test4", test4);
+//
+//         //-------------------------------------------//
+//
+//         //-------------------------------------------//
+//
+//
+//         //-------------------------------------------//
+//         let comptest = java.newArray("org.sbolstandard.entity.Component", []);
+//         let components = test.getIdentifieds_("?identified a sbol:Component; sbol:type SBO:0000251 .", component);
+//         //let components = java.callMethodSync(test, "getIdentifieds", "?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
+//         console.log("Graph query results:");
+//         for (let i = 0; i < components.size_(); i++) {
+//             comptest.add_(v);
+//             console.log("Components", comptest.toString_());
+//         }
+//         // console.log("compon" ,components);
+//
+//         console.log("Doc: ", components.size_());
+//         console.log("n");
+//
+//
+//     } catch (e) {
+//         console.log(e);
+//     }
+//
+// }
+
+//}
+
+
 module.exports = {
-
-    dataModel: (data) => {
-
+    setIdentified: (ident) => {
     },
 
-    getRole: (SO,GO) => {
-        let search = SO.replace("SO:","");
-        let search2 = GO.replace("GO:","");
+    dataModel: (data) => {
+        switch (data) {
+            case "Identified":
+                break;
+            case "TopLevel":
+                break;
+            case "Feature":
+                break;
+            case "Component":
+                break;
+            case "Sequence":
+                break;
+            case "SubComponent":
+                break;
+        }
+    },
+
+    getRoles: (XO) => {
+        let search = XO.replace(["SO:", "GO:"], "");
+        // let search2 = XO.replace("GO:", "");
         console.log(search)
-        switch(search){
+        switch (search) {
             case "0000167":
                 //Promoter
                 break;
@@ -84,9 +303,9 @@ module.exports = {
 
 
     componentType: (SBO) => {
-        let search = SBO.replace("SBO:","");
+        let search = SBO.replace("SBO:", "");
         console.log(search);
-        switch(search){
+        switch (search) {
             case "0000251":
                 //DNA
                 break;
@@ -113,11 +332,11 @@ module.exports = {
         }
     },
     interactionType: (SBO) => {
-        let search = SBO.replace("SBO:","");
+        let search = SBO.replace("SBO:", "");
         console.log(search);
-        switch(search){
+        switch (search) {
             case "000169":
-               // Inhibition
+                // Inhibition
                 break;
             case "0000170":
                 //Stimulation
@@ -144,22 +363,31 @@ module.exports = {
 
     storeData: (json) => {
         try {
-            fs.writeFileSync("./public/json.json", JSON.stringify(json));
+            fs.writeFileSync("./public/json.jsonld", JSON.stringify(json));
         } catch (e) {
             console.error(e);
         }
+    },
+
+    getData: () => {
+        fs.readFile("./public/json.jsonld", function (err, json) {
+            if (err) return console.error(err);
+            return json.toString();
+        });
+
     },
     setDocument: (context, graph, data) => {
         // console.log(java.isJvmCreated());
 
         //console.log(context);
-       // let json = fs.writeFileSync("./public/json.json", JSON.stringify(data));
-
+        let json = JSON.stringify(data);
 
 
         let SBOLDocument = java.import("org.sbolstandard.entity.SBOLDocument");
         let ComponentType = java.import("org.sbolstandard.vocabulary.ComponentType");
         let Role = java.import("org.sbolstandard.vocabulary.Role");
+        let Arrays = java.import("java.util.Arrays");
+        let List = java.import("java.util.ArrayList")
         //let SBOLIO = java.newInstanceSync("org.sbolstandard.io.SBOLIO");
         let SBOLIO = java.import("org.sbolstandard.io.SBOLIO");
         let File = java.import("java.io.File");
@@ -169,14 +397,53 @@ module.exports = {
         let URI = java.import("java.net.URI");
         //let testUtil = java.import("org.sbolstandard.TestUtil");
         try {
+            let ArrayList = new List();
             let uri = new URI("");
             let API = new SBOLAPI();
             let io = new SBOLIO();
             let base = URI.create_("https://synbiohub.org/public/igem/"); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
+            //let base = URI.create_(""); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
+
             let doc = new SBOLDocument(base);
 
-            let test3 = SBOLIO.write_(doc, "JSON-LD"); //TODO CHECK
-            let test = SBOLIO.read_(test3, "JSON-LD");
+            //let arruri = List(Arrays.asList_(ComponentType.DNA.getUrl_()));
+            //console.log(arruri);
+            //let TetR_protein = doc.createComponent_("TetR_protein", arruri);
+
+            // let apiAdd = SBOLAPI.append_("test",json);
+            // console.log(apiAdd);
+            // TetR_protein.setName_("TetR_protein");
+            // TetR_protein.setDescription_("Test");
+            //TetR_protein.setRoles_(Arrays.asList(Role.RBS));
+            // let maker = SBOLAPI.appendComponent_(doc, device,rbs,Orientation.inline);
+            //fs.writeFile('./public/json.jsonld', '', function () {console.log('done')});
+
+            fs.writeFileSync("./public/javascripts/json.jsonld", "");
+            fs.writeFileSync("./public/javascripts/json.jsonld", JSON.stringify(data));
+
+
+            // this.storeData(data);
+
+            // let jsonFile = fs.readFileSync("./public/json.jsonld", "utf8");
+
+            // console.log(jsonFile);
+            //let file = new File("public/javascripts/gfp.nt");
+            // let file = new File("public/javascripts/test.jsonld");
+
+            let file = new File("public/javascripts/json.jsonld");
+
+            //console.log("file", file.toString_());
+            let test = SBOLIO.read_(file, "JSON-LD");
+            //let test3 = test(base);
+            // let test3 = SBOLIO.write_(test, "JSON-LD"); //TODO CHECK
+            // let test3 = SBOLIO.write_(doc, "JSON-LD"); //TODO CHECK
+            //let test = SBOLIO.read_(file, "N-TRIPLES");
+
+            // let test3 =SBOLIO.write_(test, "JSON-LD");
+
+            //let test2 = SBOLIO.write_(doc, "JSON-LD");
+            //let test3 = SBOLIO.read_(test2, "NTRIPLES");
+            //let test = SBOLIO.read_(test3 ,"JSON-LD");
             // let json = JSON.stringify(graph);
 
             //let componentRole = new Role();
@@ -184,13 +451,13 @@ module.exports = {
             //console.log(uri.equalsSync("https://synbiohub.org/public/igem/"));
             // console.log(uri => create_("https://synbiohub.org/public/igem/"));
             //let base = java.callMethodSync(uri, "create", "https://synbiohub.org/public/igem/");
-           // let base = URI.create_("https://synbiohub.org/public/igem/"); /
+            // let base = URI.create_("https://synbiohub.org/public/igem/"); /
 
             // console.log(context);
             //let base = URI.create_(JSON.stringify(context));
             // let base = java.callMethodSync(uri, "create", JSON.stringify(context));
 
-           // let doc = new SBOLDocument();
+            // let doc = new SBOLDocument();
             // console.log(JSON.stringify(doc.getBaseURISync()));
 
             //let doc = new SBOLDocument(data);
@@ -199,7 +466,6 @@ module.exports = {
             //console.log("doc" ,doc.valueOf());
 
 //TODO:  _________________________________________
-
 
 
             //-------------------------------------------//
@@ -233,7 +499,7 @@ module.exports = {
 
             //addToList()
 
-           // let test3 = SBOLIO.write_(doc, File(json), "JSON-LD"); //TODO CHECK
+            // let test3 = SBOLIO.write_(doc, File(json), "JSON-LD"); //TODO CHECK
 
             //let test4 = SBOLIO.write_(doc, "RDF/XML-ABBREV");
 
@@ -242,7 +508,8 @@ module.exports = {
             // let test3 = SBOLIO.write_(test,"JSON-LD");
 
             //console.log("util",util);
-            console.log("test3", test3);
+            // console.log("test3", test3);
+            // console.log("test3", test3);
             console.log("test", test);
             // console.log("test4", test4);
             /*
@@ -289,13 +556,13 @@ module.exports = {
             */
             //-------------------------------------------//
             let comptest = java.newArray("org.sbolstandard.entity.Component", []);
-            let components = test.getIdentifieds_("?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
+            let components = test.getIdentifieds_("?identified a sbol:Component; sbol:role SO:0000141; sbol:type SBO:0000251 .", component);
             //let components = java.callMethodSync(test, "getIdentifieds", "?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
             console.log("Graph query results:");
-            for (let i = 0; i < components.size_(); i++) {
+            /*for (let i = 0; i < components.size_(); i++) {
                 comptest.add_(v);
                 console.log("Components", comptest.toString_());
-            }
+            }*/
             // console.log("compon" ,components);
 
             console.log("Doc: ", components.size_());

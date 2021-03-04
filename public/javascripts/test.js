@@ -122,12 +122,12 @@ console.log("Server listening on: " + 8080);
 //      */
 //     function sendMessage(aMsg)
 //     {
-//         // convert to json.json and prepare buffer
+//         // convert to json.jsonld and prepare buffer
 //         var aJsonString = JSON.stringify(aMsg);
 //         var lByteLength = Buffer.byteLength(aJsonString);
 //         var lMsgBuffer = new Buffer(4 + lByteLength);
 //
-//         // Write 4-byte length, followed by json.json, to buffer
+//         // Write 4-byte length, followed by json.jsonld, to buffer
 //         lMsgBuffer.writeUInt32BE(lByteLength, 0);
 //         lMsgBuffer.write(aJsonString, 4, aJsonString.length, 'utf8');
 //
@@ -158,7 +158,7 @@ console.log("Server listening on: " + 8080);
 //             }
 //
 //             // Pull out the message
-//             var json.json = _receiveBuffer.toString('utf8', 4, (size + 4));
+//             var json.jsonld = _receiveBuffer.toString('utf8', 4, (size + 4));
 //
 //             // Resize the receive buffer
 //             _receiveBuffer = ((size + 4) == _receiveBuffer.length) ? null : _receiveBuffer.slice((size + 4));
@@ -166,7 +166,7 @@ console.log("Server listening on: " + 8080);
 //             // Parse the message as a JSON object
 //             try
 //             {
-//                 var msgObj = JSON.parse(json.json);
+//                 var msgObj = JSON.parse(json.jsonld);
 //
 //                 // emit the generic message received event
 //                 _self.emit('message', msgObj);

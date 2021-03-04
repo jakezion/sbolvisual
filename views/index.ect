@@ -102,27 +102,43 @@
 
                         <div class="tab-pane" role="tabpanel" id="list">
                             <form method="get" role="form" action="/">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Detailed</label>
-                            </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Detailed</label>
+                                </div>
+                            </form>
+
                             <div role="tablist" id="accordion-1">
-
-
+                                <% if @list?.length : %>
+                                <% for item in @list : %>
                                 <div class="card">
                                     <div class="card-header" role="tab">
-                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1">Accordion Item</a>
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1"></a>
+                                            <%= item.display %>
                                         </h5>
+
+                                        <div class="card-subtitle">
+                                            <%= item.description %>
+                                        </div>
                                     </div>
                                     <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
                                         <div class="card-body">
-                                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id
-                                                elit non mi porta gravida at eget metus.</p>
+                                            <p class="card-text">Elements: <%= item.elements %></p>
+                                            <p> Role: <%= item.role %>
+                                               <br> <%- item.roleGlyph %></p>
+                                            <p> Type: <%= item.type %>
+                                                <br> <%- item.typeGlyph %></p>
                                         </div>
                                     </div>
                                 </div>
 
+                                <% end %>
+                                <% else : %>
+                                <p>List is empty</p>
+                                <% end %>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
