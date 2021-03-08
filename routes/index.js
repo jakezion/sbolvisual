@@ -3,6 +3,7 @@ const express = require('express'),
     Readable = require('stream').Readable,
     //java = require('java'),
     router = express.Router(),
+    fs = require('fs'),
     http = require("http");
 const API = require('../public/javascripts/API');
 
@@ -14,11 +15,14 @@ const API = require('../public/javascripts/API');
 
 let SBOL;
 let list = [];
+let placeholder = fs.readFileSync("./public/placeholder.json").toString();
 /*TODO: setup maven for nodejs, then import the libSBOLj3 dependency then use node java to set up link */
 
 router.use(express.urlencoded({extended: true}));
 
 router.use(express.json());
+
+
 router.post('/', (req, res) => {
     let sboldata = req.body.sboldata;
 
@@ -33,11 +37,13 @@ router.post('/', (req, res) => {
 
     res.render('index', {
         sboldata: sboldata, //TODO: proper json.jsonld stringify
-        list: list
+        list: list,
+        placeholder: placeholder
     });
 });
 
 router.all('/', (req, res) => {
+
 
     res.setHeader('Cache-Control', 'no-cache');
 
@@ -49,6 +55,7 @@ router.all('/', (req, res) => {
         tagline: 'SBOL Visual is a web-based visualisation tool',
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
+        placeholder: placeholder
         //sboldata: JSON.stringify(SBOL), //TODO: proper json.jsonld stringify
         // textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld') //fix
 
@@ -59,7 +66,6 @@ router.all('/', (req, res) => {
 
 
 });
-
 
 
 //console.log(API);
@@ -137,9 +143,9 @@ function setValue(value, attribute) {
         return value;
     } else if (attribute === "Elements") {
         return value;
-    }else if (attribute === "Type") {
+    } else if (attribute === "Type") {
         return value;
-    }else if (attribute === "Role") {
+    } else if (attribute === "Role") {
         return value;
     }
 
@@ -180,13 +186,13 @@ function setList(data) {
 
     for (const set of data) {
         let tempList = {};
-       // console.log(set);
+        // console.log(set);
         //gets each dataset
         if (set.hasOwnProperty('displayId')) {
-           tempList["display"] = setValue(set['displayId'], "DisplayID");
-       //    tempList["id"] = "https://synbiohub.org/public/igem/" +tempList["display"];
+            tempList["display"] = setValue(set['displayId'], "DisplayID");
+            //    tempList["id"] = "https://synbiohub.org/public/igem/" +tempList["display"];
         }
-        if (set.hasOwnProperty('description')){
+        if (set.hasOwnProperty('description')) {
             tempList["description"] = setValue(set['description'], "Description");
         }
 
@@ -204,7 +210,7 @@ function setList(data) {
         }
         // if(data[set].hasOwnProperty()){}
         //console.log('\n');
-      //  console.log(tempList);
+        //  console.log(tempList);
         list.push(tempList);
 
     }

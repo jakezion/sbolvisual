@@ -16,63 +16,7 @@
                         <div class="tab-pane active" role="tabpanel" id="jsonld">
 
                             <form method="post" role="form" action="/">
-                                <textarea class="form-control" name="sboldata" id="sboldata" rows="40" cols="1">{
-  "@graph" : [ {
-    "@id" : "LacI_protein",
-    "@type" : "sbol:Component",
-    "description" : "LacI protein",
-    "displayId" : "LacI_protein",
-    "name" : "LacI",
-    "role" : "GO:0003700",
-    "type" : "SBO:0000252"
-  }, {
-    "@id" : "TetR_protein",
-    "@type" : "sbol:Component",
-    "description" : "TetR protein",
-    "displayId" : "TetR_protein",
-    "name" : "TetR",
-    "role" : "GO:0003700",
-    "type" : "SBO:0000252"
-  }, {
-    "@id" : "col1",
-    "@type" : "sbol:Collection",
-    "displayId" : "col1",
-    "member" : [ "LacI_protein", "TetR_protein" ]
-  } ],
-  "@context" : {
-    "member" : {
-      "@id" : "http://sbols.org/v3#member",
-      "@type" : "@id"
-    },
-    "displayId" : {
-      "@id" : "http://sbols.org/v3#displayId"
-    },
-    "role" : {
-      "@id" : "http://sbols.org/v3#role",
-      "@type" : "@id"
-    },
-    "description" : {
-      "@id" : "http://sbols.org/v3#description"
-    },
-    "name" : {
-      "@id" : "http://sbols.org/v3#name"
-    },
-    "type" : {
-      "@id" : "http://sbols.org/v3#type",
-      "@type" : "@id"
-    },
-    "@vocab" : "https://sbolstandard.org/examples/",
-    "SBO" : "https://identifiers.org/SBO:",
-    "CHEBI" : "https://identifiers.org/CHEBI:",
-    "GO" : "https://identifiers.org/GO:",
-    "sbol" : "http://sbols.org/v3#",
-    "EDAM" : "https://identifiers.org/edam:",
-    "SO" : "https://identifiers.org/SO:",
-    "prov" : "http://www.w3.org/ns/prov#",
-    "om" : "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-  }
-}
-                                   </textarea>
+                                <textarea class="form-control" name="sboldata" id="sboldata" rows="40" cols="1"><%= @placeholder %></textarea>
                                 <input type="submit" value="submit">
                             </form>
 
@@ -108,8 +52,9 @@
                                 </div>
                             </form>
 
-                            <div role="tablist" id="accordion-1">
+
                                 <% if @list?.length : %>
+                            <div role="tablist" id="accordion-1">
                                 <% for item in @list : %>
                                 <div class="card">
                                     <div class="card-header" role="tab">
@@ -135,8 +80,9 @@
                                 <% end %>
                                 <% else : %>
                                 <p>List is empty</p>
-                                <% end %>
                             </div>
+                                <% end %>
+
 
 
                         </div>

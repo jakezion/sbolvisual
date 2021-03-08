@@ -1,0 +1,71 @@
+<% extend 'layout' %>
+<style>
+    #grid-snap {
+        width: 40%;
+        border-radius: 4px;
+        padding: 2%;
+        margin: 1rem 0 0 1rem;
+        background-color: #29e;
+        color: #fff;
+        font-size: 1.2em;
+        touch-action: none;
+    }
+</style>
+<main>
+    <div class="container">
+        <div class="row stretch">
+            <div class="col-md-12">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div id="grid-snap">
+                            Dragging is constrained to the corners of a grid
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row stretch">
+            <div class="col-md-12">
+                <div class="card mt-4">
+                    <div class="card-body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script type="module">
+
+    import interact from 'interactjs';
+    let element = document.getElementById('grid-snap');
+    let x = 0;
+    let y = 0;
+
+    interact(element)
+        .draggable({
+            modifiers: [
+                interact.modifiers.snap({
+                    targets: [
+                        interact.snappers.grid({ x: 30, y: 30 })
+                    ],
+                    range: Infinity,
+                    relativePoints: [ { x: 0, y: 0 } ]
+                }),
+                interact.modifiers.restrict({
+                    restriction: element.parentNode,
+                    elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
+                    endOnly: true
+                })
+            ],
+            inertia: true
+        })
+        .on('dragmove', function (event) {
+            x += event.dx
+            y += event.dy
+
+            event.target.style.webkitTransform =
+                event.target.style.transform =
+                    'translate(' + x + 'px, ' + y + 'px)'
+        })
+</script>
