@@ -404,7 +404,7 @@ module.exports = {
             let base = URI.create_("https://synbiohub.org/public/igem/"); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
             //let base = URI.create_(""); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
 
-            let doc = new SBOLDocument(base);
+           // let doc = new SBOLDocument(base);
 
             //let arruri = List(Arrays.asList_(ComponentType.DNA.getUrl_()));
             //console.log(arruri);
@@ -418,9 +418,15 @@ module.exports = {
             // let maker = SBOLAPI.appendComponent_(doc, device,rbs,Orientation.inline);
             //fs.writeFile('./public/json.jsonld', '', function () {console.log('done')});
 
-            fs.writeFileSync("./public/javascripts/json.jsonld", "");
-            fs.writeFileSync("./public/javascripts/json.jsonld", JSON.stringify(data));
 
+
+
+
+
+
+
+            fs.writeFileSync("./public/javascripts/LD.jsonld", "");
+            fs.writeFileSync("./public/javascripts/LD.jsonld", json);
 
             // this.storeData(data);
 
@@ -428,14 +434,41 @@ module.exports = {
 
             // console.log(jsonFile);
             //let file = new File("public/javascripts/gfp.nt");
-            // let file = new File("public/javascripts/test.jsonld");
-
-            let file = new File("public/javascripts/json.jsonld");
-
+            //let fileRead = new File("public/javascripts/test.jsonld");
+            let fileWrite = new File("public/javascripts/write.jsonld");
+            let fileRead = new File("public/javascripts/LD.jsonld");
+           // console.log(fileRead);
             //console.log("file", file.toString_());
-            let test = SBOLIO.read_(file, "JSON-LD");
+            let readDocument = SBOLIO.read_(fileRead, "JSON-LD"); //TODO: ERROR CATCH
+            // let test = SBOLIO.read_(file, "JSON-LD");
+            // let test = SBOLIO.write_(file, "JSON-LD");
             //let test3 = test(base);
-            // let test3 = SBOLIO.write_(test, "JSON-LD"); //TODO CHECK
+            //let test3 = SBOLIO.write_(doc, file, "JSON-LD"); //TODO CHECK
+
+            let ModelFactory = java.import("org.apache.jena.rdf.model.ModelFactory");
+            let  InputStream = java.import("java.io.FileInputStream");
+            let is = new InputStream(fileRead);
+            let models = ModelFactory.createDefaultModel_();
+            let model = models.read_(is,"https://synbiohub.org/public/igem/","JSON-LD");
+            let doc = new SBOLDocument(model);
+
+            console.log("is",is);
+            console.log("models",models.isEmpty_());
+            console.log("model",model.toString_());
+            console.log("doc",doc.getRDFModel_().toString_());
+
+
+            // let writeDocument = SBOLIO.write_(readDocument, fileWrite, "JSON-LD"); //TODO CHECK
+            //  let reReadDocument = SBOLIO.read_(writeDocument, "JSON-LD");
+            let test = readDocument.getRDFModel_();
+
+            console.log("test", test.getGraph_().toString_());
+            console.log("empty?", test.getGraph_().isEmpty_());
+
+
+            // console.log("write", writeDocument);
+            // console.log("re read", reReadDocument);
+
             // let test3 = SBOLIO.write_(doc, "JSON-LD"); //TODO CHECK
             //let test = SBOLIO.read_(file, "N-TRIPLES");
 
@@ -508,9 +541,7 @@ module.exports = {
             // let test3 = SBOLIO.write_(test,"JSON-LD");
 
             //console.log("util",util);
-            // console.log("test3", test3);
-            // console.log("test3", test3);
-            console.log("test", test);
+
             // console.log("test4", test4);
             /*
                         TestUtil.assertReadWrite(doc2);
@@ -555,8 +586,9 @@ module.exports = {
                         console.log(test);
             */
             //-------------------------------------------//
+
             let comptest = java.newArray("org.sbolstandard.entity.Component", []);
-            let components = test.getIdentifieds_("?identified a sbol:Component; sbol:role SO:0000141; sbol:type SBO:0000251 .", component);
+            let components = doc.getIdentifieds_("?identified a sbol:Component; sbol:role SO:0000141; sbol:type SBO:0000251 .", component);
             //let components = java.callMethodSync(test, "getIdentifieds", "?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
             console.log("Graph query results:");
             /*for (let i = 0; i < components.size_(); i++) {
