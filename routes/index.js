@@ -13,8 +13,10 @@ const API = require('../public/javascripts/API');
 // jsonParser = new JsonLdParser(),
 // jsonld = require('jsonld'),
 
+//Variables based on parsed json data
 let SBOL;
 let list = [];
+//placeholder for textarea
 let placeholder = fs.readFileSync("./public/placeholder.json").toString();
 /*TODO: setup maven for nodejs, then import the libSBOLj3 dependency then use node java to set up link */
 
@@ -25,16 +27,15 @@ router.use(express.json());
 
 router.post('/', (req, res) => {
     let sboldata = req.body.sboldata;
-
+//if body data exists, then sync promise parse data and set list data
     if (sboldata !== undefined) {
-
         parser(sboldata)
             .then(graph => setList(graph))
             .catch(function (e) {
                 console.error(e.message);
             })
     }
-
+//send data to middleware to display client side
     res.render('index', {
         sboldata: sboldata, //TODO: proper json.jsonld stringify
         list: list,
@@ -82,11 +83,13 @@ const parser = async (sbol) => {
 
     try {
 
-
+//get json object and split into context and graph
         let data = await getJSON(sbol);
         let context = await getContext(data);
         let graph = await getGraph(data);
 
+
+        //send object to api to be queried
         //  let api = new API();
         API.setDocument(context, graph, data);
 

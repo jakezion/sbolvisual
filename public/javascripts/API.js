@@ -404,7 +404,7 @@ module.exports = {
             let base = URI.create_("https://synbiohub.org/public/igem/"); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
             //let base = URI.create_(""); //TODO: REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
 
-           // let doc = new SBOLDocument(base);
+            // let doc = new SBOLDocument(base);
 
             //let arruri = List(Arrays.asList_(ComponentType.DNA.getUrl_()));
             //console.log(arruri);
@@ -419,311 +419,196 @@ module.exports = {
             //fs.writeFile('./public/json.jsonld', '', function () {console.log('done')});
 
 
-
-
-
-
-
-
             fs.writeFileSync("./public/javascripts/LD.jsonld", "");
             fs.writeFileSync("./public/javascripts/LD.jsonld", json);
 
-            // this.storeData(data);
-
-            // let jsonFile = fs.readFileSync("./public/json.jsonld", "utf8");
-
-            // console.log(jsonFile);
-            //let file = new File("public/javascripts/gfp.nt");
-            //let fileRead = new File("public/javascripts/test.jsonld");
             let fileWrite = new File("public/javascripts/write.jsonld");
             let fileRead = new File("public/javascripts/LD.jsonld");
-           // console.log(fileRead);
-            //console.log("file", file.toString_());
-            let readDocument = SBOLIO.read_(fileRead, "JSON-LD"); //TODO: ERROR CATCH
-            // let test = SBOLIO.read_(file, "JSON-LD");
-            // let test = SBOLIO.write_(file, "JSON-LD");
-            //let test3 = test(base);
-            //let test3 = SBOLIO.write_(doc, file, "JSON-LD"); //TODO CHECK
 
             let ModelFactory = java.import("org.apache.jena.rdf.model.ModelFactory");
-            let  InputStream = java.import("java.io.FileInputStream");
+            let InputStream = java.import("java.io.FileInputStream");
             let is = new InputStream(fileRead);
-            let models = ModelFactory.createDefaultModel_();
-            let model = models.read_(is,"https://synbiohub.org/public/igem/","JSON-LD");
+            let modelFactory = ModelFactory.createDefaultModel_();
+            let model = modelFactory.read_(is, "https://synbiohub.org/public/igem/", "JSON-LD");
             let doc = new SBOLDocument(model);
 
-            console.log("is",is);
-            console.log("models",models.isEmpty_());
-            console.log("model",model.toString_());
-            console.log("doc",doc.getRDFModel_().toString_());
+            let component = {
+                segments: []
+            };
 
-
-            // let writeDocument = SBOLIO.write_(readDocument, fileWrite, "JSON-LD"); //TODO CHECK
-            //  let reReadDocument = SBOLIO.read_(writeDocument, "JSON-LD");
-            let test = readDocument.getRDFModel_();
-
-            console.log("test", test.getGraph_().toString_());
-            console.log("empty?", test.getGraph_().isEmpty_());
-
-
-            // console.log("write", writeDocument);
-            // console.log("re read", reReadDocument);
-
-            // let test3 = SBOLIO.write_(doc, "JSON-LD"); //TODO CHECK
-            //let test = SBOLIO.read_(file, "N-TRIPLES");
-
-            // let test3 =SBOLIO.write_(test, "JSON-LD");
-
-            //let test2 = SBOLIO.write_(doc, "JSON-LD");
-            //let test3 = SBOLIO.read_(test2, "NTRIPLES");
-            //let test = SBOLIO.read_(test3 ,"JSON-LD");
-            // let json = JSON.stringify(graph);
-
-            //let componentRole = new Role();
-            //let componentType = new ComponentType();
-            //console.log(uri.equalsSync("https://synbiohub.org/public/igem/"));
-            // console.log(uri => create_("https://synbiohub.org/public/igem/"));
-            //let base = java.callMethodSync(uri, "create", "https://synbiohub.org/public/igem/");
-            // let base = URI.create_("https://synbiohub.org/public/igem/"); /
-
-            // console.log(context);
-            //let base = URI.create_(JSON.stringify(context));
-            // let base = java.callMethodSync(uri, "create", JSON.stringify(context));
-
-            // let doc = new SBOLDocument();
-            // console.log(JSON.stringify(doc.getBaseURISync()));
-
-            //let doc = new SBOLDocument(data);
-            //console.log(doc);
-
-            //console.log("doc" ,doc.valueOf());
-
-//TODO:  _________________________________________
-
-
-            //-------------------------------------------//
-
-
-            // let test = io.read_( json, "JSON-LD");
-
-            //-------------------------------------------//
-            // console.log(SBOLIO);
-            // let doc = SBOLIO.read_(json, "JSON-LD");
-
-
-            //TODO let TetR_protein = SBOLAPI.createComponent_(doc, SBOLAPI.append_(baseUri, "TetR_protein"), ComponentType.Protein.getUrl(), "TetR", "TetR protein", Role.TF);
-
-            //let b = doc.createExperimentalData_("BBa_J100252/1");
-            //console.log("Test data", b);
-
-            /* TODO
-                        String baseUri="https://s  bolstandard.org/examples/";
-                        SBOLDocument doc=new SBOLDocument(URI.create(baseUri));
-                        Component TetR_protein=SBOLAPI.createComponent(doc, SBOLAPI.append(baseUri, "TetR_protein"), ComponentType.Protein.getUrl(), "TetR", "TetR protein", Role.TF);
-                        Component LacI_protein=SBOLAPI.createComponent(doc, SBOLAPI.append(baseUri, "LacI_protein"), ComponentType.Protein.getUrl(), "LacI", "LacI protein", Role.TF);
-                        Collection col=doc.createCollection(SBOLAPI.append(baseUri,"col1"));
-                        col.setTopLevels(Arrays.asList(TetR_protein.getUri(), LacI_protein.getUri()));
-                        TestUtil.serialise(doc, "entity/collection", "collection");
-                        System.out.println(SBOLIO.write(doc, "Turtle"));
-                        TestUtil.assertReadWrite(doc);
+            let interactions = [];
+//TODO-----------------------TODO--------------------------------TODO//
+            /*    doc.componentDefinitions.forEach(function (componentDefinition) {
+                    component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0]);
+                });
 
              */
+            console.log(doc.getComponents_() !== null ? doc.getComponents_().toString_() : doc.getComponents_());
+
+            for (let x = 0; x < doc.getComponents_().size_(); x++) {
+                // console.log(componentData);
+                let displayId = doc.getComponents_().get_(x).getComponentReferences_();
+                console.log(displayId);
+
+                let types = doc.getComponents_().get_(x).getTypes_();
+
+                let topologies = [];
+
+                //default is always the part to be rendered is a DNA one
+                let nonDNAType = null;
+
+                for (let x = 0; x < types.size_(); x++) {
+                    // console.log(types.get_(x).toString_());
+                    let formatType = types.get_(x).toString_().replace(/https:\/\/identifiers.org\//g, "");
+                    let sbo = (formatType).match(/SBO.([0-9]+)/g);
+                    if (!sbo || !sbo.length) return
+
+                    //let topology = SBO FIND TYPE
+                    //if (topology) topologies.push(topology);
+
+                    //TODO CHECK INTERACTION TYPE AND COMPONENT TYPE
+
+                }
+            }
+            //.forEach_(function (componentData) {
 
 
-            //addToList()
+            //  component.segments = component.segments.concat(componentData);
+            // });
 
-            // let test3 = SBOLIO.write_(doc, File(json), "JSON-LD"); //TODO CHECK
 
-            //let test4 = SBOLIO.write_(doc, "RDF/XML-ABBREV");
+            //console.log(component);
 
-            //let tu = new testUtil();
-            //let util = testUtil.assertReadWrite_(test);
-            // let test3 = SBOLIO.write_(test,"JSON-LD");
 
-            //console.log("util",util);
-
-            // console.log("test4", test4);
+            //TODO-----------------------TODO--------------------------------TODO//
             /*
-                        TestUtil.assertReadWrite(doc2);
-                        String output2=SBOLIO.write(doc2, "RDF/XML-ABBREV");
-                        System.out.println(output2);
-                        */
-            //let test2 = test.getRDFModel_();
-            //console.log(test2.size_());
+                        doc.moduleDefinitions.forEach(function (moduleDefinition) {
+                            let currentInteractions = getIteractionList(moduleDefinition);
+                            for (let x of currentInteractions) {
+                                interactions.push(currentInteractions[x]);
+                            }
+                        });
 
-
-            //let testTypes = java.getStaticFieldValue("org.sbolstandard.io.SBOLIO", "doc");
-            //console.log(testTypes);
-
-            // t.deepEqual(testTypes, [json, "JSON-LD"]);
-
-
-            //console.log(SBOLIO);
-            // console.log(test);
-            //console.log(test.is);
-            //console.log(test.model);
-            //test.doc = SBOLIO.read_(json, "JSON-LD");
-            //let b = test.doc;
-            //console.log(b);
-
-            //-------------------------------------------//
-
-
-            //console.log(java.callStaticMethodSync("org.sbolstandard.io.SBOLIO", "read", json, "JSON-LD"));
-
-            //-------------------------------------------//
+             */
             /*
-                        console.log("IO: ", io.toString().valueOf());
-                        console.log("IO2: ", io.toString_());
-                        console.log("test: ", test.toString());
-                        console.log("test: ", JSON.stringify(test));
-                        console.log("test2: ", test.getRDFModel_().valueOf());
-                        console.log("doc2: ", doc.getRDFModel_().valueOf());
-                        //console.log("doc3: ", SBOLDocument.valueOf());
-                        //console.log("doc: ", SBOLIO.valueOf());
-                        console.log("test3: ", test.valueOf());
-                        console.log("test4: ", test.getBaseURI_());
-                        console.log(test);
+                        design.displayList.components.forEach(function(component) {
+
+                            component.segments.forEach(function(segment) {
+
+                                segment.sequence.forEach(function(glyph) {
+
+                                    if(glyph.svg !== undefined) {
+
+                                        var $node = $(glyph.svg.node);
+
+                                        var title = ({
+                                            'aptamer': 'Aptamer',
+                                            'assembly-scar': 'Assembly Scar',
+                                            'biopolymer-junction': 'Biopolymer Junction',
+                                            'biopolymer-base': 'Biopolymer Base',
+                                            'biopolymer-amino-acid': 'Biopolymer Amino Acid',
+                                            'blunt-restriction-site': 'Blunt Restriction Site',
+                                            'primer-binding-site': 'Primer Binding Site',
+                                            'overhang-site-5': '5\' Overhang Site',
+                                            'overhang-site-3': '3\' Overhang Site',
+                                            'sticky-restriction-site-5': '5\' Sticky Restriction Site',
+                                            'cds': 'Coding Site',
+                                            'engineered-region': 'Engineered Region',
+                                            'signature': 'Signature',
+                                            'insulator': 'Insulator',
+                                            'mature-transcript-region': 'Mature Transcript Region',
+                                            'origin-of-replication': 'Origin of Replication',
+                                            'origin-of-transfer': 'Origin of Transfer',
+                                            'operator': 'Operator',
+                                            'poly-a': 'PolyA',
+                                            'promoter': 'Promoter',
+                                            'protease-site': 'Protease Site',
+                                            'protein-stability': 'Protein Stability Element',
+                                            'res': 'Ribosome Entry Site',
+                                            'restriction-site': 'Restriction Site',
+                                            'ribonuclease-site': 'Ribonuclease Site',
+                                            'rna-stability': 'RNA Stability Element',
+                                            'stem-loop': 'Stem Loop',
+                                            'scar': 'Scar',
+                                            'terminator': 'Terminator',
+                                            'unspecified': 'Unspecifed',
+                                            'non-coding-rna-gene': 'Non Coding RNA Gene',
+                                            'no-glyph-assigned': 'No Glyph Assigned'
+                                        })[glyph.type];
+
+                                        if(glyph.start !== glyph.end) {
+                                            title += '\n';
+                                            title += glyph.start + ' -> ' + glyph.end;
+                                        }
+
+                                        $node.tooltip({
+                                            container: 'body',
+                                            placement: 'bottom',
+                                            title: title,
+                                            animation: false
+                                        });
+                                    }
+                                });
+
+                            });
+
+
+                        });
             */
-            //-------------------------------------------//
+            // console.log("doc", doc.getRDFModel_().toString_());
+            // console.log(doc.getPrefixedUnits_() !== null ? doc.getPrefixedUnits_().toString_() : doc.getPrefixedUnits_());
+            //  console.log(doc.getActivities_() !== null ? doc.getActivities_().toString_() : doc.getActivities_());
+            // console.log(doc.getPlans_() !== null ? doc.getPlans_().toString_() : doc.getPlans_());
+            // console.log(doc.getAgents_() !== null ? doc.getAgents_().toString_() : doc.getAgents_());
+            // console.log(doc.getAttachments_() !== null ? doc.getAttachments_().toString_() : doc.getAttachments_());
+            // console.log(doc.getNamespaces_() !== null ? doc.getNamespaces_().toString_() : doc.getNamespaces_());
+            // console.log(doc.getCollections_() !== null ? doc.getCollections_().toString_() : doc.getCollections_());
+            // console.log(doc.getModels_() !== null ? doc.getModels_().toString_() : doc.getModels_());
+            // console.log(doc.getSequences_() !== null ? doc.getSequences_().toString_() : doc.getSequences_());
+            console.log(doc.getComponents_() !== null ? doc.getComponents_() : doc.getComponents_());
+            //  console.log(doc.getBaseURI_());
+            console.log(doc.getTopLevelResourceTypes_().toString_());
+            // console.log(doc.getRDFModel_());
+            for (let i = 0; i < doc.getComponents_().size_(); i++) {
+                let test = doc.getComponents_().get_(i);
+                if (test.getSubComponents_() !== null) {
+                    console.log(JSON.stringify(test));
 
-            let comptest = java.newArray("org.sbolstandard.entity.Component", []);
-            let components = doc.getIdentifieds_("?identified a sbol:Component; sbol:role SO:0000141; sbol:type SBO:0000251 .", component);
+                } else {
+                    //   console.log("has subcomponents");
+                }
+            }
+
+            //   TODO  if(doc.contains(doc.getTopLevelResourceTypes_()) {
+            //    add array top, then dataModel, search those types for their components add to array for list.
+            //    For normal glyph, then search for components add them to list, toplevel name of item, components pieces
+            //    }
+            // TODO: get components of model and possibly subcomponents as well, find use get role and type to get glyph
+            //  connected to it, send glyphs to array and in order display them using genome factory glyphs
+
+            //   let writeDocument = SBOLIO.write_(doc, fileWrite, "JSON-LD"); //TODO CHECK
+            //    let reReadDocument = SBOLIO.read_(fileWrite, "N-TRIPLES");
+            //  let test = readDocument.getRDFModel_();
+
+            // console.log("test", test.getGraph_().toString_());
+            //  console.log("empty?", test.getGraph_().isEmpty_());
+
+            //   console.log("write", writeDocument);
+            //   console.log("re read", reReadDocument);
+//TODO ----------------------------------------
+            //  let comptest = java.newArray("org.sbolstandard.entity.Component", []);
+            //  let components = doc.getIdentifieds_("?identified a sbol:Component; sbol:role GO:0003700; sbol:type SBO:0000252 .", component);
             //let components = java.callMethodSync(test, "getIdentifieds", "?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
-            console.log("Graph query results:");
+            // console.log("Graph query results:");
             /*for (let i = 0; i < components.size_(); i++) {
                 comptest.add_(v);
                 console.log("Components", comptest.toString_());
             }*/
             // console.log("compon" ,components);
 
-            console.log("Doc: ", components.size_());
-            console.log("n");
-
-            //-------------------------------------------//
-
-            // let doc2 = new SBOLDocument(test);
-
-            //let doc2 = java.callMethodSync(io, 'read', json, 'JSON-LD');
-            //   console.log(java.callMethodSync(io, 'read', '', ''));
-            //console.log(data.toString());
-            //console.log(typeof data.toString());
-            //TODO: make doc SBOLDocument object then pass read
-
-
-            // console.log(doc2);
-
-            //let doc2 = java.callStaticMethodSync("org.sbolstandard.io.SBOLIO","read",json,"JSON-LD");
-            // io.read = [json,"JSON-LD"];
-            //let data2 = io.read(json,"JSON-LD");
-            //console.log(SBOLIO.readSync(json, "JSON-LD"));
-            // console.log(SBOLIO.readSync(json, "JSON-LD"));
-
-
-            /*
-                        io.read(json,'JSON-LD',function (err, output){
-                            if(err){console.log(err);return;}
-                            let components =  java.callMethodSync(output, "getIdentifieds", "?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
-                            console.log("Doc: ", components.toStringSync());
-                        });
-            */
-            //  let SBOLIO2 = java.newInstanceSync("org.sbolstandard.io.SBOLIO");
-            /*
-                        let SBOLIO2 = java.newInstanceSync("org.sbolstandard.io.SBOLIO");
-                        console.log(SBOLIO2.toString());
-                        let json2 = JSON.stringify(data);
-                        let type2 = "JSON-LD";
-                        console.log(SBOLIO2.read_(json2,type2));
-                        let document = java.callStaticMethodSync("org.sbolstandard.io.SBOLIO", "read", json2, type2);
-                        let components2 =  java.callMethodSync(document, "getIdentifieds", "?identified a sbol:Component; sbol:role  GO:0003700; sbol:type SBO:0000252 .", component);
-                        console.log("Doc: ", components2.toStringSync());
-            */
-//let test = findClassSync(io);
-            //  console.log(test);
-
-
-            // let doc2 = java.callMethodSync("org.sbolstandard.io.SBOLIO", 'read', json, 'JSON-LD');
-
-
-            // java.callMethodSync(io, "read", json, "JSON-LD");
-            //java.setStaticFieldValue("org.sbolstandard.entity.SBOLDocument", "doc2", java.callMethodSync(api, "read", data.toString(), "JSON-LD"));
-            //let doc2 = java.getStaticFieldValue("org.sbolstandard.entity.SBOLDocument", "doc2");
-            //let doc2 = java.callMethodSync(api, "read", data.toString(), "JSON-LD");
-            //  let doc2 = java.callMethodSync(api,"write",doc,"JSON-LD",function (err,result) {
-            //      return err ?  "no" : "yes";
-            //  });
-            // let test = JSON.stringify(java.callMethodSync(doc2, "getRDFModel",));
-            //  doc2.createModelSync(json, 'JSON-LD');
-            // console.log("Doc: ", doc2.getRDFModelSync());
-
-
-            //SBOLDocument doc2=SBOLIO.read(output, "JSON-LD");
-
-            //String output=SBOLIO.write(doc, "Turtle");
-            //Read using the RDF Turtle format
-            //SBOLDocument doc2=SBOLIO.read(output, "Turtle");
-
-
-            // Component device= SBOLAPI.createDnaComponent(doc, "i13504", "i13504", "Screening plasmid intermediate", ComponentType.DNA.getUrl(), null);
-            /*
-            SBOLAPI.appendComponent(doc, device,rbs,Orientation.inline);
-            SBOLAPI.appendSequenceFeature(doc, device, "tactag", Orientation.inline);
-            SBOLAPI.appendComponent(doc, device,gfp, Orientation.inline);
-            SBOLAPI.appendSequenceFeature(doc, device, "tactagag", Orientation.inline);
-            SBOLAPI.appendComponent(doc, device,term, Orientation.inline);
-
-            for (SubComponent subComp: device.getSubComponents()){
-                System.out.println(subComp.getIsInstanceOf());
-            }
-            */
-
-//TODO: LIST NOT DEFINED    TRY WITH LIST //java.setStaticFieldValue("org.sbolstandard.entity.SBOLDocument", "doc2", java.callMethodSync(api, "read", data.toString(), "JSON-LD"));
-
-
-            /*
-                        for (data of components) {
-                            console.log(data);
-                            console.log("  " + java.callMethodSync(data, "getDisplayId")); //TODO: FIX
-                        }
-            */
-
-
-            /*
-                                                                                EXAMPLE EXAMPLE
-            URI base=URI.create("https://synbiohub.org/public/igem/");
-            SBOLDocument doc=new SBOLDocument(base);
-
-            String output=SBOLIO.write(doc, "JSON-LD");
-            //Read using the RDF Turtle format
-            SBOLDocument doc2=SBOLIO.read(output, "JSON-LD");
-
-
-            List<Component> components=(List<Component>)doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", Component.class);
-            System.out.println("Graph query results:");
-            for (Component component:components){
-                System.out.println("  " +  component.getDisplayId());
-            }
-            */
-
-
-            //let base = URI.create;
-
-            //SBOLDocument = base;
-            // SBOLDocument.SBOLDocument = base;
-            //  let doc = SBOLDocument.SBOLDocument;
-
-
-            // List<Component> components=(List<Component>)doc.getIdentifieds("?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 .", Component.class);
-            //List.newArray = ("org.sbolstandard.entity.Component"); //, component.class
-
-            //console.log(List.newArray );
-            // SBOLDocument.getIdentifieds = List.newArray;
-
-            // doc.getIdentifieds = "?identified a sbol:Component; sbol:role  SO:0000141; sbol:type SBO:0000251 ."; //, "org.sbolstandard.entity.Component"); //TODO: FIX
-            // let components = doc.getIdentifieds;
-
-            //console.log(SBOLDocument.getIdentifieds);
-
+            //  console.log("Doc: ", components.size_());
+            //  console.log("n");
+//TODO ----------------------------------------
 
         } catch (e) {
             console.log(e);
