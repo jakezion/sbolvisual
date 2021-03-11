@@ -445,40 +445,18 @@ module.exports = {
             let modelFactory = ModelFactory.createDefaultModel_();
             let model = modelFactory.read_(is, "https://synbiohub.org/public/igem/", "JSON-LD");
             let doc = new SBOLDocument(model);
+            //TODO CREATE DATA OBJECT THAT SENDS COMPONENTS OBJECT FOR GLYPH VIEW AND INTERACTIONS OBJECT FOR LIST VIEW
+            //TODO CREATE DATA OBJECT THAT SENDS COMPONENTS OBJECT FOR GLYPH VIEW AND INTERACTIONS OBJECT FOR LIST VIEW
+            //TODO CREATE DATA OBJECT THAT SENDS COMPONENTS OBJECT FOR GLYPH VIEW AND INTERACTIONS OBJECT FOR LIST VIEW
+            //TODO CREATE DATA OBJECT THAT SENDS COMPONENTS OBJECT FOR GLYPH VIEW AND INTERACTIONS OBJECT FOR LIST VIEW
+            //TODO CREATE DATA OBJECT THAT SENDS COMPONENTS OBJECT FOR GLYPH VIEW AND INTERACTIONS OBJECT FOR LIST VIEW
 
-            let components = {
-                component: []
-            };
+            let components = {};
 
             let interactions = [];
 
-            //TODO FIND TOP LEVEL RESOURCE, THEN CHECK IF INCLUDES: MEMBER, HASMODEL,
-            // QUERY MEMBER OR MODEL FOR COMPONENTS, IF COMPONENTS HAVE: hasinterface, hassquence, ahsinteraction, hasfeature, hasconstraint QUERY THEM
 
             //console.log(doc.getTopLevelResourceTypes_().toString_());
-
-
-//TODO-----------------------TODO--------------------------------TODO//
-            /*    doc.componentDefinitions.forEach(function (componentDefinition) {
-                    component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0]);
-                });
-
-             */
-            // console.log(doc.getComponents_() !== null ? doc.getComponents_().toString_() : doc.getComponents_());
-//TODO ADD EXPRIMENTAL DATA CHECK AS WELL
-
-
-
-            /*
-        if (!(doc.getComponents_() === null)) {
-            let topLevel = doc.getComponents_().get_(0).getTopLevels_().toString_();
-            let formatTopLevel = topLevel.replace(/https:\/\/synbiohub.org\/public\/igem\//g, "");
-            console.log("has collection",formatTopLevel); //TODO: if has special then component check so on....
-            getComponents(doc);
-        }
-*/
-
-
             // console.log(componentData);
 
             //getComponents(doc);
@@ -490,10 +468,8 @@ module.exports = {
                 }
             }
 
-            let comps = getComponents(doc);
-            for (let i in comps) {
-            //    console.log("comps[i]",comps[i]);
-            }
+            return getComponents(doc);
+            //console.log(comps);
 
 
             //let comptest = java.newArray("org.sbolstandard.entity.Component", []);
@@ -530,7 +506,6 @@ module.exports = {
                     let component = doc.getComponents_().get_(x);
                     // console.log("component", component);
                     //  console.log("component string", component.getName_());
-
                     // console.log(component.getSubComponents_());
                     component.getSubComponents_() ? features.push(component.getSubComponents_()) : "invalid";
                     component.getComponentReferences_() ? features.push(component.getComponentReferences_()) : "invalid";
@@ -547,8 +522,18 @@ module.exports = {
                     for (let j = 0; j < features[i].size_(); j++) {
                         let instance = features[i].get_(j);
                         instance.getIsInstanceOf_() ? tempComponents.push(instance.getIsInstanceOf_()) : "invalid";
-                        // console.log("instance of", tempComponents[j].toString_());
 
+                        //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
+                        // FIND IF ORIENTATION IS SET AND ASSIGN IT TO THE CURRENT FEATURE IN THE OBJECT, THEN PASS THE ORIENTATION
+                        // TO THE GET DISPLAY COMPONENTS FOR USE
+                        //instance.getIsInstanceOf_() ? tempComponents.push(instance.getIsInstanceOf_()) : "invalid";
+                        //console.log("instance of", tempComponents[j].toString_());
+                        //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
+                        //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
+                        //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
+                        //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
+                        //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
+                        //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
                     }
                     mainComponents.push(tempComponents);
 
@@ -608,21 +593,22 @@ module.exports = {
                     //TODO GET COMPONENTS ACTUAL COMPONENT BASED ON ITS NAME
                     allComponents.push(components);
                 }
-               // console.log("all components",allComponents);
+                // console.log("all components",allComponents);
                 return allComponents;
             }
 
 
             function getDisplayComponents(doc, displayComponents) {
-                let component = [];
+                let components = [];
 
-               // console.log("display comps",displayComponents);
+                // console.log("display comps",displayComponents);
                 for (let i in displayComponents) {
-                   // console.log("display comps i",displayComponents[i]);
-                   // console.log("display comps just i",i);
+                    let component = [];
+                    // console.log("display comps i",displayComponents[i]);
+                    // console.log("display comps just i",i);
                     for (let j = 0; j < displayComponents[i].length; j++) {
-                    //console.log(displayComponents[i]);
-                   // for (let j in displayComponents[i]) {
+                        //console.log(displayComponents[i]);
+                        // for (let j in displayComponents[i]) {
                         let componentData = displayComponents[i][j];
 
 //TODO for component data query and find component based on uri
@@ -677,11 +663,13 @@ module.exports = {
                                 }
                             }
 
+                          //TODO  let orientation =  componentData.orientation ? "inline" : "reverseComplement"
+
                             component.push({
                                 name: displayId,
                                 idURI: "https://synbiohub.org/public/igem/" + componentData.getDisplayId_(),
                                 items: [{
-                                    strand: "positive",
+                                    orientation: "inline",
                                     type: glyph,
                                     id: componentData.getDisplayId_(),
                                     name: displayId,
@@ -694,7 +682,7 @@ module.exports = {
                         }
 
 
-                        console.log("in loop component:", component);
+                        // console.log("in loop component:", component);
 
                         // console.log(topologies);
                         // console.log(displayId);
@@ -713,8 +701,10 @@ module.exports = {
                         */
 
                     }
+                    // console.log("component", component);
+                    components.push(component);
                 }
-                return component;
+                return components;
             }
 
 

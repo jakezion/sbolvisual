@@ -16,6 +16,7 @@ const API = require('../public/javascripts/API');
 //Variables based on parsed json data
 let SBOL;
 let list = [];
+let glyphs = [];
 //placeholder for textarea
 let placeholder = fs.readFileSync("./public/placeholder.json").toString();
 /*TODO: setup maven for nodejs, then import the libSBOLj3 dependency then use node java to set up link */
@@ -91,7 +92,21 @@ const parser = async (sbol) => {
 
         //send object to api to be queried
         //  let api = new API();
-        API.setDocument(context, graph, data);
+        let components = API.setDocument(context, graph, data);
+        //console.log("comps", components);
+
+        for (let i in components) {
+            for (let x in components[i]) {
+                 //console.log(components[i][x].items.type);
+
+                    for (const [key, value] of Object.entries(components[i][x])) {
+                        console.log(`${key}: ${value}`);
+                    }
+
+
+            }
+        }
+
 
         return graph;
         //const APIInstance = new API();
