@@ -84,6 +84,7 @@ const parser = async (sbol) => {
 
     try {
 
+
 //get json object and split into context and graph
         let data = await getJSON(sbol);
         let context = await getContext(data);
@@ -94,18 +95,24 @@ const parser = async (sbol) => {
         //  let api = new API();
         let components = API.setDocument(context, graph, data);
         //console.log("comps", components);
-
+        let glyphs = [];
         for (let i in components) {
+            let glyph = [];
             for (let x in components[i]) {
-                 //console.log(components[i][x].items.type);
+                let test = components[i][x].items;
+                //console.log(test);
+                for (let a in test) {
+                    let type = test[a]["orientation"];
+                    let orientation = test[a]["type"];
+                    //console.log("[i][x]", test[a]["orientation"]);
+                    // console.log("[i][b]", test[a]["type"]);
 
-                    for (const [key, value] of Object.entries(components[i][x])) {
-                        console.log(`${key}: ${value}`);
-                    }
-
-
+                    glyph.push([type,orientation]);
+                }
             }
+            glyphs.push(glyph);
         }
+        console.log(glyphs);
 
 
         return graph;
@@ -117,6 +124,66 @@ const parser = async (sbol) => {
         throw new Error(`Parsing Error`);
     }
 }
+
+
+function getObject(theObject) {
+
+
+    // for (let i in components) {
+
+    // console.log("[i]",components[i]);
+    //for (let x in components[i]) {
+    //console.log(components[i][x].items.type);
+    //let a = "orientation";
+    //let b = "type";
+    //console.log(components[i][x].items);
+    // let test = components[i][x].items;
+    //console.log(test);
+    // for (let a in test){
+    //     console.log("[i][x]", test[a]["orientation"]);
+    //     console.log("[i][b]", test[a]["type"]);
+    // }
+
+    // console.log("\n");
+    // let type = components[i][x].items[type];
+    //let orientation = components[i][x].items[orientation];
+    // console.log(JSON.stringify(type));
+    // console.log(JSON.stringify(orientation));
+
+    // glyph.push([type, orientation]);
+
+
+    //}
+    // glyphs.push(glyph);
+    // }
+
+    // var result = null;
+    // if (theObject instanceof Array) {
+    //     for (var i = 0; i < theObject.length; i++) {
+    //         result = getObject(theObject[i]);
+    //         if (result) {
+    //             break;
+    //         }
+    //     }
+    // } else {
+    //     for (var prop in theObject) {
+    //         console.log(prop + ': ' + theObject[prop]);
+    //         if (prop == 'id') {
+    //             if (theObject[prop] == 1) {
+    //                 return theObject;
+    //             }
+    //         }
+    //         if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
+    //             result = getObject(theObject[prop]);
+    //             if (result) {
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
+    // return glyphs;
+}
+
 
 function getJSON(json) {
     try {

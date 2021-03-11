@@ -520,13 +520,25 @@ module.exports = {
                     //console.log("temp before",tempComponents);
                     //console.log("features[i]:", features[i]);
                     for (let j = 0; j < features[i].size_(); j++) {
+                       // console.log(j);
                         let instance = features[i].get_(j);
-                        instance.getIsInstanceOf_() ? tempComponents.push(instance.getIsInstanceOf_()) : "invalid";
+                       // console.log("instinace", instance);
+                        let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
+
 
                         //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
                         // FIND IF ORIENTATION IS SET AND ASSIGN IT TO THE CURRENT FEATURE IN THE OBJECT, THEN PASS THE ORIENTATION
                         // TO THE GET DISPLAY COMPONENTS FOR USE
-                        //instance.getIsInstanceOf_() ? tempComponents.push(instance.getIsInstanceOf_()) : "invalid";
+
+                        let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : null;
+
+                        tempComponents.push([instanceOf,orientation]);
+                        //console.log(orientation);
+                       /* for(let i in instance){
+                            console.log(instance[i]);
+                            //console.log(instance[i].orientation ? "orientation set" : "invalid");
+                        }*/
+
                         //console.log("instance of", tempComponents[j].toString_());
                         //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
                         //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
@@ -535,9 +547,10 @@ module.exports = {
                         //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
                         //TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT ------- TODO IMPORTANT -------
                     }
+                   // console.log(tempComponents);
                     mainComponents.push(tempComponents);
-
                 }
+                //console.log("main",mainComponents);
                 let allComponents = uriToComponents(doc, mainComponents);
                 //console.log("all comps",allComponents);
                 //TODO CALL ALL COMPONENTS HERE AND CHECK PER INSTANCE TO PRE GET COMPONENTS
@@ -564,9 +577,12 @@ module.exports = {
                 }
 
                 for (let i in componentURI) {
+                   // console.log("[i]",componentURI[i]);
                     let components = [];
                     for (let j in componentURI[i]) {
-                        let searchURI = componentURI[i][j].toString_();
+                       // console.log("[j]",componentURI[i][j]);
+                        let searchURI = componentURI[i][j][0].toString_();
+                        let orientation = componentURI[i][j][1];
                         let componentQuery = searchURI.replace(/https:\/\/synbiohub.org\/public\/igem\//g, "");
                         //console.log("component id", search);
 
@@ -575,7 +591,6 @@ module.exports = {
                         // console.log("search",search);
                         //console.log("component uri", componentQuery); //ARRAY SEARCH URI BASED ON IDS
 
-
                         if (exists(search, componentQuery)) {
                             // if (search[j][1].includes(componentQuery)) {
                             //console.log("Match");
@@ -583,7 +598,11 @@ module.exports = {
                             //console.log("position",componentPosition);
                             //let componentPosition = search[j][search.indexOf(componentQuery)];
                             //console.log("position", componentPosition);
-                            components.push(search[componentPosition][0]);
+                           // console.log(orientation);
+                            let componentFound = search[componentPosition][0];
+                            //console.log(componentFound);
+                          //TODO WORKS  components.push(search[componentPosition][0]);
+                            components.push([componentFound,orientation]);
 
                         }
                         // console.log("components",components);
@@ -609,7 +628,10 @@ module.exports = {
                     for (let j = 0; j < displayComponents[i].length; j++) {
                         //console.log(displayComponents[i]);
                         // for (let j in displayComponents[i]) {
-                        let componentData = displayComponents[i][j];
+                        let componentData = displayComponents[i][j][0];
+                        let orientation = displayComponents[i][j][1];
+
+                       // console.log(orientation);
 
 //TODO for component data query and find component based on uri
                         // sortComponents();
@@ -669,7 +691,7 @@ module.exports = {
                                 name: displayId,
                                 idURI: "https://synbiohub.org/public/igem/" + componentData.getDisplayId_(),
                                 items: [{
-                                    orientation: "inline",
+                                    orientation: orientation,
                                     type: glyph,
                                     id: componentData.getDisplayId_(),
                                     name: displayId,
