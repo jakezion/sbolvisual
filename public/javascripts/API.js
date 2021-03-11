@@ -466,56 +466,9 @@ module.exports = {
              */
             // console.log(doc.getComponents_() !== null ? doc.getComponents_().toString_() : doc.getComponents_());
 //TODO ADD EXPRIMENTAL DATA CHECK AS WELL
-            /*
-                        if (!(doc.getCollections_() === null)) {
-                            let topLevel = doc.getCollections_().get_(0).getTopLevels_().toString_();
-                            let formatTopLevel = topLevel.replace(/https:\/\/synbiohub.org\/public\/igem\//g, "");
-                            console.log("has collection", formatTopLevel); //TODO: if has special then component check so on....
-                            getComponents(doc);
-                        }
-                        if (!(doc.getModels_() === null)) {
-                            console.log("has model");
-                            getComponents(doc);
-                        }
-                        if (!(doc.getImplementations_() === null)) {
-                            console.log("has implementation");
-                            getComponents(doc);
-                        }
-                        if (!(doc.getAttachments_() === null)) {
-                            //TODO has attachment as well
-                            console.log("has attachments");
-                            getComponents(doc);
-                        }
-                        if (!(doc.getActivities_() === null)) {
-                            console.log("has activities");
-                            getComponents(doc);
-                        }
-                        if (!(doc.getPlans_() === null)) {
-                            console.log("has plans");
-                            getComponents(doc);
-                        }
-                        if (!(doc.getAgents_() === null)) {
-                            console.log("has agents");
-                            getComponents(doc);
-                        }
-                        if (!(doc.getSequences_() === null)) {
-                            //  let topLevel = doc.getSequences_().get_(0).getTopLevels_().toString_();
-                            //   let formatTopLevel = topLevel.replace(/https:\/\/synbiohub.org\/public\/igem\//g, "");
 
-                            //    console.log("has sequences", formatTopLevel);
-                            let sequences = getComponents(doc);
-                            console.log(sequences);
-                        }
-                        if (!(doc.getExperimentalData_() === null)) {
-                            console.log("has experimental data");
-                            getComponents(doc);
-                        }
-                        if (!(doc.getCombinatorialDerivations_() === null)) {
-                            console.log("has combinatorial derivations");
-                            getComponents(doc);
-                        }
 
-             */
+
             /*
         if (!(doc.getComponents_() === null)) {
             let topLevel = doc.getComponents_().get_(0).getTopLevels_().toString_();
@@ -539,7 +492,7 @@ module.exports = {
 
             let comps = getComponents(doc);
             for (let i in comps) {
-                console.log(comps[i]);
+            //    console.log("comps[i]",comps[i]);
             }
 
 
@@ -584,128 +537,164 @@ module.exports = {
                     component.getLocalSubComponents_() ? features.push(component.getLocalSubComponents_()) : "invalid";
                     component.getExternallyDefineds_() ? features.push(component.getExternallyDefineds_()) : "invalid";
                     component.getSequenceFeatures_() ? features.push(component.getSequenceFeatures_()) : "invalid";
-                   //ALSO WORKS component.getSubComponents_() ? console.log("role intergration",component.getSubComponents_()) : "no role intergration";
-
+                    //ALSO WORKS component.getSubComponents_() ? console.log("role intergration",component.getSubComponents_()) : "no role intergration";
                 }
-//TODO TODO ----------------------------------------------------------------------------------------------- TODO TODO
-//TODO TODO ----------------------------------------------------------------------------------------------- TODO TODO
-                //TODO LET FEATURES GO INTO OWN OBJECT TO KEEP THEM SEPARATED
-                // console.log(features);
+
                 for (let i in features) {
                     let tempComponents = [];
                     //console.log("temp before",tempComponents);
-                     //console.log("features[i]:", features[i]);
+                    //console.log("features[i]:", features[i]);
                     for (let j = 0; j < features[i].size_(); j++) {
                         let instance = features[i].get_(j);
                         instance.getIsInstanceOf_() ? tempComponents.push(instance.getIsInstanceOf_()) : "invalid";
                         // console.log("instance of", tempComponents[j].toString_());
+
                     }
                     mainComponents.push(tempComponents);
-                    // console.log("tempAfter", tempComponents[i].toString_());
+
                 }
-                getDisplayComponents(doc,mainComponents);
+                let allComponents = uriToComponents(doc, mainComponents);
+                //console.log("all comps",allComponents);
+                //TODO CALL ALL COMPONENTS HERE AND CHECK PER INSTANCE TO PRE GET COMPONENTS
+                // console.log("tempAfter", tempComponents[i].toString_());
+
+                return getDisplayComponents(doc, allComponents);
                 // mainComponents.push(features);
                 //console.log("Main comp", mainComponents);
 
-//TODO TODO ----------------------------------------------------------------------------------------------- TODO TODO
-//TODO TODO ----------------------------------------------------------------------------------------------- TODO TODO
+            }
 
+            function exists(arr, search) {
+                return arr.some(row => row.includes(search));
+            }
+
+            function uriToComponents(doc, componentURI) {
+                let allComponents = [];
+                let search = [];
+
+                for (let j = 0; j < doc.getComponents_().size_(); j++) {
+                    let instanceComponent = doc.getComponents_().get_(j);
+                    let instance = doc.getComponents_().get_(j).getDisplayId_();
+                    search.push([instanceComponent, instance]);
+                }
+
+                for (let i in componentURI) {
+                    let components = [];
+                    for (let j in componentURI[i]) {
+                        let searchURI = componentURI[i][j].toString_();
+                        let componentQuery = searchURI.replace(/https:\/\/synbiohub.org\/public\/igem\//g, "");
+                        //console.log("component id", search);
+
+                        // console.log(components);
+                        // get individual ids
+                        // console.log("search",search);
+                        //console.log("component uri", componentQuery); //ARRAY SEARCH URI BASED ON IDS
+
+
+                        if (exists(search, componentQuery)) {
+                            // if (search[j][1].includes(componentQuery)) {
+                            //console.log("Match");
+                            let componentPosition = search.findIndex(row => row.includes(componentQuery));
+                            //console.log("position",componentPosition);
+                            //let componentPosition = search[j][search.indexOf(componentQuery)];
+                            //console.log("position", componentPosition);
+                            components.push(search[componentPosition][0]);
+
+                        }
+                        // console.log("components",components);
+                        //console.log("uri",componentURI);
+                        //console.log("clipped",componentQuery);
+                    }
+                    //TODO GET COMPONENTS ACTUAL COMPONENT BASED ON ITS NAME
+                    allComponents.push(components);
+                }
+               // console.log("all components",allComponents);
+                return allComponents;
             }
 
 
             function getDisplayComponents(doc, displayComponents) {
                 let component = [];
 
+               // console.log("display comps",displayComponents);
                 for (let i in displayComponents) {
+                   // console.log("display comps i",displayComponents[i]);
+                   // console.log("display comps just i",i);
+                    for (let j = 0; j < displayComponents[i].length; j++) {
                     //console.log(displayComponents[i]);
-                    for (let j in displayComponents[i]) {
-                        let componentURI = displayComponents[i][j].toString_();
-                        //console.log("uri",componentURI);
-                        let componentQuery = componentURI.replace(/https:\/\/synbiohub.org\/public\/igem\//g, "");
-                        //console.log("clipped",componentQuery);
+                   // for (let j in displayComponents[i]) {
+                        let componentData = displayComponents[i][j];
 
-                       // let query = doc.getIdentified_();
-
-                        /*
-                        Sequence rbsSeq=(Sequence)doc.getIdentified(rbs.getSequences().get(0), Sequence.class);
-                        String nucleotides=rbsSeq.getElements();
-                        */
-
-
-
-
-
-                        //  let componentData = ;
 //TODO for component data query and find component based on uri
                         // sortComponents();
-//                         let displayId = componentData.getDisplayId_();
-//                         let types = componentData.getTypes_();
-//                         let topologies = [];
-//
-//                         //DNA Checker
-//                         let isDNA = "";
-//                         if (types) {
-//                             for (let y = 0; y < types.size_(); y++) {
-//                                 let formatType = types.get_(y).toString_().replace(/https:\/\/identifiers.org\//g, "");
-//                                 let sbo = (formatType).match(/SBO.([0-9]+)/g);
-//                                 if (!sbo || !sbo.length) return
-//                                 let type = componentType(sbo);
-//                                 isDNA = type;
-//                                 if (type) {
-//                                     if (isDNA === "DNA") {
-//                                         topologies.push(type);
-//                                     } else {
-// //TODO -----------------------------------------
-//                                     }
-//                                 }
-//                             }
-//                         }
-//                         //console.log("\n");
-//                         //console.log(isDNA);
-//                         // console.log("^");
-//
-//                         if (isDNA === "DNA") { //TODO CHECK componentData.sequenceAnnotations.length === 0 &&  === 0
-//                             // console.log("reached DNA");
-//                             let glyph = 'unspecified';
-//                             displayId = componentData.getName_() === null ? componentData.getDisplayId_() : componentData.getName_();
-//                             let roles = componentData.getRoles_();
-//
-//                             let details = 'Component: \n';
-//                             if (displayId) details += 'Name:' + displayId + '\n';
-//
-//                             if (roles) {
-//                                 for (let i = 0; i < roles.size_(); i++) {
-//                                     let role = roles.get_(i).toString_();
-//                                     let formatRole = role.replace(/https:\/\/identifiers.org\//g, "");
-//                                     let so = (formatRole).match(/SO.([0-9]+)/g);
-//                                     if (!so || !so.length) return
-//                                     let roleGlyph = getRoles(so);
-//                                     //console.log(roleGlyph);
-//
-//                                     if (isDNA === "DNA") {
-//                                         roleGlyph ? glyph = roleGlyph : glyph = 'unspecified';
-//                                     }
-//                                 }
-//                             }
-//
-//                             component.push({
-//                                 name: displayId,
-//                                 idURI: "https://synbiohub.org/public/igem/" + componentData.getDisplayId_(),
-//                                 items: [{
-//                                     strand: "positive",
-//                                     type: glyph,
-//                                     id: componentData.getDisplayId_(),
-//                                     name: displayId,
-//                                     tooltip: details,
-//                                     isComposite: false
-//
-//                                 }],
-//                                 topologies: topologies
-//                             });
-//                         }
-//
-//
-//                         console.log("in loop component:", component);
+                        let displayId = componentData.getDisplayId_();
+                        let types = componentData.getTypes_();
+                        let topologies = [];
+
+                        //DNA Checker
+                        let isDNA = "";
+                        if (types) {
+                            for (let y = 0; y < types.size_(); y++) {
+                                let formatType = types.get_(y).toString_().replace(/https:\/\/identifiers.org\//g, "");
+                                let sbo = (formatType).match(/SBO.([0-9]+)/g);
+                                if (!sbo || !sbo.length) return
+                                let type = componentType(sbo);
+                                isDNA = type;
+                                if (type) {
+                                    if (isDNA === "DNA") {
+                                        topologies.push(type);
+                                    } else {
+//TODO -----------------------------------------
+                                    }
+                                }
+                            }
+                        }
+                        //console.log("\n");
+                        //console.log(isDNA);
+                        // console.log("^");
+
+                        if (isDNA === "DNA") { //TODO CHECK componentData.sequenceAnnotations.length === 0 &&  === 0
+                            // console.log("reached DNA");
+                            let glyph = 'unspecified';
+                            displayId = componentData.getName_() === null ? componentData.getDisplayId_() : componentData.getName_();
+                            let roles = componentData.getRoles_();
+
+                            let details = 'Component: \n';
+                            if (displayId) details += 'Name:' + displayId + '\n';
+
+                            if (roles) {
+                                for (let i = 0; i < roles.size_(); i++) {
+                                    let role = roles.get_(i).toString_();
+                                    let formatRole = role.replace(/https:\/\/identifiers.org\//g, "");
+                                    let so = (formatRole).match(/SO.([0-9]+)/g);
+                                    if (!so || !so.length) return
+                                    let roleGlyph = getRoles(so);
+                                    //console.log(roleGlyph);
+
+                                    if (isDNA === "DNA") {
+                                        roleGlyph ? glyph = roleGlyph : glyph = 'unspecified';
+                                    }
+                                }
+                            }
+
+                            component.push({
+                                name: displayId,
+                                idURI: "https://synbiohub.org/public/igem/" + componentData.getDisplayId_(),
+                                items: [{
+                                    strand: "positive",
+                                    type: glyph,
+                                    id: componentData.getDisplayId_(),
+                                    name: displayId,
+                                    tooltip: details,
+                                    isComposite: false
+
+                                }],
+                                topologies: topologies
+                            });
+                        }
+
+
+                        console.log("in loop component:", component);
 
                         // console.log(topologies);
                         // console.log(displayId);
