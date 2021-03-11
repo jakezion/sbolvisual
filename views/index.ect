@@ -45,10 +45,10 @@
                             <% if @glyphs?.length : %>
                             <% for section in @glyphs : %>
                             <div class="sbol-visual centered">
-                            <% for sequence in section : %>
+                                <% for sequence in section : %>
 
-                            <div class="<%- sequence %>"></div>
-                            <%end %>
+                                <div class="<%- sequence %>"></div>
+                                <%end %>
                             </div>
                             <%end %>
                             <% else : %>
@@ -69,7 +69,7 @@
 
                             <% if @list?.length : %>
 
-                                <% for item in @list : %>
+                            <% for item in @list : %>
                             <div role="tablist" id="accordion-1">
                                 <% for component in item : %>
                                 <div class="card">
@@ -90,10 +90,11 @@
                                     </div>
                                 </div>
                                 <%end %>
-                                <% end %>
-                                <% else : %>
-                                <p>List is empty</p>
                             </div>
+                            <% end %>
+                            <% else : %>
+                            <p>List is empty</p>
+
                             <% end %>
 
 

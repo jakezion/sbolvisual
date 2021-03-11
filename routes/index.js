@@ -19,6 +19,7 @@ let list = [];
 let displayGlyphs = [];
 //placeholder for textarea
 let placeholder = fs.readFileSync("./public/placeholder.json").toString();
+let currenholder = fs.readFileSync("./public/javascripts/LD.jsonld").toString();
 /*TODO: setup maven for nodejs, then import the libSBOLj3 dependency then use node java to set up link */
 
 router.use(express.urlencoded({extended: true}));
@@ -44,7 +45,7 @@ router.post('/', (req, res) => {
     res.render('index', {
         sboldata: sboldata, //TODO: proper json.jsonld stringify
         list: SBOL,
-        placeholder: placeholder,
+        placeholder: currenholder,
         glyphs: displayGlyphs
     });
 });
