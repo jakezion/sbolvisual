@@ -1,5 +1,5 @@
 <% extend 'layout' %>
-
+<link rel="stylesheet" href="https://edinburgh-genome-foundry.github.io/SBOL-Visual-CSS/dist/sbol-visual-standalone.css" type="text/css">
 <main>
     <div class="container">
         <div class="row stretch">
@@ -41,7 +41,21 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" role="tabpanel" id="glyph">
-                            <p id="tester"><%- @sboldata %></p>
+
+                            <% if @glyphs?.length : %>
+                            <% for section in @glyphs : %>
+                            <div class="sbol-visual centered">
+                            <% for sequence in section : %>
+
+                            <div class="<%- sequence %>"></div>
+                            <%end %>
+                            </div>
+                            <%end %>
+                            <% else : %>
+                            <p>Glyph is empty</p>
+                            <% end %>
+
+
                         </div>
 
                         <div class="tab-pane" role="tabpanel" id="list">
@@ -53,36 +67,34 @@
                             </form>
 
 
-                                <% if @list?.length : %>
-                            <div role="tablist" id="accordion-1">
+                            <% if @list?.length : %>
+
                                 <% for item in @list : %>
+                            <div role="tablist" id="accordion-1">
+                                <% for component in item : %>
                                 <div class="card">
                                     <div class="card-header" role="tab">
                                         <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1"></a>
-                                            <%= item.display %>
+                                            <%= component.idURI %>
                                         </h5>
 
                                         <div class="card-subtitle">
-                                            <%= item.description %>
+                                            <%= component.name %>
                                         </div>
                                     </div>
                                     <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
                                         <div class="card-body">
-                                            <p class="card-text">Elements: <%= item.elements %></p>
-                                            <p> Role: <%= item.role %>
-                                               <br> <%- item.roleGlyph %></p>
-                                            <p> Type: <%= item.type %>
-                                                <br> <%- item.typeGlyph %></p>
+                                            <p class="card-text"><%- component.items %></p>
+
                                         </div>
                                     </div>
                                 </div>
-
+                                <%end %>
                                 <% end %>
                                 <% else : %>
                                 <p>List is empty</p>
                             </div>
-                                <% end %>
-
+                            <% end %>
 
 
                         </div>
