@@ -20,7 +20,7 @@ let displayGlyphs = [];
 //placeholder for textarea
 let placeholder = fs.readFileSync("./public/placeholder.json").toString();
 let currenholder = fs.readFileSync("./public/javascripts/LD.jsonld").toString();
-/*TODO: setup maven for nodejs, then import the libSBOLj3 dependency then use node java to set up link */
+
 
 router.use(express.urlencoded({extended: true}));
 
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
     }
 //send data to middleware to display client side
     res.render('index', {
-        sboldata: sboldata, //TODO: proper json.jsonld stringify
+        sboldata: sboldata,
         list: SBOL,
         placeholder: currenholder,
         glyphs: displayGlyphs
@@ -64,7 +64,7 @@ router.all('/', (req, res) => {
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
         placeholder: placeholder
-        //sboldata: JSON.stringify(SBOL), //TODO: proper json.jsonld stringify
+        //sboldata: JSON.stringify(SBOL),
         // textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld') //fix
 
         //send array setList with setList data that then uses the built in loop system of ECTjs to parse the data into their own cards
@@ -78,13 +78,6 @@ router.all('/', (req, res) => {
 
 //console.log(API);
 
-/*
-TODO: need to parse context in as well
-   add to array and call array whilst adding to context, reform json.jsonld data and then send through formatter
-   if typeof context set context to this value
-   if typeof graph, for each send through parser with given context
-   console log to check
-*/
 
 const parser = async (sbol) => {
 
@@ -230,35 +223,6 @@ function setValue(value, attribute) {
 
 }
 
-/*
-function formatter(context, data) {
-    const parserJsonld = new ParserJsonld({
-        context: context
-    });
-    let dataArray = {};
-
-    const input = new Readable({
-        read: () => {
-            input.push(data);
-            input.push(null);
-        }
-    });
-    const output = parserJsonld.import(input);
-
-    output.on('data', sbol => {
-        console.log(sbol); //TODO: find way to group subject
-
-        // setValue(sbol.predicate," : ",sbol.object);
-        //  console.log(sbol.predicate," : ",sbol.object);
-        dataArray[sbol.predicate.value] = sbol.object.value; //find correct grouping
-
-        // setList(false, dataArray);
-
-    });
-}
-
- */
-
 function setList(data) {
     SBOL = data;
     return data;
@@ -308,7 +272,7 @@ function setList(data) {
          }
      }*/
     //     }
-    // SBOL = data; //TODO: FIX
+    // SBOL = data;
 }
 
 
