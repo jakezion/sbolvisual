@@ -14,6 +14,8 @@ const API = require('../public/javascripts/API');
 // jsonld = require('jsonld'),
 
 //Variables based on parsed json data
+
+//TODO MOVE VARIABLES INTO GET INSTEAD
 let SBOL;
 let list = [];
 let displayGlyphs = [];
@@ -50,8 +52,10 @@ router.post('/', (req, res) => {
     });
 });
 
-router.all('/', (req, res) => {
-
+router.get('/', (req, res) => {
+    // let SBOL;
+    // let list = [];
+    // let displayGlyphs = [];
 
     res.setHeader('Cache-Control', 'no-cache');
 

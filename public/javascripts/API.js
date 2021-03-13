@@ -134,6 +134,7 @@ module.exports = {
         let URINameSpace = java.import("org.sbolstandard.util.URINameSpace");
         let Location = java.import("org.sbolstandard.entity.Location");
         let CutLocation = java.import("org.sbolstandard.entity.CutLocation");
+        let Range = java.import("org.sbolstandard.entity.RangeLocation");
         //TODO
 
         try {
@@ -143,7 +144,7 @@ module.exports = {
             let uri = new URI("");
             let API = new SBOLAPI();
             let io = new SBOLIO();
-            let base = URI.create_("https://synbiohub.org/public/igem/");
+           // let base = URI.create_("https://synbiohub.org/public/igem/");
             //let base = URI.create_(""); //REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
 
             fs.writeFileSync("./public/javascripts/LD.jsonld", "");
@@ -253,8 +254,15 @@ module.exports = {
                     //ALSO WORKS component.getSubComponents_() ? console.log("role intergration",component.getSubComponents_()) : "no role intergration";
                 }
 
-                //console.log(features.toArray_());
 
+//TODO Get subcomponents locations as a group so they can be ordered before looping through them
+//                 for (let i = 0; i < features.size_(); i++) {
+//                     console.log("features in list",features.get_(i).toString_());
+//                     for (let j = 0; j < features.get_(i).size_(); j++) {
+//                         console.log("locations outer", features.get_(i).get_(j).getLocations_());
+//                     }
+//                 }
+                //console.log(features.getLocations_());
 
                 //  for (let i in features) {
                 for (let i = 0; i < features.size_(); i++) {
@@ -364,14 +372,17 @@ module.exports = {
                             //return resources;
 
                             if (resources !== null) {
-                                // console.log("resources", resources.toString_());
+                                 //console.log("resources", resources.toString_());
                                 //console.log("resources",resources);
                                 for (let i = 0; i < resources.size_(); i++) {
-                                    console.log("resource get", resources.get_(i).toString_());
 
-                                    let locat = new Location(resources.get_(i));
+                                    let getUri = uri.resolve_(resources.get_(i).getURI_());
+                                    console.log("resource get", getUri.toString_());
+                                    //console.log("resource get", resources.get_(i).toString_());
 
-                                    //let locationRes = LocationFactory.create_(resources.get_(i)); // ||TODO GET NODE-JAVA EMBEDDED CLASS CODE
+                                    //let locat = new Location(resources.get_(i));
+
+                                   // let locationRes = LocationFactory.create_(resources.get_(i)); // ||TODO GET NODE-JAVA EMBEDDED CLASS CODE
 
                                     //if (RDFUtil.hasType_(resource.getModel_(), resource, DataModelCut.uri)) {
                                     //   let cutLocation = new CutLocation(resource);
@@ -379,7 +390,17 @@ module.exports = {
                                     //else {
                                     //null;
                                     //}
-console.log("locat",locat);
+                                    //console.log("locat", locat);
+
+
+                                   // String nucleotides=rbsSeq.getElements();
+
+                                   let resourceRange = doc.getIdentified_(getUri,Range.class);
+                                    let  startRange = locationOrder.getStart_();
+                                    let  endRange = locationOrder.getEnd_();
+                                    console.log("lorder start ",locationOrder.getStart_());
+                                    console.log("lorder end ",locationOrder.getEnd_());
+                                    //console.log("oderv",orderValue);
 
                                     //  console.log("locationRes", CutLocation);
                                     //  locations.add_(CutLocation);
