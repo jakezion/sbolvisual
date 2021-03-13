@@ -125,7 +125,20 @@ module.exports = {
         let component = java.import("org.sbolstandard.entity.Component");
         let URI = java.import("java.net.URI");
         //let testUtil = java.import("org.sbolstandard.TestUtil");
+        //TODO
+        let RDFUtil = java.import("org.sbolstandard.util.RDFUtil");
+        let DataModelSubComponent = java.import("org.sbolstandard.vocabulary.DataModel$SubComponent");
+        let DataModelCut = java.import("org.sbolstandard.vocabulary.DataModel$Cut");
+        let LocationFactory = java.import("org.sbolstandard.entity.Location$LocationFactory");
+        //let LocationFactory = java.import("org.sbolstandard.entity.Location");
+        let URINameSpace = java.import("org.sbolstandard.util.URINameSpace");
+        let Location = java.import("org.sbolstandard.entity.Location");
+        let CutLocation = java.import("org.sbolstandard.entity.CutLocation");
+        //TODO
+
         try {
+            let rdfUtil = new RDFUtil();
+            let locationFactory = new LocationFactory();
             let ArrayList = new List();
             let uri = new URI("");
             let API = new SBOLAPI();
@@ -196,14 +209,18 @@ module.exports = {
 
             function getComponents(doc) {
 
+
                 //TODO ORDER BASED ON RANGE FROM SEQUENCE TO GET ORDERING OF COMPONENTS
                 //TODO CHECK IF COMPONENT HAS ROLE FIRST BEFORE CHECKING TO SEE IF HAS FEATURES
                 /*TODO ranges go up in order just compare them and sort based on order
 
                  */
                 let mainComponents = [];
-
-                let features = [];
+                let locations = new List();
+                let resources = new List();
+                let features = new List();
+                //let cutLocation;
+                //let features = [];
                 // let instances;
 
                 for (let x = 0; x < doc.getComponents_().size_(); x++) {
@@ -220,44 +237,45 @@ module.exports = {
 
 
                     //TEST TEST TEST TEST TEST TEST TEST TEST TEST
+                    component.getSubComponents_() ? features.add_(component.getSubComponents_()) : "invalid";
+                    component.getComponentReferences_() ? features.add_(component.getComponentReferences_()) : "invalid";
+                    component.getLocalSubComponents_() ? features.add_(component.getLocalSubComponents_()) : "invalid";
+                    component.getExternallyDefineds_() ? features.add_(component.getExternallyDefineds_()) : "invalid";
+                    component.getSequenceFeatures_() ? features.add_(component.getSequenceFeatures_()) : "invalid";
+                    /*
+                                        component.getSubComponents_() ? features.push(component.getSubComponents_()) : "invalid";
+                                        component.getComponentReferences_() ? features.push(component.getComponentReferences_()) : "invalid";
+                                        component.getLocalSubComponents_() ? features.push(component.getLocalSubComponents_()) : "invalid";
+                                        component.getExternallyDefineds_() ? features.push(component.getExternallyDefineds_()) : "invalid";
+                                        component.getSequenceFeatures_() ? features.push(component.getSequenceFeatures_()) : "invalid";
 
-
-                    component.getSubComponents_() ? features.push(component.getSubComponents_()) : "invalid";
-                    component.getComponentReferences_() ? features.push(component.getComponentReferences_()) : "invalid";
-                    component.getLocalSubComponents_() ? features.push(component.getLocalSubComponents_()) : "invalid";
-                    component.getExternallyDefineds_() ? features.push(component.getExternallyDefineds_()) : "invalid";
-                    component.getSequenceFeatures_() ? features.push(component.getSequenceFeatures_()) : "invalid";
+                     */
                     //ALSO WORKS component.getSubComponents_() ? console.log("role intergration",component.getSubComponents_()) : "no role intergration";
                 }
 
-                for (let i in features) {
-                    let tempComponents = [];
+                //console.log(features.toArray_());
 
+
+                //  for (let i in features) {
+                for (let i = 0; i < features.size_(); i++) {
+                    let tempComponents = [];
+                    //console.log("feature[i]", features.get_(i).size_());
+                    //console.log("feature[i2]", features.get_(i).toArray_());
 
                     //console.log("temp before",tempComponents);
                     //console.log("features[i]:", features[i]);
-                    for (let j = 0; j < features[i].size_(); j++) {
-                        // console.log(j);
-                        let instance = features[i].get_(j);
 
-                        // console.log("instinace", instance);
+                    for (let j = 0; j < features.get_(i).size_(); j++) { //TODO RETURN TO 0 AGAIN j = 0
+                        //  for (let j = 0; j < features[i].size_(); j++) {
+                        // console.log(j);
+                        // let instance = features[i].get_(j);
+                        let instance = features.get_(i).get_(j);
+                        // console.log("ins", JSON.stringify(instance));
+
+
                         /* TODO
                              basically if  hasLocations is set then add all locations to list and return
                              check if subcomponent features are the same, if they have the same range then they are invalid
-                                                let locations = [];
-                                                if (locations==[]) {
-                                                public static URI location=URINameSpace.SBOL.local("hasLocation");
-                                                   let resources=RDFUtil.getResourcesWithProperty_(resource, DataModel.SubComponent.location);
-                                                    if (resources!=null)
-                                                    {
-                                                        for (Resource res:resources)
-                                                        {
-                                                            Location location= LocationFactory.create(res);
-                                                            locations.add(location);
-                                                        }
-                                                    }
-                                                }
-
 
                                                 let locations = instance.getLocations_() ? instance.getLocations_() : null;
                                                  console.log("locations",locations);
@@ -265,8 +283,111 @@ module.exports = {
                                                      let order = locations.getOrder_() ? locations.getOrder_() : null;
                                                      console.log("order", order);
                                                  }
-
                         */
+                        //console.log(instance.toString());
+                        // console.log(instance.getLocations_());
+                        //console.log("locations",locations);
+                        //let location = instance.getLocations_() ? locations.add_(instance.getLocations_()) : null;
+                        //console.log("locations",location);
+                        //if (location !== null) {
+                        //    let order = location.getOrder_() ? location.getOrder_() : null;
+                        //   console.log("order", order);
+                        //}
+
+
+                        //console.log("instooons",instance.toString_());
+                        //TODO
+                        if (locations.isEmpty_()) {
+                            // console.log(instance.getUri_().toString_());
+                            let resource = doc.getRDFModel_().getResource_(instance.getUri_().toString_()); //TODO Check
+
+                            // console.log("inmodel", resource.inModel_(doc.getRDFModel_()));
+                            //let resource = instance.getRDFModel_(); //TODO Check
+                            //console.log(instance.toString_());
+                            // console.log("resource",resource);
+                            //let resources = RDFUtil.getResourcesWithProperty_(resource, DataModelSubComponent.location);
+                            //ArrayList<Resource> resources=null;
+
+                            //  console.log("moddel",resource.getModel_().toString_());
+                            //  console.log("rosc",resource.toString_());
+                            //  console.log("loc", DataModelSubComponent.location.toString_());
+                            // let property = doc.getRDFModel_().getResource_(instance.getUri_().toString_()).getModel_().getProperty_(DataModelSubComponent.location.toString_());
+                            // Property property=resource.getModel().getProperty(propertyURI.toString());
+                            //let resourceModel  = resource.getModel_();
+                            let property = resource.getModel_().getProperty_(DataModelSubComponent.location.toString());//TODO CORRECT ONE
+                            //  console.log(property.getModel_().toString_());
+
+                            //  console.log("redocordvalue",resource.getPropertyResourceValue_(property));
+
+                            //  console.log("rdsosc",property.getLocalName_());
+                            // console.log("rosc",property.inModel_(resource.getModel_()));
+                            // StmtIterator it=resource.listProperties(property);
+                            //console.log("property checker", resource.hasURI_(property.toString_()).toString_());
+                            //console.log("property checker2", property.getId_().toString_());
+                            //console.log("property checker2", resource.getRequiredProperty_(property).toString_());
+                            //  console.log("list", resource.listProperties_().hasNext_());
+                            //  console.log("list", resource.listProperties_().toList_().toString_());
+
+                            //  let it = resource.listProperties_(property); //TODO SOMETHING HERE IS WRONG
+                            let it = resource.listProperties_();
+                            // console.log("it",it.toList_().size_());
+                            // console.log("string",it.toModel_());
+                            // console.log("list",it.toList_());
+                            // console.log("next",it.hasNext_());
+                            //console.log("next stmt",it.nextStatement_());
+                            while (it.hasNext_()) {
+                                // Statement stmt=it.nextStatement();
+                                let stmt = it.nextStatement_();
+                                // RDFNode object=stmt.getObject();
+                                //console.log("subject", stmt.getSubject_().toString_());
+                                //console.log("predicate", stmt.getPredicate_().toString_());
+                                if (stmt.getPredicate_().toString_() === "http://sbols.org/v3#hasLocation") { //TODO UPDATE TO GET THE ORIENTATION TYPE AS WELL
+                                    let object = stmt.getObject_();
+
+                                    //console.log("object",object.toString_());
+                                    if (object.isResource_()) {
+
+                                        // if (resources==null)
+                                        // {
+                                        //     instances=new ArrayList<Resource>();
+                                        // }
+
+                                        resources.add_(object.asResource_());
+
+                                    } else {
+                                        // String message=String.format("The property %s has literal value!", propertyURI.toString());
+                                        console.log("error");
+                                        //  throw new SBOLGraphException(message);
+                                    }
+                                }
+                            }
+                            //return resources;
+
+                            if (resources !== null) {
+                                // console.log("resources", resources.toString_());
+                                //console.log("resources",resources);
+                                for (let i = 0; i < resources.size_(); i++) {
+                                    console.log("resource get", resources.get_(i).toString_());
+
+                                    let locat = new Location(resources.get_(i));
+
+                                    //let locationRes = LocationFactory.create_(resources.get_(i)); // ||TODO GET NODE-JAVA EMBEDDED CLASS CODE
+
+                                    //if (RDFUtil.hasType_(resource.getModel_(), resource, DataModelCut.uri)) {
+                                    //   let cutLocation = new CutLocation(resource);
+                                    //}
+                                    //else {
+                                    //null;
+                                    //}
+console.log("locat",locat);
+
+                                    //  console.log("locationRes", CutLocation);
+                                    //  locations.add_(CutLocation);
+                                }
+                            }
+                        }
+                        console.log("locations", locations);
+
 
                         let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
                         let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : null;
@@ -274,6 +395,7 @@ module.exports = {
                         tempComponents.push([instanceOf, orientation]);
 
                     }
+                    console.log("\n");
                     // console.log(tempComponents);
                     mainComponents.push(tempComponents);
                 }
@@ -388,7 +510,7 @@ module.exports = {
 
                             let details = 'Component: \n';
                             if (displayId) details += 'Name:' + displayId + '\n';
-
+                            componentData.getDescription_() ? details += 'Description:' + componentData.getDescription_() + '\n' : "";
                             if (roles) {
                                 for (let i = 0; i < roles.size_(); i++) {
                                     let role = roles.get_(i).toString_();
@@ -424,7 +546,7 @@ module.exports = {
                     }
                     // console.log("component", component);
                     components.push(component);
-                    return components
+
                 }
                 //TODO NOT CORRECT FORMAT return components;
                 /*
@@ -440,10 +562,11 @@ module.exports = {
 
                                   }
               */
-
+                return components
             }
 
-        } catch (e) {
+        } catch
+            (e) {
             console.log(e);
         }
     }
