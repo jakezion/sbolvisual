@@ -21,7 +21,7 @@ let list = [];
 let displayGlyphs = [];
 //placeholder for textarea
 let placeholder = fs.readFileSync("./public/placeholder.json").toString();
-let currenholder = fs.readFileSync("./public/javascripts/LD.jsonld").toString();
+let currenholder = fs.readFileSync("./public/javascripts/write.jsonld").toString();
 
 
 router.use(express.urlencoded({extended: true}));
@@ -33,21 +33,28 @@ router.post('/', (req, res) => {
     let sboldata = req.body.sboldata;
 //if body data exists, then sync promise parse data and set list data
     if (sboldata !== undefined) {
-        parser(sboldata)
-            .then(components => setList(components))
-            .catch(function (e) {
-                console.error(e.message);
-            })
-
+        let components = parser(sboldata);
+        setList(components);
         setGlyphs(SBOL);
-        console.log("SBOL", SBOL);
-
     }
+    /*
+        if (sboldata !== undefined) {
+            parser(sboldata)
+                .then(components => setList(components))
+                .catch(function (e) {
+                    console.error(e.message);
+                })
+            setGlyphs(SBOL);
+
+        }
+    */
+    console.log("display glyphs", displayGlyphs);
+    console.log("SBOL", SBOL);
 //send data to middleware to display client side
     res.render('index', {
-        sboldata: sboldata,
+        //   sboldata: sboldata,
         list: SBOL,
-        placeholder: currenholder,
+        placeholder: sboldata,
         glyphs: displayGlyphs
     });
 });
@@ -81,8 +88,16 @@ router.get('/', (req, res) => {
 
 
 //console.log(API);
+const parser = (sbol) => {
+    try {
+        let data = getJSON(sbol);
+        return API.setDocument(data);
+    } catch (e) {
+        throw new Error(`Parsing Error`);
+    }
+}
 
-
+/*
 const parser = async (sbol) => {
 
     try {
@@ -106,7 +121,7 @@ const parser = async (sbol) => {
         throw new Error(`Parsing Error`);
     }
 }
-
+*/
 function setGlyphs(components) {
     let glyphs = [];
     for (let i in components) {
@@ -159,7 +174,7 @@ function getGraph(object) {
 
 function getGlyph(glyph) {
 
-    if(glyph) {
+    if (glyph) {
         let URI = [];
         for (let i in glyph) {
             let tempURI = [];

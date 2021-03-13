@@ -31,7 +31,7 @@ java.asyncOptions = {
 
 module.exports = {
 
-    setDocument: (context, graph, data) => {
+    setDocument: (data) => {
 
         function getRoles(so) {
             let search = so.toString().replace("SO:", "");
@@ -144,7 +144,7 @@ module.exports = {
             let uri = new URI("");
             let API = new SBOLAPI();
             let io = new SBOLIO();
-           // let base = URI.create_("https://synbiohub.org/public/igem/");
+            // let base = URI.create_("https://synbiohub.org/public/igem/");
             //let base = URI.create_(""); //REMOVE BASE URI AND SEND A FILE INSTEAD FOR DOCUMENT IN SBOLIO
 
             fs.writeFileSync("./public/javascripts/LD.jsonld", "");
@@ -163,49 +163,65 @@ module.exports = {
             return getComponents(doc);
 
             function sortComponents(components) {
-                for (let x = 0; x < doc.getComponents_().size_(); x++) {
-                    let found = false;
-                    let componentData = doc.getComponents_().get_(x);
-                    for (let x in componentData) {
-
-                    }
-                }
-
-                components.sort((a, b) => {
-
-                    if (a.ranges.length > 0 && b.ranges.length > 0) {
-                        if (start(a) === start(b)) {
-                            return end(a) - end(b);
-                        } else {
-                            return start(a) - start(b);
-                        }
-                    } else if (a.component && b.component) {
-                        return position(components, a.component, {}) - position(components, b.component, {});
-                    }
-                    return start(a) - start(b);
+                let sorted = components.sort((a, b) => (a.startNum > b.startNum) ? 1 : -1);
+                sorted.forEach((subcomponent) => {
+                    delete subcomponent.startNum;
+                    delete subcomponent.endNum;
 
                 });
+                // console.log(sorted);
+                return sorted;
+
+
+                // let checker = [];
+                //
+                //   components.forEach((subcomponent) => {
+                //
+                //       let position = {};
+                //       Object.entries(subcomponent).forEach(annotation => {
+                //           const [key, value] = annotation;
+                //           if (key === "subcomponent"){
+                //               position.subcomponent = value;
+                //           }
+                //           if (key === "orientation"){
+                //
+                //               position.orientation = value;
+                //           }
+                //           if (key === "startNum") {
+                //               position.start = value;
+                //           }
+                //       });
+                //       checker.push(position);
+                //   });
+                //   checker.sort((a, b) => (a.start > b.start) ? 1 : -1);
 
             }
 
-            function position(components, component, visited) {
 
-                var curPos = 0
-                if (visited[component.uri]) return curPos
-                components.sequenceConstraints.forEach((sequenceConstraint) => {
-                    sequenceConstraint.link()
-                    if (sequenceConstraint.restriction.toString() === 'http://sbols.org/v2#precedes') {
-                        if (sequenceConstraint.object.uri.toString() === component.uri.toString()) {
-                            visited[component.uri] = true
-                            var subPos = position(components, sequenceConstraint.subject, visited)
-                            if (subPos + 1 > curPos)
-                                curPos = subPos + 1
-                        }
-                    }
-                })
-                return curPos
-
-            }
+            // }
+            //
+            // function getLocation(it) {
+            //     while (it.hasNext_()) {
+            //         let stmt = it.nextStatement_();
+            //         if (stmt.getPredicate_().toString_() === "http://sbols.org/v3#hasLocation") { //TODO UPDATE TO GET THE ORIENTATION TYPE AS WELL
+            //             let object = stmt.getObject_();
+            //
+            //             //console.log("object", object.toString_());
+            //             if (object.isResource_()) {
+            //
+            //                 // if (resources==null)
+            //                 // {
+            //                 //     instances=new ArrayList<Resource>();
+            //                 // }
+            //
+            //                 resources.add_(object.asResource_());
+            //
+            //             } else {
+            //                 // String message=String.format("The property %s has literal value!", propertyURI.toString());
+            //                 console.log("error");
+            //             }
+            //         }
+            //     }
 
 
             function getComponents(doc) {
@@ -217,8 +233,12 @@ module.exports = {
 
                  */
                 let mainComponents = [];
-                let locations = new List();
-                let resources = new List();
+                //let locations = new List();
+                // let currentLocations = new List();
+                let locations = [];
+                //let locationSet = [];
+
+                let sortedLocations;
                 let features = new List();
                 //let cutLocation;
                 //let features = [];
@@ -227,201 +247,116 @@ module.exports = {
                 for (let x = 0; x < doc.getComponents_().size_(); x++) {
                     let component = doc.getComponents_().get_(x);
 
-
-                    //TEST TEST TEST TEST TEST TEST TEST TEST TEST
-
-
-                    //component.getTypes_() ? console.log("types:", component.getTypes_()) : console.log("no types");
-                    //component.getRoles_() ? console.log("roles:", component.getRoles_()) : console.log("no roles");
-
-                    //if types and roles then process these instead, otherwise continue as normal
-
-
                     //TEST TEST TEST TEST TEST TEST TEST TEST TEST
                     component.getSubComponents_() ? features.add_(component.getSubComponents_()) : "invalid";
                     component.getComponentReferences_() ? features.add_(component.getComponentReferences_()) : "invalid";
                     component.getLocalSubComponents_() ? features.add_(component.getLocalSubComponents_()) : "invalid";
                     component.getExternallyDefineds_() ? features.add_(component.getExternallyDefineds_()) : "invalid";
                     component.getSequenceFeatures_() ? features.add_(component.getSequenceFeatures_()) : "invalid";
-                    /*
-                                        component.getSubComponents_() ? features.push(component.getSubComponents_()) : "invalid";
-                                        component.getComponentReferences_() ? features.push(component.getComponentReferences_()) : "invalid";
-                                        component.getLocalSubComponents_() ? features.push(component.getLocalSubComponents_()) : "invalid";
-                                        component.getExternallyDefineds_() ? features.push(component.getExternallyDefineds_()) : "invalid";
-                                        component.getSequenceFeatures_() ? features.push(component.getSequenceFeatures_()) : "invalid";
-
-                     */
-                    //ALSO WORKS component.getSubComponents_() ? console.log("role intergration",component.getSubComponents_()) : "no role intergration";
                 }
 
-
-//TODO Get subcomponents locations as a group so they can be ordered before looping through them
-//                 for (let i = 0; i < features.size_(); i++) {
-//                     console.log("features in list",features.get_(i).toString_());
-//                     for (let j = 0; j < features.get_(i).size_(); j++) {
-//                         console.log("locations outer", features.get_(i).get_(j).getLocations_());
-//                     }
-//                 }
-                //console.log(features.getLocations_());
-
-                //  for (let i in features) {
-                for (let i = 0; i < features.size_(); i++) {
-                    let tempComponents = [];
-                    //console.log("feature[i]", features.get_(i).size_());
-                    //console.log("feature[i2]", features.get_(i).toArray_());
-
-                    //console.log("temp before",tempComponents);
-                    //console.log("features[i]:", features[i]);
-
-                    for (let j = 0; j < features.get_(i).size_(); j++) { //TODO RETURN TO 0 AGAIN j = 0
-                        //  for (let j = 0; j < features[i].size_(); j++) {
-                        // console.log(j);
-                        // let instance = features[i].get_(j);
-                        let instance = features.get_(i).get_(j);
-                        // console.log("ins", JSON.stringify(instance));
+                    for (let i = 0; i < features.size_(); i++) {
+                        let tempComponents = [];
+                        let tempLocations = [];
+                        let orderedLocations = [];
+                        for (let j = 0; j < features.get_(i).size_(); j++) { //TODO RETURN TO 0 AGAIN j = 0
+                            //  for (let j = 0; j < features[i].size_(); j++) {
+                            // console.log(j);
+                            // let instance = features[i].get_(j);
+                            let instance = features.get_(i).get_(j);
+                            // console.log("ins", JSON.stringify(instance));
 
 
-                        /* TODO
-                             basically if  hasLocations is set then add all locations to list and return
-                             check if subcomponent features are the same, if they have the same range then they are invalid
-
-                                                let locations = instance.getLocations_() ? instance.getLocations_() : null;
-                                                 console.log("locations",locations);
-                                                 if (locations !== null) {
-                                                     let order = locations.getOrder_() ? locations.getOrder_() : null;
-                                                     console.log("order", order);
-                                                 }
-                        */
-                        //console.log(instance.toString());
-                        // console.log(instance.getLocations_());
-                        //console.log("locations",locations);
-                        //let location = instance.getLocations_() ? locations.add_(instance.getLocations_()) : null;
-                        //console.log("locations",location);
-                        //if (location !== null) {
-                        //    let order = location.getOrder_() ? location.getOrder_() : null;
-                        //   console.log("order", order);
-                        //}
-
-
-                        //console.log("instooons",instance.toString_());
-                        //TODO
-                        if (locations.isEmpty_()) {
-                            // console.log(instance.getUri_().toString_());
+                            //   if (locations.isEmpty_()) {
+                            //console.log("count",count);
+                            //console.log("loc",locations.size_());
+                            //  if (count < locations.size_()) {
                             let resource = doc.getRDFModel_().getResource_(instance.getUri_().toString_()); //TODO Check
-
-                            // console.log("inmodel", resource.inModel_(doc.getRDFModel_()));
-                            //let resource = instance.getRDFModel_(); //TODO Check
-                            //console.log(instance.toString_());
-                            // console.log("resource",resource);
-                            //let resources = RDFUtil.getResourcesWithProperty_(resource, DataModelSubComponent.location);
-                            //ArrayList<Resource> resources=null;
-
-                            //  console.log("moddel",resource.getModel_().toString_());
-                            //  console.log("rosc",resource.toString_());
-                            //  console.log("loc", DataModelSubComponent.location.toString_());
-                            // let property = doc.getRDFModel_().getResource_(instance.getUri_().toString_()).getModel_().getProperty_(DataModelSubComponent.location.toString_());
-                            // Property property=resource.getModel().getProperty(propertyURI.toString());
-                            //let resourceModel  = resource.getModel_();
                             let property = resource.getModel_().getProperty_(DataModelSubComponent.location.toString());//TODO CORRECT ONE
-                            //  console.log(property.getModel_().toString_());
-
-                            //  console.log("redocordvalue",resource.getPropertyResourceValue_(property));
-
-                            //  console.log("rdsosc",property.getLocalName_());
-                            // console.log("rosc",property.inModel_(resource.getModel_()));
-                            // StmtIterator it=resource.listProperties(property);
-                            //console.log("property checker", resource.hasURI_(property.toString_()).toString_());
-                            //console.log("property checker2", property.getId_().toString_());
-                            //console.log("property checker2", resource.getRequiredProperty_(property).toString_());
-                            //  console.log("list", resource.listProperties_().hasNext_());
-                            //  console.log("list", resource.listProperties_().toList_().toString_());
-
-                            //  let it = resource.listProperties_(property); //TODO SOMETHING HERE IS WRONG
                             let it = resource.listProperties_();
-                            // console.log("it",it.toList_().size_());
-                            // console.log("string",it.toModel_());
-                            // console.log("list",it.toList_());
-                            // console.log("next",it.hasNext_());
-                            //console.log("next stmt",it.nextStatement_());
+                            let resources = new List();
                             while (it.hasNext_()) {
-                                // Statement stmt=it.nextStatement();
                                 let stmt = it.nextStatement_();
-                                // RDFNode object=stmt.getObject();
-                                //console.log("subject", stmt.getSubject_().toString_());
-                                //console.log("predicate", stmt.getPredicate_().toString_());
                                 if (stmt.getPredicate_().toString_() === "http://sbols.org/v3#hasLocation") { //TODO UPDATE TO GET THE ORIENTATION TYPE AS WELL
                                     let object = stmt.getObject_();
-
-                                    //console.log("object",object.toString_());
                                     if (object.isResource_()) {
-
-                                        // if (resources==null)
-                                        // {
-                                        //     instances=new ArrayList<Resource>();
-                                        // }
-
                                         resources.add_(object.asResource_());
-
                                     } else {
-                                        // String message=String.format("The property %s has literal value!", propertyURI.toString());
                                         console.log("error");
-                                        //  throw new SBOLGraphException(message);
                                     }
                                 }
                             }
-                            //return resources;
-
-                            if (resources !== null) {
-                                 //console.log("resources", resources.toString_());
-                                //console.log("resources",resources);
+                            // console.log("\n");
+                            if (!(resources.isEmpty_())) {
                                 for (let i = 0; i < resources.size_(); i++) {
-
+                                    // for (let i = 0; i < tempResources.length; i++) {
                                     let getUri = uri.resolve_(resources.get_(i).getURI_());
-                                    console.log("resource get", getUri.toString_());
-                                    //console.log("resource get", resources.get_(i).toString_());
+                                    //let getUri = uri.resolve_(resources.getURI_());
+                                    //console.log("resource get", getUri.toString_());
+                                    // let locationRes = LocationFactory.create_(resources.get_(i)); // ||TODO GET NODE-JAVA EMBEDDED CLASS CODE
+                                    let resourceRange = doc.getIdentified_(getUri, Range.class);
+                                    let startRange = resourceRange.getStart_();
+                                    let endRange = resourceRange.getEnd_();
+                                    let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : null;
+                                    //console.log("instance", instance.toString_());
+                                    //console.log("lorder start ", locationOrder.getStart_());
+                                    //console.log("lorder end ", locationOrder.getEnd_());
+                                    // locations.add_(CutLocation); //TODO list version
+                                    let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
+                                    let format = {
+                                        subcomponent: instanceOf,
+                                        orientation: orientation,
+                                        startNum: startRange,
+                                        endNum: endRange
+                                    };
+                                    tempLocations.push(format);// TODO array version
 
-                                    //let locat = new Location(resources.get_(i));
 
-                                   // let locationRes = LocationFactory.create_(resources.get_(i)); // ||TODO GET NODE-JAVA EMBEDDED CLASS CODE
-
-                                    //if (RDFUtil.hasType_(resource.getModel_(), resource, DataModelCut.uri)) {
-                                    //   let cutLocation = new CutLocation(resource);
-                                    //}
-                                    //else {
-                                    //null;
-                                    //}
-                                    //console.log("locat", locat);
-
-
-                                   // String nucleotides=rbsSeq.getElements();
-
-                                   let resourceRange = doc.getIdentified_(getUri,Range.class);
-                                    let  startRange = locationOrder.getStart_();
-                                    let  endRange = locationOrder.getEnd_();
-                                    console.log("lorder start ",locationOrder.getStart_());
-                                    console.log("lorder end ",locationOrder.getEnd_());
-                                    //console.log("oderv",orderValue);
-
-                                    //  console.log("locationRes", CutLocation);
-                                    //  locations.add_(CutLocation);
                                 }
+
+
                             }
+                            //TODO ORDER HERE
+                            //console.log("loc", locations.toArray_());
+                            let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
+                            let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : null;
+
+                            tempComponents.push([instanceOf, orientation]);
+
+
                         }
-                        console.log("locations", locations);
+                        //count++;
+//TODO CHECKER
 
+                        //console.log("\n");
+                        // console.log(tempComponents);
 
-                        let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
-                        let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : null;
+                        sortedLocations = sortComponents(tempLocations);
+                        // console.log("sorted",sortedLocations);
+                        sortedLocations.forEach((ins) => {
+                            if (ins !== null) {
+                                orderedLocations.push([ins.subcomponent, ins.orientation]);
+                            }
+                        });
 
-                        tempComponents.push([instanceOf, orientation]);
+                        if (orderedLocations.length !== 0) {
+                            locations.push(orderedLocations);
+                        }
 
-                    }
-                    console.log("\n");
-                    // console.log(tempComponents);
-                    mainComponents.push(tempComponents);
+                        mainComponents.push(tempComponents);
+                        //  console.log("locations inner ", locations);
+                        // //TODO LOCATION ORDER GET
+
                 }
-                //console.log("main",mainComponents);
-                let allComponents = uriToComponents(doc, mainComponents);
+                // console.log("locations outer ", locations);
+                //console.log("main", mainComponents);
+
+                let allComponents;
+                if (locations.length !== 0) {
+                    allComponents = uriToComponents(doc, locations);
+                } else {
+                    allComponents = uriToComponents(doc, mainComponents);
+                }
                 //console.log("all comps",allComponents);
 
                 return getDisplayComponents(doc, allComponents);
@@ -429,6 +364,7 @@ module.exports = {
                 //console.log("Main comp", mainComponents);
 
             }
+
 
             function exists(arr, search) {
                 return arr.some(row => row.includes(search));
@@ -444,6 +380,8 @@ module.exports = {
                     search.push([instanceComponent, instance]);
                 }
 
+               // console.log("search", search);
+              //  console.log("componentURI", componentURI);
                 for (let i in componentURI) {
                     // console.log("[i]",componentURI[i]);
                     let components = [];
@@ -591,4 +529,5 @@ module.exports = {
             console.log(e);
         }
     }
-};
+}
+;
