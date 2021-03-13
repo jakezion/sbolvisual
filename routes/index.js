@@ -48,8 +48,8 @@ router.post('/', (req, res) => {
 
         }
     */
-    console.log("display glyphs", displayGlyphs);
-    console.log("SBOL", SBOL);
+   // console.log("display glyphs", displayGlyphs);
+  //  console.log("SBOL", SBOL);
 //send data to middleware to display client side
     res.render('index', {
         //   sboldata: sboldata,
