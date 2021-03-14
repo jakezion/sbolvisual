@@ -1,4 +1,4 @@
-# SBOL Visual v3.0
+# SBOL Viz v3.0
 
 SBOL Visual is a web-based visualisation tool for the 3rd iteration of the SBOL specification
 that will:
