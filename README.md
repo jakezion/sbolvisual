@@ -1,6 +1,6 @@
 # SBOL Viz v3.0
 
-SBOL Visual is a web-based visualisation tool for the 3rd iteration of the SBOL specification
+SBOL Viz is a web-based visualisation tool for the 3rd iteration of the SBOL specification
 that will:
 
 - Convert JSON data into a glyph format
