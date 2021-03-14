@@ -2,7 +2,6 @@
 
 const express = require('express'),
     path = require('path'), //possible remove
-    helmet = require('helmet'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan'),
     indexRouter = require('./routes/index'),
@@ -26,7 +25,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(helmet());
 
 
 //static directory names
@@ -35,7 +33,7 @@ app.use('/libSBOLj3', express.static(path.join(__dirname, 'src/main/java/org/sbo
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
 app.use('/jq', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
-app.use('/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist')));
+app.use('/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd')));
 app.use('/style', express.static(path.join(__dirname, 'public/stylesheets')));
 // app.use('/javascripts', express.static(path.join(__dirname, 'public/javascripts')));
 app.use('/public', express.static(path.join(__dirname, "public")));

@@ -1,23 +1,22 @@
 <% extend 'layout' %>
-<script  type="text/javascript">
+<script >
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-
 </script>
 <link rel="stylesheet" href="https://edinburgh-genome-foundry.github.io/SBOL-Visual-CSS/dist/sbol-visual-standalone.css" type="text/css">
 
 <div class="container">
     <div class="row stretch">
-        <div class="col-md-6">
-            <div>
+        <div class="col-md-6 ">
+            <div class="mt-2">
                 <ul class="nav nav-tabs list">
                     <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#jsonld">JSON-LD</a></li>
                     <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ntriples">N-TRIPLES</a></li>
                     <!-- TODO: remove disable to let tab be active -->
                     <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ext">{EXT}</a></li>  <!-- TODO: remove disable to let tab be active -->
                 </ul>
-                <div class="tab-content">
+                <div class="tab-content mt-5">
 
                     <div class="tab-pane active" role="tabpanel" id="jsonld">
 
@@ -40,13 +39,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div>
+        <div class="col-md-6 mb-5">
+            <div class="mt-2">
                 <ul class="nav nav-tabs list">
                     <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#glyph">Glyph</a></li>
                     <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#list">List</a></li>
                 </ul>
-                <div class="tab-content">
+                <div class="tab-content mt-5">
                     <div class="tab-pane active" role="tabpanel" id="glyph">
 <!-- TODO Hover glyphs for type details-->
                         <% if @glyphs?.length : %>
@@ -54,7 +53,7 @@
                         <div class="sbol-visual centered">
                             <% for sequence in section : %>
 
-                            <div class="<%- sequence.glyph %> " data-toggle="tooltip" data-placement="bottom" title="<%= sequence.type %>"><%= sequence.name %></div>
+                            <div class="<%- sequence.glyph %> " data-toggle="tooltip" data-placement="top" title="<%= sequence.type %>"><%= sequence.name %></div>
                             <%end %>
                         </div>
                         <%end %>
