@@ -7,18 +7,10 @@ const express = require('express'),
     http = require("http");
 const API = require('../public/javascripts/API');
 
-
-// detailed = false;
-// JsonLdParser = require('jsonld-streaming-parser').JsonLdParser,
-// jsonParser = new JsonLdParser(),
-// jsonld = require('jsonld'),
-
-//Variables based on parsed json data
-
-//TODO MOVE VARIABLES INTO GET INSTEAD
 let SBOL;
 let list = [];
 let displayGlyphs = [];
+
 //placeholder for textarea
 let placeholder = fs.readFileSync("./public/placeholder.json").toString();
 let currenholder = fs.readFileSync("./public/javascripts/write.jsonld").toString();
@@ -37,32 +29,17 @@ router.post('/', (req, res) => {
         setList(components);
         setGlyphs(SBOL);
     }
-    /*
-        if (sboldata !== undefined) {
-            parser(sboldata)
-                .then(components => setList(components))
-                .catch(function (e) {
-                    console.error(e.message);
-                })
-            setGlyphs(SBOL);
 
-        }
-    */
-   // console.log("display glyphs", displayGlyphs);
-  //  console.log("SBOL", SBOL);
-//send data to middleware to display client side
     res.render('index', {
         //   sboldata: sboldata,
         list: SBOL,
         placeholder: sboldata,
         glyphs: displayGlyphs
+
     });
 });
 
 router.get('/', (req, res) => {
-    // let SBOL;
-    // let list = [];
-    // let displayGlyphs = [];
 
     res.setHeader('Cache-Control', 'no-cache');
 
@@ -75,19 +52,10 @@ router.get('/', (req, res) => {
         keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
         copyright: 'Jake Sumner &copy; 2020',
         placeholder: placeholder
-        //sboldata: JSON.stringify(SBOL),
-        // textarea: res.sendFile(__dirname + '/public/java/libSBOLj3/output/entity/collection/collection.jsonld') //fix
 
-        //send array setList with setList data that then uses the built in loop system of ECTjs to parse the data into their own cards
     });
-
-    // res.end(json.jsonld);
-
-
 });
 
-
-//console.log(API);
 const parser = (sbol) => {
     try {
         let data = getJSON(sbol);
@@ -97,49 +65,23 @@ const parser = (sbol) => {
     }
 }
 
-/*
-const parser = async (sbol) => {
-
-    try {
-
-
-//get json object and split into context and graph
-        let data = await getJSON(sbol);
-        let context = await getContext(data);
-        let graph = await getGraph(data);
-
-
-        //send object to api to be queried
-        //  let api = new API();
-        //console.log("comps", components);
-        return API.setDocument(context, graph, data);
-        //const APIInstance = new API();
-        // APIInstance.run();
-        //  return {co: context, gr: graph};
-
-    } catch (e) {
-        throw new Error(`Parsing Error`);
-    }
-}
-*/
 function setGlyphs(components) {
     let glyphs = [];
-    for (let i in components) {
+    components.forEach((component) => {
         let glyph = [];
-        for (let x in components[i]) {
-            let items = components[i][x].items;
-            //console.log(test);
-            for (let format in items) {
-                let type = items[format]["type"];
-                let orientation = items[format]["orientation"];
-                //console.log("[i][x]", test[a]["orientation"]);
-                // console.log("[i][b]", test[a]["type"]);
-                glyph.push([type, orientation]);
-            }
-        }
+        component.forEach((itemValue) => {
+            itemValue.items.forEach((item) => {
+                let details = {
+                    type: item.type,
+                    orientation: item.orientation,
+                    name: item.name
+                };
+                glyph.push(details);
+            });
+        });
         glyphs.push(glyph);
-    }
-    //console.log(glyphs);
+    });
+
     getGlyph(glyphs);
 
 }
@@ -153,91 +95,59 @@ function getJSON(json) {
     }
 }
 
-
-function getContext(object) {
-    if (typeof object['@context'] === 'object') { //gets context
-        return object['@context'];
-        //Object.keys(object['@graph']).forEach((prefix) => {
-        //  this.emit('prefix', prefix, this.factory.namedNode(object['@context'][prefix])); //fix
-        // })
-    }
-}
-
-function getGraph(object) {
-
-    if (typeof object['@graph'] === 'object') { //gets context
-        return object['@graph'];
-        //return object['@graph']; //promise wait for context then run formatter
-
-    }
-}
-
 function getGlyph(glyph) {
-
     if (glyph) {
         let URI = [];
-        for (let i in glyph) {
+
+        glyph.forEach((type) => {
             let tempURI = [];
-            for (let current in glyph[i]) {
-                let getGlyph = glyph[i][current][0].toLowerCase();
-                let getOrientation = glyph[i][current][1].toLowerCase();
-                //console.log("src", search);
-                let found = "";
-                let found2 = "";
+
+            type.forEach((value) => {
+                let getGlyph = value.type.toLowerCase();
+                let getOrientation = value.orientation.toLowerCase();
+                let typeValue = "";
+                let orientationValue = "";
                 switch (getGlyph) {
                     case "cds":
-                        found = "cds";
+                        typeValue = "cds";
                         break;
                     case "promoter":
-                        found = "promoter";
+                        typeValue = "promoter";
                         break;
                     case "terminator":
-                        found = "terminator";
+                        typeValue = "terminator";
                         break;
                     case "rbs":
-                        found = "ribosome-entry-site";
+                        typeValue = "ribosome-entry-site";
                         break;
                     case "unspecified":
-                        found = "unspecified";
+                        typeValue = "unspecified";
                         break;
                     default:
-                        found = "unspecified";
+                        typeValue = "unspecified";
                 }
                 switch (getOrientation) {
                     case "inline":
-                        found2 = " ";
+                        orientationValue = " ";
                         break;
                     case "reverseComplement":
-                        found2 = " antisense ";
+                        orientationValue = " antisense ";
                         break;
                     default:
                         console.error("not found");
                         break;
                 }
-                let structure = "sbolv" + found2 + found;
-                //console.log(structure);
-                tempURI.push(structure);
-            }
+                let structure = "sbolv" + orientationValue + typeValue;
+                let display = {
+                    name: value.name,
+                    type: value.type,
+                    glyph: structure
+                };
+                tempURI.push(display);
+            });
             URI.push(tempURI);
-
-        }
-        //console.log("URI",URI);
+        });
         displayGlyphs = URI;
-    }
-
-}
-
-function setValue(value, attribute) {
-    if (attribute === "DisplayID") {
-        return value;
-    } else if (attribute === "Description") {
-        return value;
-    } else if (attribute === "Elements") {
-        return value;
-    } else if (attribute === "Type") {
-        return value;
-    } else if (attribute === "Role") {
-        return value;
     }
 
 }
@@ -245,55 +155,7 @@ function setValue(value, attribute) {
 function setList(data) {
     SBOL = data;
     return data;
-    // list.length = 0;
-    // //console.log('\n');
-    // //  if (!detailed) {
-    //
-    //
-    // for (const set of data) {
-    //     let tempList = {};
-    //     // console.log(set);
-    //     //gets each dataset
-    //     if (set.hasOwnProperty('displayId')) {
-    //         tempList["display"] = setValue(set['displayId'], "DisplayID");
-    //         //    tempList["id"] = "https://synbiohub.org/public/igem/" +tempList["display"];
-    //     }
-    //     if (set.hasOwnProperty('description')) {
-    //         tempList["description"] = setValue(set['description'], "Description");
-    //     }
-    //
-    //     if (set.hasOwnProperty('elements')) {
-    //         tempList["elements"] = setValue(set['elements'], "Elements");
-    //     }
-    //
-    //     if (set.hasOwnProperty('role')) {
-    //         tempList["role"] = setValue(set['role'], "Role");
-    //         tempList["roleGlyph"] = getGlyph(set['role'], 'role');
-    //     }
-    //     if (set.hasOwnProperty('type')) {
-    //         tempList["type"] = setValue(set['type'], "Type");
-    //         tempList["typeGlyph"] = getGlyph(set['type'], 'type');
-    //     }
-    //     // if(data[set].hasOwnProperty()){}
-    //     //console.log('\n');
-    //     //  console.log(tempList);
-    //     list.push(tempList);
-    //
-    // }
-    //console.log(list);
-    // } else if (detailed) {
-    /* for (let set in data) {
-         try {
-             if (data[set].hasOwnProperty('role')) setValue(data[set]['role'], "Role");
-             if (data[set].hasOwnProperty('type')) setValue(data[set]['type'], "Type");
-         } catch (e) {
-             throw new Error(`parse err`);
-         }
-     }*/
-    //     }
-    // SBOL = data;
 }
-
 
 module.exports = router;
 

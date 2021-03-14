@@ -47,7 +47,7 @@
                             <div class="sbol-visual centered">
                                 <% for sequence in section : %>
 
-                                <div class="<%- sequence %>"></div>
+                                <div class="<%- sequence.glyph %>"><%= sequence.name %></div>
                                 <%end %>
                             </div>
                             <%end %>
@@ -71,33 +71,39 @@
 
                             <% for item in @list : %>
                             <div role="tablist" id="accordion-1">
+
                                 <% for component in item : %>
+                                <% for identifier in component.items : %>
                                 <div class="card">
                                     <div class="card-header" role="tab">
                                         <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1"></a>
-                                            <%= component.idURI %>
+                                            <a href="<%- component.idURI %>" target="_blank"><%= identifier.id %></a>
                                         </h5>
 
                                         <div class="card-subtitle">
-                                            <%= component.name %>
+                                            <%= identifier.description %>
                                         </div>
                                     </div>
                                     <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
                                         <div class="card-body">
-                                            <p class="card-text"><%- component.items %></p>
+                                            <p class="card-text">
+                                                ID: <%= identifier.items %>
+                                                Name: <%= identifier.name %>
+                                                Description: <%=identifier.description %>
+                                                Type: <%= identifier.so %>
+                                                Component: <%= identifier.orientation %>
+                                            </p>
 
                                         </div>
                                     </div>
                                 </div>
-                                <%end %>
+                                <% end %>
+                                <% end %>
                             </div>
                             <% end %>
                             <% else : %>
                             <p>List is empty</p>
-
                             <% end %>
-
-
                         </div>
                     </div>
                 </div>
