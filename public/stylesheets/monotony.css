@@ -9,8 +9,8 @@
 }
 
 .footer-basic {
-    position: absolute;
-    bottom: 0;
+
+
     padding: 40px 0;
     background-color: #fff;
     color: #4b4c4d;
@@ -98,4 +98,14 @@ body {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     resize: none;
     border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.Site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.Site-content {
+    flex: 1;
 }

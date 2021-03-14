@@ -12,30 +12,25 @@
     <meta name="language" content="EN">
     <meta name="copyright" content="<%- @copyright %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-<!--    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
-
-<!--    <link href="./style/tailwind.css" rel="stylesheet">-->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
-    <!--    <link rel="stylesheet" type="text/css" href="./font/ionicons.min.css"/>-->
     <link rel="stylesheet" type="text/css" href="./style/monotony.css"/>
+    <!--    <link rel="stylesheet" type="text/css" href="./font/ionicons.min.css"/>-->
 
-
-<!--    TODO: move scripts to correct location-->
-<!--    <script>$('#main-textarea').linenumbers('5%');</script>-->
-<!--    <script>$('document').ready(function(){$('#simplified-textarea').linenumbers({col_width:'25px'});})</script>-->
-<!--    <script>$('document').ready(function(){$('#ext-textarea').linenumbers({col_width:'25px'});})</script>-->
 </head>
-<body>
+<body class="Site">
 
 <% include 'header' %>
+<main class="Site-content">
 <% content %>
+    </main>
 <% include 'footer' %>
 <!-- TODO: FIX TEXTAREA OVERLAP-->
 
-<script src="/jq/jquery.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/public/javascripts/textarea.js"></script>
-<script src="/public/javascripts/API.js"></script>
+<script src="/jq/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/popper/popper.min.js"></script>
+<script src="./public/javascripts/textarea.js"></script>
+<!--<script src="/public/javascripts/API.js"></script>-->
 
 </body>
 </html>

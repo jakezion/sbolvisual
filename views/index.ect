@@ -1,115 +1,123 @@
 <% extend 'layout' %>
+<script  type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+</script>
 <link rel="stylesheet" href="https://edinburgh-genome-foundry.github.io/SBOL-Visual-CSS/dist/sbol-visual-standalone.css" type="text/css">
-<main>
-    <div class="container">
-        <div class="row stretch">
-            <div class="col-md-6">
-                <div>
-                    <ul class="nav nav-tabs list">
-                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#jsonld">JSON-LD</a></li>
-                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ntriples">N-TRIPLES</a></li>
-                        <!-- TODO: remove disable to let tab be active -->
-                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ext">{EXT}</a></li>  <!-- TODO: remove disable to let tab be active -->
-                    </ul>
-                    <div class="tab-content">
 
-                        <div class="tab-pane active" role="tabpanel" id="jsonld">
+<div class="container">
+    <div class="row stretch">
+        <div class="col-md-6">
+            <div>
+                <ul class="nav nav-tabs list">
+                    <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#jsonld">JSON-LD</a></li>
+                    <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ntriples">N-TRIPLES</a></li>
+                    <!-- TODO: remove disable to let tab be active -->
+                    <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ext">{EXT}</a></li>  <!-- TODO: remove disable to let tab be active -->
+                </ul>
+                <div class="tab-content">
 
-                            <form method="post" role="form" action="/">
-                                <textarea class="form-control" name="sboldata" id="sboldata" rows="40" cols="1"><%= @placeholder %></textarea>
+                    <div class="tab-pane active" role="tabpanel" id="jsonld">
 
-                                <input type="submit" class="btn btn-block btn-dark" value="JSON-LD" name="format">
-                            </form>
+                        <form method="post" role="form" action="/">
+                            <textarea class="form-control" name="sboldata" id="sboldata" rows="40" cols="1"><%= @placeholder %></textarea>
 
+                            <input type="submit" class="btn btn-block btn-dark" value="JSON-LD" name="format">
+                        </form>
+
+                    </div>
+                    <div class="tab-pane " role="tabpanel" id="ntriples">
+                        <form method="post" role="form" action="/">
+                            <textarea class="form-control " name="sboldata" id="rdfdata" rows="40" cols="1"><%= @placeholder %></textarea>
+                            <input type="submit" class="btn btn-block btn-dark" value="N-TRIPLES" name="format">
+                        </form>
+                    </div>
+                    <div class="tab-pane " role="tabpanel" id="ext"><textarea class="form-control " id="ext-textarea" rows="40" cols="1"></textarea></div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <ul class="nav nav-tabs list">
+                    <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#glyph">Glyph</a></li>
+                    <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#list">List</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" role="tabpanel" id="glyph">
+<!-- TODO Hover glyphs for type details-->
+                        <% if @glyphs?.length : %>
+                        <% for section in @glyphs : %>
+                        <div class="sbol-visual centered">
+                            <% for sequence in section : %>
+
+                            <div class="<%- sequence.glyph %> " data-toggle="tooltip" data-placement="bottom" title="<%= sequence.type %>"><%= sequence.name %></div>
+                            <%end %>
                         </div>
-                        <div class="tab-pane " role="tabpanel" id="ntriples">
-                            <form method="post" role="form" action="/">
-                                <textarea class="form-control " name="sboldata" id="rdfdata" rows="40" cols="1"><%= @placeholder %></textarea>
-                                <input type="submit" class="btn btn-block btn-dark" value="N-TRIPLES" name="format">
-                            </form>
-                        </div>
-                        <div class="tab-pane " role="tabpanel" id="ext"><textarea class="form-control " id="ext-textarea" rows="40" cols="1"></textarea></div>
+                        <%end %>
+                        <% else : %>
+<!--                        <p>Glyph is empty</p>-->
+                        <% end %>
 
 
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div>
-                    <ul class="nav nav-tabs list">
-                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#glyph">Glyph</a></li>
-                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#list">List</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" role="tabpanel" id="glyph">
 
-                            <% if @glyphs?.length : %>
-                            <% for section in @glyphs : %>
-                            <div class="sbol-visual centered">
-                                <% for sequence in section : %>
-
-                                <div class="<%- sequence.glyph %>"><%= sequence.name %></div>
-                                <%end %>
+                    <div class="tab-pane" role="tabpanel" id="list">
+                        <form method="get" role="form" action="/">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Detailed</label>
                             </div>
-                            <%end %>
-                            <% else : %>
-                            <p>Glyph is empty</p>
-                            <% end %>
+                        </form>
 
 
-                        </div>
+                        <% if @list?.length : %>
 
-                        <div class="tab-pane" role="tabpanel" id="list">
-                            <form method="get" role="form" action="/">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Detailed</label>
-                                </div>
-                            </form>
+                        <% for item in @list : %>
+                        <div class="accordion" id="accordion">
 
+                            <% for component in item : %>
+                            <% for identifier in component.items : %>
+                            <div class="card">
+                                <div class="card-header" role="tab">
+                                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1"></a>
+                                        <a href="<%- component.idURI %>" target="_blank"><%= identifier.id %></a>
+                                    </h5>
 
-                            <% if @list?.length : %>
-
-                            <% for item in @list : %>
-                            <div class="accordion" id="accordion">
-
-                                <% for component in item : %>
-                                <% for identifier in component.items : %>
-                                <div class="card">
-                                    <div class="card-header" role="tab">
-                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1"></a>
-                                            <a href="<%- component.idURI %>" target="_blank"><%= identifier.id %></a>
-                                        </h5>
-
-                                        <div class="card-subtitle">
-                                            <%= identifier.description %>
-                                        </div>
-                                    </div>
-                                    <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                ID: <%= identifier.items %>
-                                                Name: <%= identifier.name %>
-                                                Description: <%=identifier.description %>
-                                                Type: <%= identifier.so %>
-                                                Component: <%= identifier.orientation %>
-                                            </p>
-
-                                        </div>
+                                    <div class="card-subtitle">
+<!--                                        <pre>-->
+                                        <%= identifier.description %>
+<!--                                        </pre>-->
                                     </div>
                                 </div>
-                                <% end %>
-                                <% end %>
+                                <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
+                                    <div class="card-body">
+<!--                                        <pre>-->
+                                            ID: <%= identifier.items %>
+                                            Name: <%= identifier.name %>
+                                            Description: <%=identifier.description %>
+                                            Type: <%= identifier.so %>
+                                            Component: <%= identifier.orientation %>
+<!--                                        </pre>-->
+
+
+                                    </div>
+                                </div>
                             </div>
                             <% end %>
-                            <% else : %>
-                            <p>List is empty</p>
                             <% end %>
                         </div>
+                        <% end %>
+                        <% else : %>
+<!--                        <p>List is empty</p>-->
+                        <% end %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
 
