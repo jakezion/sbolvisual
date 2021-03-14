@@ -1,5 +1,8 @@
 <% extend 'layout' %>
-
+<script src="node_modules/clipboard/dist/clipboard.min.js"></script>
+<script>
+    new ClipboardJS('.copy');
+</script>
 <main>
     <div>
         <h1 class="text-center">Examples</h1>
@@ -14,11 +17,17 @@
                     <% if @files?.length : %>
                     <% for file in @files : %>
                     <div class="card">
-                        <a data-toggle="collapse" data-target="#collapse<%-file[2]%>" aria-expanded="true" aria-controls="collapse<%-file[2]%>">
+
                             <div class="card-header" id="heading<%-file[2]%>">
-                                <h5 class="mb-0 text-center"><%= file[0] %></h5>
+<!--                                <button class="btn btn-dark copy" data-clipboard-text="<%= file[0] %>">-->
+<!--                                    Copy to clipboard-->
+<!--                                </button>-->
+
+                                <a data-toggle="collapse" data-target="#collapse<%-file[2]%>" aria-expanded="true" aria-controls="collapse<%-file[2]%>">
+                                <h5 class="mb-0 text-center" id="content<%-file[2]%>"><%= file[0] %></h5>
+                                </a>
                             </div>
-                        </a>
+
                         <div id="collapse<%-file[2]%>" class="collapse hide" aria-labelledby="heading<%-file[2]%>" data-parent="#accordion">
                             <div class="card-body">
                                 <pre> <%= file[1] %></pre>

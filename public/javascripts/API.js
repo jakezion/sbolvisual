@@ -2,26 +2,26 @@
    Check:
         PopsReceiver => Works
         Combine 2020 => Works
-        Annotation =>
-        Attachment =>
-        Collection =>
-        Component Urn Uri =>
-        Implementation =>
-        Interface =>
-        Model =>
-        Measurement =>
-        Measurement Using Units From OM =>
-        Multicellular =>
-        Multicellular Simple =>
-        Activity =>
-        Agent =>
-        Plan =>
-        Toggle Switch =>
+        Annotation => FIX
+        Attachment => FIX
+        Collection => FIX
+        Component Urn Uri => FIX
+        Implementation => FIX
+        Interface => FIX
+        Model => FIX
+        Measurement => FIX
+        Measurement Using Units From OM => FIX
+        Multicellular => Works
+        Multicellular Simple => FIX
+        Activity => FIX
+        Agent => FIX
+        Plan => VERY BROKEN
+        Toggle Switch => Works
  */
 
 module.exports = {
 
-    setDocument: (data) => {
+    setDocument: (data,format) => {
 
         const fs = require('fs');
         const java = require('java');
@@ -70,7 +70,7 @@ module.exports = {
             let Range = java.import("org.sbolstandard.entity.RangeLocation");
             let ModelFactory = java.import("org.apache.jena.rdf.model.ModelFactory");
             let InputStream = java.import("java.io.FileInputStream");
-
+            let Sequence = java.import("org.sbolstandard.entity.Sequence");
             //get json data from middleware and write it into file
             let json = JSON.stringify(data);
             fs.writeFileSync("./public/javascripts/LD.jsonld", "");
@@ -88,7 +88,7 @@ module.exports = {
 
             //create SBOL document with a model based on the https://synbiohub.org/public/igem/ URI
             let modelFactory = ModelFactory.createDefaultModel_();
-            let model = modelFactory.read_(is, "https://synbiohub.org/public/igem/", "JSON-LD");
+            let model = modelFactory.read_(is, "https://synbiohub.org/public/igem/", format);
             let doc = new SBOLDocument(model);
 
             //return components and their objects to be sent to middleware
@@ -110,8 +110,8 @@ module.exports = {
                     return "Gene";
                 } else if (search === "0000057") {
                     return "Operator";
-                } else if (search === "0000704") {
-                    return "EngineeredGene";
+                } else if (search === "0000804") {
+                    return "EngineeredRegion";
                 } else if (search === "0000234") {
                     return "mRNA";
                 } else if (search === "35224") {
@@ -146,36 +146,14 @@ module.exports = {
                 }
             }
 
-            /*
-                    function interactionType(sbo) {
-                        let search = sbo.toString().replace("SBO:", "");
-                        if (search === "000169") {
-                            return "Inhibition";
-                        } else if (search === "0000170") {
-                            return "Stimulation";
-                        } else if (search === "0000176") {
-                            return "BiochemicalReaction";
-                        } else if (search === "0000177") {
-                            return "NonCovalentBinding";
-                        } else if (search === "0000179") {
-                            return "Degradation";
-                        } else if (search === "0000589") {
-                            return "GeneticProduction";
-                        } else if (search === "0000168") {
-                            return "Control";
-                        } else {
-                            return "";
-                        }
-                    }
-            */
-
-
             //sorts the subcomponents based on the start number of their ranges
             function sortComponents(components) {
-                /*sorted.forEach((subcomponent) => {
+                /*
+                sorted.forEach((subcomponent) => {
                     delete subcomponent.startNum;
                     delete subcomponent.endNum;
-                });*/
+                });
+                */
                 return components.sort((a, b) => (a.startNum > b.startNum) ? 1 : -1);
             }
 
@@ -200,37 +178,24 @@ module.exports = {
                     let component = doc.getComponents_().get_(x);
                     docComponents.push(component);
                 }
+                //TODO if has constraints check for object and subject and check
                 docComponents.forEach((component) => {
-                    let group = [];
-                    component.getSubComponents_() ? features.push(component.getSubComponents_()) : "invalid";
-                    //component.getComponentReferences_() ? group.push(component.getComponentReferences_()) : "invalid";
-                    //component.getLocalSubComponents_() ? group.push(component.getLocalSubComponents_()) : "invalid";
-                    //component.getExternallyDefineds_() ? group.push(component.getExternallyDefineds_()) : "invalid";
-                    // component.getSequenceFeatures_() ? group.push(component.getSequenceFeatures_()) : "invalid";
-                    // console.log(group);
-                    //if(group.length !== 0) {
-                    //   features.push(group);
-                    //}
-                });
-                // features.forEach((subcomponents) => {
-                //     console.log("features", subcomponents);
-                //     subcomponents.forEach((test)=>{
-                //        console.log("test",test.toArray_());
-                //     });
-                // });
 
-                features.forEach((subcomponents) => {//1
+                    //TODO add overrideRoles capability
+                    component.getSubComponents_() ? features.push(component.getSubComponents_()) : "invalid";
+
+                });
+                //TODO if features empty then check to see if any components exist and use those instead IMPORTANT
+                features.forEach((subcomponents) => {
                     let tempComponents = [];
                     let tempLocations = [];
                     let orderedLocations = [];
-                    // console.log("sub", subcomponents);
-                    subcomponents.toArray_().forEach((instance) => {//2
-                        console.log("instance", instance);
+
+                    subcomponents.toArray_().forEach((instance) => {
 
                         let resource = doc.getRDFModel_().getResource_(instance.getUri_().toString_());
-                        let it = resource.listProperties_();
+                        let it = resource.listProperties_(); //Todo Lift properties if URI === hasLocation
                         let resources = [];
-                        //let resources = new List();
                         if (it !== null) {
                             while (it.hasNext_()) {
 
@@ -265,20 +230,32 @@ module.exports = {
                                     };
                                     tempLocations.push(format);
                                 });
+                            } else {
+                                let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
+                                let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : "inline";
+                                let format = {
+
+                                    subcomponent: instanceOf,
+                                    orientation: orientation,
+
+                                };
+                                tempComponents.push(format);
+
+
                             }
                         } else {
-
-                            let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
-                            let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : null;
-
-                            tempComponents.push([instanceOf, orientation]);
+                            console.log("Error");
                         }
                     });
-                    if (tempLocations !== []) {
+                    if (tempLocations.length !== 0) {
                         sortedLocations = sortComponents(tempLocations);
                         sortedLocations.forEach((ins) => {
                             if (ins !== null) {
-                                orderedLocations.push([ins.subcomponent, ins.orientation]);
+                                let format = {
+                                    subcomponent: ins.subcomponent,
+                                    orientation: ins.orientation
+                                }
+                                orderedLocations.push(format);
                             }
                         });
 
@@ -290,6 +267,7 @@ module.exports = {
                         mainComponents.push(tempComponents);
                     }
                 });
+
                 if (locations.length !== 0) {
                     allComponents = getComponentURI(doc, locations);
                 } else {
@@ -299,43 +277,50 @@ module.exports = {
                 return getDisplayComponents(doc, allComponents);
             }
 
-            //check if uri exists in document
-            function exists(arr, search) {
-                return arr.some(row => row.includes(search));
-            }
 
             //gets the uri associated with a component and its orientation
             function getComponentURI(doc, componentData) {
                 let componentURIs = [];
                 // let search = [];
                 let docComponents = [];
-                //console.log("componentURI", componentData);
+
                 for (let i = 0; i < doc.getComponents_().size_(); i++) {
                     let instanceComponent = doc.getComponents_().get_(i);
                     let instance = doc.getComponents_().get_(i).getDisplayId_();
-                    docComponents.push([instanceComponent, instance]);
+                    let format = {
+
+                        component: instanceComponent,
+                        instanceID: instance,
+
+                    };
+                    docComponents.push(format);
+
                 }
 
                 componentData.forEach((componentSequence) => {
                     let components = [];
                     componentSequence.forEach((component) => {
-                        let componentURI = component[0].toString_();
-                        let orientation = component[1];
+                        let componentURI = component.subcomponent.toString_();
+                        let orientation = component.orientation;
                         let formatURI = componentURI.replace(/https:\/\/synbiohub.org\/public\/igem\//g, "");
+                        let componentPosition = docComponents.map((x) => {
+                            return x.instanceID;
+                        }).indexOf(formatURI);
 
-                        if (exists(docComponents, formatURI)) {
-
-                            let componentPosition = docComponents.findIndex(row => row.includes(formatURI));
-                            let componentFound = docComponents[componentPosition][0];
-                            components.push([componentFound, orientation]);
-
+                        if (componentPosition !== -1 || componentPosition !== undefined) {
+                            let componentFound = docComponents[componentPosition].component;
+                            let format = {
+                                component: componentFound,
+                                orientation: orientation
+                            }
+                            components.push(format);
                         }
-
                     });
                     componentURIs.push(components);
                 });
                 return componentURIs;
             }
+
 
             //get the type of the component
             function getToTypes(types) {
@@ -363,31 +348,55 @@ module.exports = {
                 return role;
             }
 
+            //gets the sequence and its range for a component
+            /*
+            function getSequence(doc, component) {
+                let elements = null;
+                let sequence = doc.getIdentified_(component.component.getUri_(), Sequence.class);
+                let resource = doc.getRDFModel_().getResource_(sequence.getUri_().toString_());
+                let it = resource.listProperties_(); //Todo Lift properties if URI === hasLocation
+                if (it !== null) {
+                    while (it.hasNext_()) {
+                        let stmt = it.nextStatement_();
+                        if (stmt.getPredicate_().toString_() === "http://sbols.org/v3#elements") {
+                            let object = stmt.getObject_();
+                            if (object.isResource_()) {
+                                elements = object.asResource_();
+                            } else {
+                                console.log("error");
+                            }
+                        }
+                    }
+                    return elements;
+                }
+            }
+            */
 
             //builds the object that contains the data related to the components to be displayed
             function getDisplayComponents(doc, displayComponents) {
                 let components = [];
                 displayComponents.forEach((componentSequence) => {
+
                     let tempComponent = [];
                     componentSequence.forEach((component) => {
 
-                        let orientation = component[1];
-                        let displayId = component[0].getDisplayId_() ? component[0].getDisplayId_() : component[0].getName_();
-                        let name = component[0].getName_() ? component[0].getName_() : component[0].getDisplayId_();
-                        let types = component[0].getTypes_();
+                        let orientation = component.orientation;
+                        let displayId = component.component.getDisplayId_() ? component.component.getDisplayId_() : component.component.getName_();
+                        let name = component.component.getName_() ? component.component.getName_() : component.component.getDisplayId_();
+                        let types = component.component.getTypes_();
                         let details = 'Component:\n ';
                         if (displayId) details += displayId + '\n';
-                        component[0].getDescription_() ? details += 'Description:\n' + component[0].getDescription_() + '\n' : "";
+                        component.component.getDescription_() ? details += 'Description:\n' + component.component.getDescription_() + '\n' : "";
                         let dnaType = [];
-                        //let isDNA = "";
-                        //console.log("types", types);
-                        //console.log("types", types);
+
+                        //let sequence = getSequence(doc, component);
+
                         let type = getToTypes(types);
-                        //console.log("type", type);
+
                         dnaType.push(type);
                         if (type === "DNA") { //TODO Checker
-                            //let glyph = 'unspecified';
-                            let roles = component[0].getRoles_();
+
+                            let roles = component.component.getRoles_();
                             let roleIdentifier = "undefined";
                             if (roles) {
                                 roles.toArray_().forEach((identifier) => {
@@ -395,28 +404,24 @@ module.exports = {
                                 });
                             }
                             let role = getToRoles(roles);
-                            //console.log("roles", role);
 
-                            let b = false;
-                            if (b === true) {
-                                //TODO               if(start and end range, or sequence ) add sequence and start and end range else
-                                // tempComponent.push({
-                                //     name: displayId,
-                                //     idURI: "https://synbiohub.org/public/igem/" + displayId,
-                                //     items: [{
-                                //         id: displayId,
-                                //         name: name,
-                                //         description: details,
-                                //         type: type,
-                                //         orientation: "inline"
-                                //          start: start,
-                                //          end: end,
-                                //          sequence: sequence
-                                //     }],
-                                //     dna: dnaType
-                                // });
+                            let sequence = false;
+                            if (sequence === true) {
+                                tempComponent.push({
+                                    name: displayId,
+                                    idURI: "https://synbiohub.org/public/igem/" + displayId,
+                                    items: [{
+                                        id: displayId,
+                                        name: name,
+                                        description: details,
+                                        type: type,
+                                        so: roleIdentifier,
+                                        orientation: orientation,
+                                        sequence: sequence
+                                    }],
+                                    dna: dnaType
+                                });
                             } else {
-
                                 tempComponent.push({
                                     name: displayId,
                                     idURI: "https://synbiohub.org/public/igem/" + displayId,
@@ -449,7 +454,6 @@ module.exports = {
                         }
                     });
                     components.push(tempComponent);
-                    console.log("components", components);
                 });
                 return components;
             }

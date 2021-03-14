@@ -7,7 +7,7 @@
                 <div>
                     <ul class="nav nav-tabs list">
                         <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#jsonld">JSON-LD</a></li>
-                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#simplified">RDF/XML</a></li>
+                        <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ntriples">N-TRIPLES</a></li>
                         <!-- TODO: remove disable to let tab be active -->
                         <li class="nav-item "><a class="nav-link disabled" role="tab" data-toggle="tab" href="#ext">{EXT}</a></li>  <!-- TODO: remove disable to let tab be active -->
                     </ul>
@@ -17,14 +17,15 @@
 
                             <form method="post" role="form" action="/">
                                 <textarea class="form-control" name="sboldata" id="sboldata" rows="40" cols="1"><%= @placeholder %></textarea>
-                                <input type="submit" value="submit">
+
+                                <input type="submit" class="btn btn-block btn-dark" value="JSON-LD" name="format">
                             </form>
 
                         </div>
-                        <div class="tab-pane " role="tabpanel" id="simplified">
-                            <form method="post" role="form" action="/rdfxml">
-                                <textarea class="form-control " name="rdfdata" id="rdfdata" rows="40" cols="1"></textarea>
-                                <input type="submit" value="submit">
+                        <div class="tab-pane " role="tabpanel" id="ntriples">
+                            <form method="post" role="form" action="/">
+                                <textarea class="form-control " name="sboldata" id="rdfdata" rows="40" cols="1"><%= @placeholder %></textarea>
+                                <input type="submit" class="btn btn-block btn-dark" value="N-TRIPLES" name="format">
                             </form>
                         </div>
                         <div class="tab-pane " role="tabpanel" id="ext"><textarea class="form-control " id="ext-textarea" rows="40" cols="1"></textarea></div>
@@ -70,7 +71,7 @@
                             <% if @list?.length : %>
 
                             <% for item in @list : %>
-                            <div class="accordion" id="accordion-1">
+                            <div class="accordion" id="accordion">
 
                                 <% for component in item : %>
                                 <% for identifier in component.items : %>

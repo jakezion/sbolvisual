@@ -1,19 +1,12 @@
 const express = require('express'),
-    ParserJsonld = require('@rdfjs/parser-jsonld'),
-    Readable = require('stream').Readable,
-    //java = require('java'),
     router = express.Router(),
     fs = require('fs'),
-    http = require("http");
-const API = require('../public/javascripts/API');
-
-let SBOL;
-let list = [];
+    API = require('../public/javascripts/API');
 let displayGlyphs = [];
+let SBOL;
 
 //placeholder for textarea
 let placeholder = fs.readFileSync("./public/placeholder.json").toString();
-let currenholder = fs.readFileSync("./public/javascripts/write.jsonld").toString();
 
 
 router.use(express.urlencoded({extended: true}));
@@ -23,9 +16,12 @@ router.use(express.json());
 
 router.post('/', (req, res) => {
     let sboldata = req.body.sboldata;
+    let format = req.body.format;
+
+
 //if body data exists, then sync promise parse data and set list data
     if (sboldata !== undefined) {
-        let components = parser(sboldata);
+        let components = parser(sboldata, format);
         setList(components);
         setGlyphs(SBOL);
     }
@@ -56,28 +52,36 @@ router.get('/', (req, res) => {
     });
 });
 
-const parser = (sbol) => {
+const parser = (sbol, format) => {
     try {
         let data = getJSON(sbol);
-        return API.setDocument(data);
+        return API.setDocument(data, format);
     } catch (e) {
         throw new Error(`Parsing Error`);
     }
 }
 
+//TODO IF GLYPH DNA TYPE !== DNA THEN DONT GET GLYPH
 function setGlyphs(components) {
     let glyphs = [];
     components.forEach((component) => {
+
         let glyph = [];
         component.forEach((itemValue) => {
-            itemValue.items.forEach((item) => {
-                let details = {
-                    type: item.type,
-                    orientation: item.orientation,
-                    name: item.id
-                };
-                glyph.push(details);
-            });
+            //update for multiple types
+            if (itemValue.dna.includes("DNA")) {
+                itemValue.items.forEach((item) => {
+
+                    let details = {
+
+                        type: item.type,
+                        orientation: item.orientation,
+                        name: item.id
+
+                    };
+                    glyph.push(details);
+                });
+            }
         });
         glyphs.push(glyph);
     });
@@ -121,10 +125,19 @@ function getGlyph(glyph) {
                         typeValue = "ribosome-entry-site";
                         break;
                     case "unspecified":
-                        typeValue = "unspecified";
+                        typeValue = "user-defined";
+                        break;
+                    case "gene":
+                        typeValue = "user-defined";
+                        break;
+                    case "operator":
+                        typeValue = "operator";
+                        break;
+                    case "engineered region": //TODO check
+                        typeValue = "user-defined";
                         break;
                     default:
-                        typeValue = "unspecified";
+                        typeValue = "user-defined";
                 }
                 switch (getOrientation) {
                     case "inline":
