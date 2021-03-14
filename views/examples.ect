@@ -1,0 +1,37 @@
+<% extend 'layout' %>
+
+<main>
+    <div>
+        <h1 class="text-center">Examples</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="accordion" id="accordion">
+                    <% if @files?.length : %>
+                    <% for file in @files : %>
+                    <div class="card">
+                        <a data-toggle="collapse" data-target="#collapse<%-file[2]%>" aria-expanded="true" aria-controls="collapse<%-file[2]%>">
+                            <div class="card-header" id="heading<%-file[2]%>">
+                                <h5 class="mb-0 text-center"><%= file[0] %></h5>
+                            </div>
+                        </a>
+                        <div id="collapse<%-file[2]%>" class="collapse hide" aria-labelledby="heading<%-file[2]%>" data-parent="#accordion">
+                            <div class="card-body">
+                                <pre> <%= file[1] %></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <% end %>
+                    <% else :%>
+                    <p>file empty</p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

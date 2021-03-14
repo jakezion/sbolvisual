@@ -74,7 +74,7 @@ function setGlyphs(components) {
                 let details = {
                     type: item.type,
                     orientation: item.orientation,
-                    name: item.name
+                    name: item.id
                 };
                 glyph.push(details);
             });

@@ -7,7 +7,7 @@ const express = require('express'),
     logger = require('morgan'),
     indexRouter = require('./routes/index'),
     dragdropRouter = require('./routes/dragdrop'),
-    customiserRouter = require('./routes/customiser'),
+    examplesRouter = require('./routes/examples'),
     staticRouter = require('./routes/static'),
     ect = require('ect'),
     ectRenderer = ect({watch: true, root: path.join(__dirname, 'views'), ext: '.ect'}),
@@ -43,10 +43,10 @@ app.use('/public', express.static(path.join(__dirname, "public")));
 //routing paths
 app.use('/', indexRouter);
 app.use('/dragdrop', dragdropRouter);
-app.use('/customiser', customiserRouter);
+app.use('/examples', examplesRouter);
 app.use('/github', staticRouter);
 app.use('/about', staticRouter);
-app.use('/description', staticRouter);
+app.use('/links', staticRouter);
 
 app.use((req, res, next) => {
     res.status(404).send("Sorry can't find that!")
