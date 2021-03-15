@@ -36,7 +36,6 @@
     "crossvent": "^1.5.5",
     "custom-event": "^1.0.1",
     "debug": "~2.6.9",
-    "dragula": "^3.7.3",
     "ect": "^0.5.9",
     "express": "~4.16.1",
     "java": "^0.12.1",
