@@ -21,7 +21,7 @@
 
 module.exports = {
 
-    setDocument: (data,format) => {
+    setDocument: (data, format) => {
 
         const fs = require('fs');
         const java = require('java');
@@ -166,18 +166,26 @@ module.exports = {
                  where an object with all details needed for a component is stored
 
              */
-            function getComponents(doc) {
+
+            function getDocComponents(doc) {
                 let docComponents = [];
+                for (let x = 0; x < doc.getComponents_().size_(); x++) {
+                    let component = doc.getComponents_().get_(x);
+                    docComponents.push(component);
+                }
+                return docComponents;
+            }
+
+
+            function getComponents(doc) {
                 let mainComponents = [];
                 let locations = [];
                 let sortedLocations;
                 let features = [];
                 let allComponents;
 
-                for (let x = 0; x < doc.getComponents_().size_(); x++) {
-                    let component = doc.getComponents_().get_(x);
-                    docComponents.push(component);
-                }
+                let docComponents = getDocComponents(doc);
+
                 //TODO if has constraints check for object and subject and check
                 docComponents.forEach((component) => {
 
@@ -185,88 +193,104 @@ module.exports = {
                     component.getSubComponents_() ? features.push(component.getSubComponents_()) : "invalid";
 
                 });
+
+
                 //TODO if features empty then check to see if any components exist and use those instead IMPORTANT
-                features.forEach((subcomponents) => {
-                    let tempComponents = [];
-                    let tempLocations = [];
-                    let orderedLocations = [];
+                if (features.length !== 0) {
 
-                    subcomponents.toArray_().forEach((instance) => {
+                    features.forEach((subcomponents) => {
+                        let tempComponents = [];
+                        let tempLocations = [];
+                        let orderedLocations = [];
 
-                        let resource = doc.getRDFModel_().getResource_(instance.getUri_().toString_());
-                        let it = resource.listProperties_(); //Todo Lift properties if URI === hasLocation
-                        let resources = [];
-                        if (it !== null) {
-                            while (it.hasNext_()) {
+                        subcomponents.toArray_().forEach((instance) => {
 
-                                let stmt = it.nextStatement_();
-                                if (stmt.getPredicate_().toString_() === "http://sbols.org/v3#hasLocation") {
+                            let resource = doc.getRDFModel_().getResource_(instance.getUri_().toString_());
+                            let it = resource.listProperties_(); //Todo Lift properties if URI === hasLocation
+                            let resources = [];
+                            if (it !== null) {
+                                while (it.hasNext_()) {
 
-                                    let object = stmt.getObject_();
-                                    if (object.isResource_()) {
+                                    let stmt = it.nextStatement_();
+                                    if (stmt.getPredicate_().toString_() === "http://sbols.org/v3#hasLocation") {
 
-                                        resources.push(object.asResource_());
-                                    } else {
+                                        let object = stmt.getObject_();
+                                        if (object.isResource_()) {
 
-                                        console.log("error");
+                                            resources.push(object.asResource_());
+                                        } else {
+
+                                            console.log("error");
+                                        }
                                     }
                                 }
-                            }
-                            if (resources.length !== 0) {
-                                resources.forEach((resourceUri) => {
-                                    let getUri = uri.resolve_(resourceUri.getURI_());
-                                    let resourceRange = doc.getIdentified_(getUri, Range.class);
-                                    let startRange = resourceRange.getStart_();
-                                    let endRange = resourceRange.getEnd_();
-                                    let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : null;
+                                if (resources.length !== 0) {
+                                    resources.forEach((resourceUri) => {
+                                        let getUri = uri.resolve_(resourceUri.getURI_());
+                                        let resourceRange = doc.getIdentified_(getUri, Range.class);
+                                        let startRange = resourceRange.getStart_();
+                                        let endRange = resourceRange.getEnd_();
+                                        let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : null;
+                                        let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
+                                        let format = {
+
+                                            subcomponent: instanceOf,
+                                            orientation: orientation,
+                                            startNum: startRange,
+                                            endNum: endRange
+
+                                        };
+                                        tempLocations.push(format);
+                                    });
+                                } else {
                                     let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
+                                    let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : "inline";
                                     let format = {
 
                                         subcomponent: instanceOf,
                                         orientation: orientation,
-                                        startNum: startRange,
-                                        endNum: endRange
 
                                     };
-                                    tempLocations.push(format);
-                                });
-                            } else {
-                                let instanceOf = instance.getIsInstanceOf_() ? instance.getIsInstanceOf_() : "invalid";
-                                let orientation = instance.getOrientation_() ? instance.getOrientation_().toString_() : "inline";
-                                let format = {
-
-                                    subcomponent: instanceOf,
-                                    orientation: orientation,
-
-                                };
-                                tempComponents.push(format);
+                                    tempComponents.push(format);
 
 
-                            }
-                        } else {
-                            console.log("Error");
-                        }
-                    });
-                    if (tempLocations.length !== 0) {
-                        sortedLocations = sortComponents(tempLocations);
-                        sortedLocations.forEach((ins) => {
-                            if (ins !== null) {
-                                let format = {
-                                    subcomponent: ins.subcomponent,
-                                    orientation: ins.orientation
                                 }
-                                orderedLocations.push(format);
+                            } else {
+                                console.log("Error");
                             }
                         });
+                        if (tempLocations.length !== 0) {
+                            sortedLocations = sortComponents(tempLocations);
+                            sortedLocations.forEach((ins) => {
+                                if (ins !== null) {
+                                    let format = {
+                                        subcomponent: ins.subcomponent,
+                                        orientation: ins.orientation
+                                    }
+                                    orderedLocations.push(format);
+                                }
+                            });
 
-                        if (orderedLocations.length !== 0) {
+                            if (orderedLocations.length !== 0) {
 
-                            locations.push(orderedLocations);
+                                locations.push(orderedLocations);
+                            }
+                        } else {
+                            mainComponents.push(tempComponents);
                         }
-                    } else {
-                        mainComponents.push(tempComponents);
-                    }
-                });
+                    });
+                } else {
+                    let allComponents = [];
+                    docComponents.forEach((component) => {
+                        let format = {
+                            component: component,
+                            orientation: "inline"
+                        }
+                        allComponents.push(format);
+
+                    });
+                    return getDisplayComponents(doc, allComponents);
+                }
 
                 if (locations.length !== 0) {
                     allComponents = getComponentURI(doc, locations);
@@ -372,87 +396,161 @@ module.exports = {
             }
             */
 
+            function getMultiObject(componentSequence) {
+                let tempComponent = [];
+                componentSequence.forEach((component) => {
+                    let properties = setProperties(component);
+                    // let orientation = component.orientation;
+                    // let displayId = component.component.getDisplayId_() ? component.component.getDisplayId_() : component.component.getName_();
+                    // let name = component.component.getName_() ? component.component.getName_() : component.component.getDisplayId_();
+                    // let types = component.component.getTypes_();
+                    // let details = component.component.getDescription_() ? component.component.getDescription_() : "";
+                    //if (displayId) details += displayId + '\n';
+                    // component.component.getDescription_() ? details += 'Description:\n' + component.component.getDescription_() + '\n' : "";
+                    let dnaType = [];
+
+                    //let sequence = getSequence(doc, component);
+
+                    let type = getToTypes(properties.types);
+
+                    dnaType.push(type);
+                    if (type === "DNA") { //TODO Checker
+
+                        let roles = component.component.getRoles_();
+                        let roleIdentifier = "undefined";
+                        if (roles) {
+                            roles.toArray_().forEach((identifier) => {
+                                roleIdentifier = identifier.toString_().replace(/https:\/\/identifiers.org\//g, "");
+                            });
+                        }
+                        let role = getToRoles(roles);
+
+                        let object = {
+                            name: properties.displayId,
+                            idURI: "https://synbiohub.org/public/igem/" + properties.displayId,
+                            items: [{
+                                id: properties.displayId,
+                                name: properties.name,
+                                description: properties.details,
+                                type: role,
+                                so: roleIdentifier,
+                                orientation: properties.orientation,
+                            }],
+                            dna: dnaType
+                        };
+                        let sequence = false;
+                        if (sequence === true) {
+                            object.items["sequence"] = sequence;
+                            tempComponent.push(object);
+                        } else {
+                            tempComponent.push(object);
+                        }
+                    } else {
+                        //TODO add role for nonDNA types
+                        tempComponent.push({
+                            name: properties.displayId,
+                            idURI: "https://synbiohub.org/public/igem/" + properties.displayId,
+                            items: [{
+                                id: properties.displayId,
+                                name: properties.name,
+                                description: properties.details,
+                                type: type,
+                                orientation: "inline"
+                            }],
+                            dna: dnaType
+                        });
+                    }
+                });
+                return tempComponent;
+            }
+
+
+            function setProperties(component) {
+                let properties = {};
+                properties["orientation"] = component.orientation;
+                properties["displayId"] = component.component.getDisplayId_() ? component.component.getDisplayId_() : component.component.getName_();
+                properties["name"] = component.component.getName_() ? component.component.getName_() : component.component.getDisplayId_();
+                properties["types"] = component.component.getTypes_();
+                properties["details"] = component.component.getDescription_() ? component.component.getDescription_() : ""; //'Component:\n ';
+                //  if (displayId) details += displayId + '\n';
+                // component.component.getDescription_() ? details += 'Description:\n' + component.component.getDescription_() + '\n' : "";
+                // properties["dnaType"] = [];
+                // let type = getToTypes(properties.types);
+                // properties.dnaType.push(type);
+
+                return properties;
+            }
+
+            function getSingleObject(component) {
+                let tempComponent = [];
+                let properties = setProperties(component);
+                // let orientation = component.orientation;
+                // let displayId = component.component.getDisplayId_() ? component.component.getDisplayId_() : component.component.getName_();
+                // let name = component.component.getName_() ? component.component.getName_() : component.component.getDisplayId_();
+                // let types = component.component.getTypes_();
+                // let details = component.component.getDescription_() ? component.component.getDescription_(): ""; //'Component:\n ';
+                //  if (displayId) details += displayId + '\n';
+                // component.component.getDescription_() ? details += 'Description:\n' + component.component.getDescription_() + '\n' : "";
+                let dnaType = [];
+                let type = getToTypes(properties.types);
+                dnaType.push(type);
+
+                if (type === "DNA") { //TODO Checker
+
+                    let roles = component.component.getRoles_();
+                    let roleIdentifier = "undefined";
+                    if (roles) {
+                        roles.toArray_().forEach((identifier) => {
+                            roleIdentifier = identifier.toString_().replace(/https:\/\/identifiers.org\//g, "");
+                        });
+                    }
+                    let role = getToRoles(roles);
+
+                    tempComponent.push({
+                        name: properties.displayId,
+                        idURI: "https://synbiohub.org/public/igem/" + properties.displayId,
+                        items: [{
+                            id: properties.displayId,
+                            name: properties.name,
+                            description: properties.details,
+                            type: role,
+                            so: roleIdentifier,
+                            orientation: properties.orientation
+
+                        }],
+                        dna: dnaType
+                    });
+
+                } else {
+                    //TODO add role for nonDNA types
+                    tempComponent.push({
+                        name: properties.displayId,
+                        idURI: "https://synbiohub.org/public/igem/" + properties.displayId,
+                        items: [{
+                            id: properties.displayId,
+                            name: properties.name,
+                            description: properties.details,
+                            type: type,
+                            orientation: "inline"
+                        }],
+                        dna: dnaType
+                    });
+                }
+                return tempComponent;
+            }
+
             //builds the object that contains the data related to the components to be displayed
             function getDisplayComponents(doc, displayComponents) {
                 let components = [];
+                // console.log("display Components", displayComponents);
                 displayComponents.forEach((componentSequence) => {
-
-                    let tempComponent = [];
-                    componentSequence.forEach((component) => {
-
-                        let orientation = component.orientation;
-                        let displayId = component.component.getDisplayId_() ? component.component.getDisplayId_() : component.component.getName_();
-                        let name = component.component.getName_() ? component.component.getName_() : component.component.getDisplayId_();
-                        let types = component.component.getTypes_();
-                        let details = 'Component:\n ';
-                        if (displayId) details += displayId + '\n';
-                        component.component.getDescription_() ? details += 'Description:\n' + component.component.getDescription_() + '\n' : "";
-                        let dnaType = [];
-
-                        //let sequence = getSequence(doc, component);
-
-                        let type = getToTypes(types);
-
-                        dnaType.push(type);
-                        if (type === "DNA") { //TODO Checker
-
-                            let roles = component.component.getRoles_();
-                            let roleIdentifier = "undefined";
-                            if (roles) {
-                                roles.toArray_().forEach((identifier) => {
-                                    roleIdentifier = identifier.toString_().replace(/https:\/\/identifiers.org\//g, "");
-                                });
-                            }
-                            let role = getToRoles(roles);
-
-                            let sequence = false;
-                            if (sequence === true) {
-                                tempComponent.push({
-                                    name: displayId,
-                                    idURI: "https://synbiohub.org/public/igem/" + displayId,
-                                    items: [{
-                                        id: displayId,
-                                        name: name,
-                                        description: details,
-                                        type: type,
-                                        so: roleIdentifier,
-                                        orientation: orientation,
-                                        sequence: sequence
-                                    }],
-                                    dna: dnaType
-                                });
-                            } else {
-                                tempComponent.push({
-                                    name: displayId,
-                                    idURI: "https://synbiohub.org/public/igem/" + displayId,
-                                    items: [{
-                                        id: displayId,
-                                        name: name,
-                                        description: details,
-                                        type: role,
-                                        so: roleIdentifier,
-                                        orientation: orientation
-
-                                    }],
-                                    dna: dnaType
-                                });
-                            }
-                        } else {
-                            //TODO add role for nonDNA types
-                            tempComponent.push({
-                                name: displayId,
-                                idURI: "https://synbiohub.org/public/igem/" + displayId,
-                                items: [{
-                                    id: displayId,
-                                    name: name,
-                                    description: details,
-                                    type: type,
-                                    orientation: "inline"
-                                }],
-                                dna: dnaType
-                            });
-                        }
-                    });
+                    let tempComponent;
+                    // console.log("component Sequence", componentSequence);
+                    if (componentSequence.length > 1) {
+                        tempComponent = getMultiObject(componentSequence);
+                    } else {
+                        tempComponent = getSingleObject(componentSequence);
+                    }
                     components.push(tempComponent);
                 });
                 return components;
