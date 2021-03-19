@@ -18,35 +18,35 @@
         Plan => VERY BROKEN
         Toggle Switch => Works
  */
+const fs = require('fs');
+const java = require('java');
+const mvn = require('node-java-maven');
+const Component = require('./Components.js');
+const FeatureComponent = require('./FeatureComponents.js');
+
+java.classpath.push("./public/libSBOLj3.jar");
+
+mvn(function (err, mvnResults) {
+    if (err) {
+        return console.error('could not resolve maven dependencies', err);
+    }
+    mvnResults.classpath.forEach(function (c) {
+        java.classpath.push(c);
+    });
+});
+//setting sync method suffix to _ to avoid Sync issues
+java.asyncOptions = {
+    asyncSuffix: undefined,     // Don't generate node-style methods taking callbacks
+    syncSuffix: "_",              // Sync methods use the base name(!!)
+    promiseSuffix: "Promise",   // Generate methods returning promises, using the suffix Promise.
+    promisify: require('util').promisify // Needs Node.js version 8 or greater, see comment below
+};
 
 module.exports = {
 
     setDocument: (data, format) => {
 
-        const fs = require('fs');
-        const java = require('java');
-        const mvn = require('node-java-maven');
-
-        java.classpath.push("./public/libSBOLj3.jar");
-
-        mvn(function (err, mvnResults) {
-            if (err) {
-                return console.error('could not resolve maven dependencies', err);
-            }
-            mvnResults.classpath.forEach(function (c) {
-                java.classpath.push(c);
-            });
-        });
-        //setting sync method suffix to _ to avoid Sync issues
-        java.asyncOptions = {
-            asyncSuffix: undefined,     // Don't generate node-style methods taking callbacks
-            syncSuffix: "_",              // Sync methods use the base name(!!)
-            promiseSuffix: "Promise",   // Generate methods returning promises, using the suffix Promise.
-            promisify: require('util').promisify // Needs Node.js version 8 or greater, see comment below
-        };
-
         try {
-
             //import classes from Java library
             let SBOLDocument = java.import("org.sbolstandard.entity.SBOLDocument");
             let ComponentType = java.import("org.sbolstandard.vocabulary.ComponentType");
@@ -147,16 +147,19 @@ module.exports = {
             }
 
             //sorts the subcomponents based on the start number of their ranges
-            function sortComponents(components) {
-                /*
-                sorted.forEach((subcomponent) => {
-                    delete subcomponent.startNum;
-                    delete subcomponent.endNum;
-                });
-                */
-                return components.sort((a, b) => (a.startNum > b.startNum) ? 1 : -1);
-            }
+            // function sortComponents(components) {
+            //     /*
+            //     sorted.forEach((subcomponent) => {
+            //         delete subcomponent.startNum;
+            //         delete subcomponent.endNum;
+            //     });
+            //     */
+            //     return components.sort((a, b) => (a.startNum > b.startNum) ? 1 : -1);
+            // }
 
+            function sortComponents(components) {
+                return components.sort((a, b) => (a.start > b.start) ? 1 : -1);
+            }
 
             /*
                 get components after getting their respective subcomponents,
@@ -176,8 +179,52 @@ module.exports = {
                 return docComponents;
             }
 
+            // function filterObject(object) {
+            //     return object.filter(a=> a.subcomponent.length !== 0);
+            // }
+
 
             function getComponents(doc) {
+
+                let map = new Map();
+                let map2 = new Map();
+                let testObjectComponents = [];
+                for (let x = 0; x < doc.getComponents_().size_(); x++) {
+                    let component = doc.getComponents_().get_(x);
+                    let componentTest = new Component(component);
+                    testObjectComponents.push(componentTest.components());
+                }
+
+                testObjectComponents.filter(x => x.subcomponents.length !== 0).forEach((component) => {
+                    let subcomponentObject = [];
+
+                    component.subcomponents.forEach((subcomponent) => {
+
+                        let componentFeatureTest = new FeatureComponent(subcomponent, doc, uri, Range);
+                        let components = componentFeatureTest.components();
+
+                        if (components.start && components.end !== undefined) {
+                            subcomponentObject.push(components);
+                        }
+                    });
+                    sortComponents(subcomponentObject);
+                    component.subcomponents.length = 0;
+                    component.subcomponents = subcomponentObject.slice(0);
+
+                    map.set(component.displayID,component);
+                });
+
+                testObjectComponents.forEach((component)=>{
+                    map2.set(component.displayID,component);
+                });
+
+
+
+                console.log("map",map);
+                console.log("map",map2);
+//TODO get each subcomponent, add to array run through class, sort for order then return and replace old subcomponents
+
+
                 let mainComponents = [];
                 let locations = [];
                 let sortedLocations;
@@ -190,12 +237,11 @@ module.exports = {
                 docComponents.forEach((component) => {
 
                     //TODO add overrideRoles capability
-                    component.getSubComponents_() ? features.push(component.getSubComponents_()) : "invalid";
+                    component.getSubComponents_() ? features.push(component.getSubComponents_()) : null;
 
                 });
 
 
-                //TODO if features empty then check to see if any components exist and use those instead IMPORTANT
                 if (features.length !== 0) {
 
                     features.forEach((subcomponents) => {
@@ -290,6 +336,8 @@ module.exports = {
 
                     });
                     return getDisplayComponents(doc, allComponents);
+
+
                 }
 
                 if (locations.length !== 0) {
@@ -314,7 +362,7 @@ module.exports = {
                     let format = {
 
                         component: instanceComponent,
-                        instanceID: instance,
+                        instanceID: instance
 
                     };
                     docComponents.push(format);
@@ -396,17 +444,20 @@ module.exports = {
             }
             */
 
+            function getToRoleIdentifier(roles) {
+                let role = "undefined";
+                if (roles) {
+                    roles.toArray_().forEach((identifier) => {
+                        role = identifier.toString_().replace(/https:\/\/identifiers.org\//g, "");
+                    });
+                }
+                return role;
+            }
+
             function getMultiObject(componentSequence) {
                 let tempComponent = [];
                 componentSequence.forEach((component) => {
                     let properties = setProperties(component);
-                    // let orientation = component.orientation;
-                    // let displayId = component.component.getDisplayId_() ? component.component.getDisplayId_() : component.component.getName_();
-                    // let name = component.component.getName_() ? component.component.getName_() : component.component.getDisplayId_();
-                    // let types = component.component.getTypes_();
-                    // let details = component.component.getDescription_() ? component.component.getDescription_() : "";
-                    //if (displayId) details += displayId + '\n';
-                    // component.component.getDescription_() ? details += 'Description:\n' + component.component.getDescription_() + '\n' : "";
                     let dnaType = [];
 
                     //let sequence = getSequence(doc, component);
@@ -417,12 +468,8 @@ module.exports = {
                     if (type === "DNA") { //TODO Checker
 
                         let roles = component.component.getRoles_();
-                        let roleIdentifier = "undefined";
-                        if (roles) {
-                            roles.toArray_().forEach((identifier) => {
-                                roleIdentifier = identifier.toString_().replace(/https:\/\/identifiers.org\//g, "");
-                            });
-                        }
+                        let roleIdentifier = getToRoleIdentifier(roles);
+
                         let role = getToRoles(roles);
 
                         let object = {
@@ -484,13 +531,6 @@ module.exports = {
             function getSingleObject(component) {
                 let tempComponent = [];
                 let properties = setProperties(component);
-                // let orientation = component.orientation;
-                // let displayId = component.component.getDisplayId_() ? component.component.getDisplayId_() : component.component.getName_();
-                // let name = component.component.getName_() ? component.component.getName_() : component.component.getDisplayId_();
-                // let types = component.component.getTypes_();
-                // let details = component.component.getDescription_() ? component.component.getDescription_(): ""; //'Component:\n ';
-                //  if (displayId) details += displayId + '\n';
-                // component.component.getDescription_() ? details += 'Description:\n' + component.component.getDescription_() + '\n' : "";
                 let dnaType = [];
                 let type = getToTypes(properties.types);
                 dnaType.push(type);
@@ -498,12 +538,7 @@ module.exports = {
                 if (type === "DNA") { //TODO Checker
 
                     let roles = component.component.getRoles_();
-                    let roleIdentifier = "undefined";
-                    if (roles) {
-                        roles.toArray_().forEach((identifier) => {
-                            roleIdentifier = identifier.toString_().replace(/https:\/\/identifiers.org\//g, "");
-                        });
-                    }
+                    let roleIdentifier = getToRoleIdentifier(roles);
                     let role = getToRoles(roles);
 
                     tempComponent.push({
@@ -556,7 +591,9 @@ module.exports = {
                 return components;
             }
 
-        } catch (e) {
+
+        } catch
+            (e) {
             console.log(e);
         }
     }

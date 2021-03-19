@@ -18,20 +18,21 @@ router.post('/', (req, res) => {
     let sboldata = req.body.sboldata;
     let format = req.body.format;
 
-
+  //  console.log(sboldata);
 //if body data exists, then sync promise parse data and set list data
     if (sboldata !== undefined) {
+
         let components = parser(sboldata, format);
         setList(components);
         setGlyphs(SBOL);
     }
 
-    res.render('index', {
-        //   sboldata: sboldata,
-        list: SBOL,
-        placeholder: sboldata,
-        glyphs: displayGlyphs
 
+    res.render('index', {
+      sboldata: sboldata,
+     list: SBOL,
+     placeholder: sboldata,
+     glyphs: displayGlyphs
     });
 });
 
@@ -57,7 +58,7 @@ const parser = (sbol, format) => {
         let data = getJSON(sbol);
         return API.setDocument(data, format);
     } catch (e) {
-        throw new Error(`Parsing Error`);
+        throw new Error(e);
     }
 }
 
@@ -95,7 +96,7 @@ function getJSON(json) {
     try {
         return JSON.parse(json);
     } catch (e) {
-        throw new Error(`Parsing Error`);
+        throw new Error(e);
     }
 }
 
