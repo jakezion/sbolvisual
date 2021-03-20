@@ -1,9 +1,12 @@
 module.exports = class Component {
 
 
-    constructor(component) {
+    constructor(component, doc, uri, sequence) {
 
         this.component = component;
+        this.doc = doc;
+        this.uri = uri;
+        this.sequence = sequence;
 
         this.types = this.component.getTypes_();
         this.roles = this.component.getRoles_();
@@ -14,7 +17,7 @@ module.exports = class Component {
     /*
     find way to update subcomponents on creation, self initialising
      */
-    setSubComponents() { //TODO maybe make each subcomponent own array in this.subcomponents
+    setSubComponents() {
         let subcomponents = [];
         this.component.getSubComponents_() ? this.component.getSubComponents_().toArray_().forEach((subcomponent) => {
             subcomponents.push(subcomponent);
@@ -31,8 +34,31 @@ module.exports = class Component {
     }
 
     setSequence() {
-       // console.log("sequences", this.component.getSequences_());
-        return this.component.getSequences_() ? this.component.getSequences_() : null;
+        let sequences = this.component.getSequences_() ? this.component.getSequences_().toArray_() : null;
+        if (sequences !== null) {
+            sequences.forEach((sequence) => {
+                sequences = sequence;
+            });
+
+            let resource = this.doc.getRDFModel_().getResource_(sequences.toString_());
+            let it = resource.listProperties_();
+            let resources = [];
+            if (it !== null) {
+                while (it.hasNext_()) {
+                    let stmt = it.nextStatement_();
+
+                    if (stmt.getPredicate_().toString_() === "http://sbols.org/v3#elements") {
+                        resources.push(stmt.getObject_().toString_());
+                    }
+                }
+                if (resources.length !== 0) {
+
+                    sequences = resources.toString();
+                }
+            }
+        }
+
+        return sequences;
     }
 
 
@@ -123,38 +149,44 @@ module.exports = class Component {
 
     setType() {
         let sboType = null;
-        this.types.toArray_().forEach((type) => {
-            if (type) {
-                let format = type.toString_().replace(/https:\/\/identifiers.org\//g, "");
-                let sbo = (format).match(/SBO.([0-9]+)/g);
-                sboType = sbo ? this.componentType(sbo) : null;
-            }
-        });
+        if (this.types !== null) {
+            this.types.toArray_().forEach((type) => {
+                if (type) {
+                    let format = type.toString_().replace(/https:\/\/identifiers.org\//g, "");
+                    let sbo = (format).match(/SBO.([0-9]+)/g);
+                    sboType = sbo ? this.componentType(sbo) : null;
+                }
+            });
+        }
         return sboType;
     }
 
     setGlyph() {
         let glyph = "unspecified";
-        this.roles.toArray_().forEach((role) => {
-            if (role) {
-                let format = role.toString_().replace(/https:\/\/identifiers.org\//g, "");
-                if ((format).match(/SO.([0-9]+)/g)) {
-                    glyph = this.getSoRoles(format) ? this.getSoRoles(format) : "unspecified";
-                } else if ((format).match(/GO.([0-9]+)/g)) {
-                    glyph = this.getGoRoles(format) ? this.getGoRoles(format) : "unspecified";
-                } else if ((format).match(/CHEBI.([0-9]+)/g)) {
-                    glyph = this.getChebiRoles(format) ? this.getChebiRoles(format) : "unspecified";
+        if (this.roles !== null) {
+            this.roles.toArray_().forEach((role) => {
+                if (role) {
+                    let format = role.toString_().replace(/https:\/\/identifiers.org\//g, "");
+                    if ((format).match(/SO.([0-9]+)/g)) {
+                        glyph = this.getSoRoles(format) ? this.getSoRoles(format) : "unspecified";
+                    } else if ((format).match(/GO.([0-9]+)/g)) {
+                        glyph = this.getGoRoles(format) ? this.getGoRoles(format) : "unspecified";
+                    } else if ((format).match(/CHEBI.([0-9]+)/g)) {
+                        glyph = this.getChebiRoles(format) ? this.getChebiRoles(format) : "unspecified";
+                    }
                 }
-            }
-        });
+            });
+        }
         return glyph;
     }
 
-    setRole() { //TODO checker
+    setRole() {
         let role = null;
-        this.roles.toArray_().forEach((identifier) => {
-            if (identifier) role = identifier.toString_().replace(/https:\/\/identifiers.org\//g, "");
-        });
+        if (this.roles !== null) {
+            this.roles.toArray_().forEach((identifier) => {
+                if (identifier) role = identifier.toString_().replace(/https:\/\/identifiers.org\//g, "");
+            });
+        }
         return role;
     }
 

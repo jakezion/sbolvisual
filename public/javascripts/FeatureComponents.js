@@ -40,7 +40,7 @@ module.exports = class FeatureComponent {
     setOrientation() {
         // this.subcomponent.forEach()
         let resource = this.doc.getRDFModel_().getResource_(this.component.getUri_().toString_());
-        let it = resource.listProperties_(); //Todo Lift properties if URI === hasLocation
+        let it = resource.listProperties_();
         let resources = [];
         if (it !== null) {
             while (it.hasNext_()) {

@@ -186,12 +186,12 @@ module.exports = {
 
             function getComponents(doc) {
 
+                //let map = new Map();
                 let map = new Map();
-                let map2 = new Map();
                 let testObjectComponents = [];
                 for (let x = 0; x < doc.getComponents_().size_(); x++) {
                     let component = doc.getComponents_().get_(x);
-                    let componentTest = new Component(component);
+                    let componentTest = new Component(component,doc,uri,Sequence);
                     testObjectComponents.push(componentTest.components());
                 }
 
@@ -207,21 +207,22 @@ module.exports = {
                             subcomponentObject.push(components);
                         }
                     });
+
                     sortComponents(subcomponentObject);
                     component.subcomponents.length = 0;
                     component.subcomponents = subcomponentObject.slice(0);
 
-                    map.set(component.displayID,component);
+                    //map.set(component.displayID,component);
                 });
 
                 testObjectComponents.forEach((component)=>{
-                    map2.set(component.displayID,component);
+                    map.set(component.displayID,component);
                 });
 
 
 
                 console.log("map",map);
-                console.log("map",map2);
+
 //TODO get each subcomponent, add to array run through class, sort for order then return and replace old subcomponents
 
 
