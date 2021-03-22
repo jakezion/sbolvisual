@@ -1,5 +1,5 @@
 <% extend 'layout' %>
-<script >
+<script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
@@ -47,7 +47,7 @@
                 </ul>
                 <div class="tab-content mt-5">
                     <div class="tab-pane active" role="tabpanel" id="glyph">
-<!-- TODO Hover glyphs for type details-->
+                        <!-- TODO Hover glyphs for type details-->
                         <% if @glyphs?.length : %>
                         <% for section in @glyphs : %>
                         <div class="sbol-visual centered">
@@ -58,60 +58,97 @@
                         </div>
                         <%end %>
                         <% else : %>
-<!--                        <p>Glyph is empty</p>-->
+                        <!--                        <p>Glyph is empty</p>-->
                         <% end %>
 
 
                     </div>
 
                     <div class="tab-pane" role="tabpanel" id="list">
-                        <form method="get" role="form" action="/">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Detailed</label>
-                            </div>
-                        </form>
-
-
+                        <!--                        <form method="get" role="form" action="/">-->
+                        <!--                            <div class="form-check">-->
+                        <!--                                <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+                        <!--                                <label class="form-check-label" for="exampleCheck1">Detailed</label>-->
+                        <!--                            </div>-->
+                        <!--                        </form>-->
                         <% if @list?.length : %>
 
-                        <% for item in @list : %>
+                        <% for component in @list : %>
                         <div class="accordion" id="accordion">
-
-                            <% for component in item : %>
-                            <% for identifier in component.items : %>
                             <div class="card">
-                                <div class="card-header" role="tab">
-                                    <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1"></a>
-                                        <a href="<%- component.idURI %>" target="_blank"><%= identifier.id %></a>
-                                    </h5>
-
-                                    <div class="card-subtitle">
-<!--                                        <pre>-->
-                                        <%= identifier.description %>
-<!--                                        </pre>-->
+                                <div class="card-header" id="heading<%-component[1]%>">
+                                    <button class="btn btn-block" type="button" data-toggle="collapse" data-target="#collapse<%-component[1]%>" aria-expanded="true" aria-controls="collapse<%-component[1]%>" >
+                                    <a  href="https://synbiohub.org/public/igem/<%-component[0].displayID%>" target="_blank"><%= component[0].displayID %></a>
+                                        <div class="card-subtitle">
+                                        <%= component[0].description %>
                                     </div>
+                                    </button>
                                 </div>
-                                <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
+
+                                <div id="collapse<%-component[1]%>" class="collapse" aria-labelledby="heading<%-component[1]%>" data-parent="#accordion">
                                     <div class="card-body">
-<!--                                        <pre>-->
-                                            ID: <%= identifier.id %>
-                                            Name: <%= identifier.name %>
-                                            Description: <%=identifier.description %>
-                                            Type: <%= identifier.so %>
-                                            Component: <%= identifier.orientation %>
-<!--                                        </pre>-->
+                                        <!--                                        <pre>-->
+                                        ID: <%= component[0].displayID %>
+                                        <br>
+                                        Name: <%= component[0].name %>
+                                        <br>
+                                        Description: <%=component[0].description %>
+                                        <br>
+                                        Type: <%= component[0].type %>
+                                        <br>
+                                        Role: <%= component[0].role %>
+                                        <br>
+                                        Glyph: <%= component[0].glyph %>
+                                        <br>
+                                        Orientation: <%= component[0].orientation %>
+                                        <br>
+                                        Sequence: <%= component[0].sequence %>
+                                        <% if component[0].subcomponents?.length : %>
+                                        <br>
+                                        Subcomponents:
+
+                                        <% for subcomponent in component[0].subcomponents : %>
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <a href="https://synbiohub.org/public/igem/<%- subcomponent.displayID %>" target="_blank"><%= subcomponent.displayID %></a>
+                                            </div>
+                                            <div class="card-body">
+                                                <br>
+                                                ID: <%= subcomponent.displayID %>
+                                                <br>
+                                                Name: <%= subcomponent.name %>
+                                                <br>
+                                                Description: <%=subcomponent.description %>
+                                                <br>
+                                                Type: <%= subcomponent.type %>
+                                                <br>
+                                                Role: <%= subcomponent.role %>
+                                                <br>
+                                                Glyph: <%= subcomponent.glyph %>
+                                                <br>
+                                                Orientation: <%= subcomponent.orientation %>
+                                                <br>
+                                                Sequence: <%= subcomponent.sequence %>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <% end %>
+                                        <% else : %>
+                                        <!--                        <p>List is empty</p>-->
+                                        <% end %>
+                                        <!--                                        </pre>-->
 
 
                                     </div>
                                 </div>
                             </div>
-                            <% end %>
-                            <% end %>
+
+
                         </div>
                         <% end %>
                         <% else : %>
-<!--                        <p>List is empty</p>-->
+                        <!--                        <p>List is empty</p>-->
                         <% end %>
                     </div>
                 </div>

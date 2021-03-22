@@ -1,9 +1,11 @@
-const express = require('express'),
+let express = require('express'),
     router = express.Router(),
     fs = require('fs'),
-    API = require('../public/javascripts/API');
+    api = require('../public/javascripts/API');
+
 let displayGlyphs = [];
 let SBOL;
+let list = [];
 
 //placeholder for textarea
 let placeholder = fs.readFileSync("./public/placeholder.json").toString();
@@ -18,21 +20,23 @@ router.post('/', (req, res) => {
     let sboldata = req.body.sboldata;
     let format = req.body.format;
 
-  //  console.log(sboldata);
+    //  console.log(sboldata);
 //if body data exists, then sync promise parse data and set list data
     if (sboldata !== undefined) {
 
         let components = parser(sboldata, format);
+        //console.log(components); //tODO proper sort of components
+        setGlyphs(components);
         setList(components);
-        setGlyphs(SBOL);
+
     }
 
-
+console.log(list);
     res.render('index', {
-      sboldata: sboldata,
-     list: SBOL,
-     placeholder: sboldata,
-     glyphs: displayGlyphs
+        sboldata: sboldata,
+        list: list,
+        placeholder: sboldata,
+        glyphs: displayGlyphs
     });
 });
 
@@ -56,39 +60,110 @@ router.get('/', (req, res) => {
 const parser = (sbol, format) => {
     try {
         let data = getJSON(sbol);
-        return API.setDocument(data, format);
+        let API = new api(data, format);
+        return API.getComponents();
     } catch (e) {
         throw new Error(e);
     }
 }
 
-//TODO IF GLYPH DNA TYPE !== DNA THEN DONT GET GLYPH
+/* TODO works
+const parser = (sbol, format) => {
+    try {
+        let data = getJSON(sbol);
+        return API.setDocument(data, format);
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+ */
+
 function setGlyphs(components) {
     let glyphs = [];
+    //console.log("compoentns", components);
     components.forEach((component) => {
-
         let glyph = [];
-        component.forEach((itemValue) => {
-            //update for multiple types
-            if (itemValue.dna.includes("DNA")) {
-                itemValue.items.forEach((item) => {
 
-                    let details = {
+        if (component.subcomponents.length !== 0) {
+            //console.log(component);
+            //console.log("range",component.subcomponents.start);
+            let set = [];
+            // if (set.length !== 0) {
+            component.subcomponents.forEach((subcomponent) => {
+                if (subcomponent.start && subcomponent.end !== undefined) {
+                    let item = getComponent(components, subcomponent.instance);
+                    if (item.type === "DNA") {
+                        let details = {
+                            type: item.glyph,
+                            orientation: subcomponent.orientation,
+                            name: item.name
+                        };
+                        glyph.push(details);
+                    }
+                }
 
-                        type: item.type,
-                        orientation: item.orientation,
-                        name: item.id
+                // console.log("set", set);
+                // glyph.push(set);
+            });
+            //if (subcomponent.start && subcomponent.end !== undefined) {
 
-                    };
-                    glyph.push(details);
-                });
-            }
-        });
-        glyphs.push(glyph);
+            // let item = getComponent(components, subcomponent.instance);
+            // // console.log("type",item.);
+            // if (item.type === "DNA") {
+            //     // console.log(item);
+            //     let details = {
+            //         type: item.glyph,
+            //         orientation: subcomponent.orientation,
+            //         name: item.name
+            //     };
+            //     glyph.push(details);
+            // }
+            // }
+            //});
+            // } else {
+
+            // }
+        }
+        if (glyph.length !== 0) {
+            glyphs.push(glyph);
+        }
+
+
     });
+    //console.log("glyph", glyphs);
+    /* if (glyphs.length === 0) {
+         components.forEach((component) => {
+             // console.log("comp",component);
+             if (component.type === "DNA") {
+                 let details = {
+                     type: component.glyph,
+                     orientation: component.orientation,
+                     name: component.name
+                 };
+                 glyphs.push(details);
+             }
 
+         });
+
+     }*/
+    //console.log("glyphs",glyphs);
     getGlyph(glyphs);
 
+}
+
+function getComponent(map, key) {
+    let component = map.get(key);
+    //console.log(component);
+    return {
+        displayID: component.displayID,
+        description: component.description,
+        role: component.role,
+        orientation: component.orientation,
+        sequence: component.sequence,
+        type: component.type,
+        name: component.name,
+        glyph: component.glyph
+    };
 }
 
 
@@ -103,10 +178,9 @@ function getJSON(json) {
 function getGlyph(glyph) {
     if (glyph) {
         let URI = [];
-
         glyph.forEach((type) => {
             let tempURI = [];
-
+            // console.log(type);
             type.forEach((value) => {
                 let getGlyph = value.type.toLowerCase();
                 let getOrientation = value.orientation.toLowerCase();
@@ -167,8 +241,34 @@ function getGlyph(glyph) {
 }
 
 function setList(data) {
-    SBOL = data;
-    return data;
+  //  let temp = data;
+//let val = temp;
+   // temp.forEach(x => console.log("before",x));
+let count =0;
+
+    data.forEach((component) => {
+        let subcomponents = [];
+        let count2 = 0;
+        if (component.subcomponents.length !== 0) {
+
+            component.subcomponents.forEach((subcomponent) => {
+                //console.log(getComponent(data,subcomponent));
+                subcomponents.push(getComponent(data, subcomponent.instance));
+                count++;
+            });
+
+            component.subcomponents.length = 0;
+            component.subcomponents = subcomponents.slice(0);
+
+
+        }
+
+        list.push([component,count]);
+        count++;
+    });
+//
+  //  val.forEach(x => console.log("x",x));
+   // return val;
 }
 
 module.exports = router;
