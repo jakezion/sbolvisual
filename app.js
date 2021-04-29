@@ -63,7 +63,6 @@ app.use( (req, res, next) => {
 });
 
 app.listen(app.port, () => {
-
     console.log(`Server hosted at ${app.hostname}:${app.port}`);
 });
 

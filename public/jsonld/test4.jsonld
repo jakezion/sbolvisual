@@ -1,0 +1,158 @@
+{
+  "@graph" : [ {
+    "@id" : "BBa_B0010",
+    "@type" : "sbol:Component",
+    "description" : "Transcriptional terminator consisting of a 64 bp stem-loop",
+    "displayId" : "BBa_B0010",
+    "hasSequence" : "BBa_B0010_Sequence1",
+    "name" : "BBa_B0010",
+    "role" : "SO:0000141",
+    "type" : "SBO:0000251"
+  }, {
+    "@id" : "BBa_B0010_Sequence1",
+    "@type" : "sbol:Sequence",
+    "description" : "BBa_B0010 sequence",
+    "displayId" : "BBa_B0010_Sequence1",
+    "elements" : "ccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctc",
+    "encoding" : "sbol:iupacNucleicAcid",
+    "name" : "Sequence1"
+  }, {
+    "@id" : "BBa_B0012",
+    "@type" : "sbol:Component",
+    "description" : "Double terminator consisting of BBa_B0010 and BBa_B0012",
+    "displayId" : "BBa_B0012",
+    "hasSequence" : "BBa_B0012_Sequence1",
+    "name" : "BBa_B0012",
+    "role" : "SO:0000141",
+    "type" : "SBO:0000251"
+  }, {
+    "@id" : "BBa_B0012_Sequence1",
+    "@type" : "sbol:Sequence",
+    "description" : "BBa_B0012 sequence",
+    "displayId" : "BBa_B0012_Sequence1",
+    "elements" : "tcacactggctcaccttcgggtgggcctttctgcgtttata",
+    "encoding" : "sbol:iupacNucleicAcid",
+    "name" : "Sequence1"
+  }, {
+    "@id" : "BBa_B0015",
+    "@type" : "sbol:Component",
+    "description" : "Double terminator consisting of BBa_B0010 and BBa_B0012",
+    "displayId" : "BBa_B0015",
+    "hasFeature" : [ "BBa_B0015/SubComponent1", "BBa_B0015/SubComponent2" ],
+    "hasSequence" : "BBa_B0015_Sequence1",
+    "name" : "BBa_B0015",
+    "role" : "SO:0000141",
+    "type" : "SBO:0000251"
+  }, {
+    "@id" : "BBa_B0015/SubComponent1",
+    "@type" : "sbol:SubComponent",
+    "displayId" : "SubComponent1",
+    "hasLocation" : "BBa_B0015/SubComponent1/Range1",
+    "instanceOf" : "BBa_B0010",
+    "orientation" : "sbol:inline"
+  }, {
+    "@id" : "BBa_B0015/SubComponent1/Range1",
+    "@type" : "sbol:Range",
+    "displayId" : "Range1",
+    "end" : "79",
+    "hasSequence" : "BBa_B0015_Sequence1",
+    "orientation" : "sbol:inline",
+    "start" : "1"
+  }, {
+    "@id" : "BBa_B0015/SubComponent2",
+    "@type" : "sbol:SubComponent",
+    "displayId" : "SubComponent2",
+    "hasLocation" : "BBa_B0015/SubComponent2/Range1",
+    "instanceOf" : "BBa_B0012",
+    "orientation" : "sbol:inline"
+  }, {
+    "@id" : "BBa_B0015/SubComponent2/Range1",
+    "@type" : "sbol:Range",
+    "displayId" : "Range1",
+    "end" : "121",
+    "hasSequence" : "BBa_B0015_Sequence1",
+    "orientation" : "sbol:inline",
+    "start" : "81"
+  }, {
+    "@id" : "BBa_B0015_Sequence1",
+    "@type" : "sbol:Sequence",
+    "description" : "BBa_B0015 sequence",
+    "displayId" : "BBa_B0015_Sequence1",
+    "elements" : "ccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctcacactggctcaccttcgggtgggcctttctgcgtttata",
+    "encoding" : "sbol:iupacNucleicAcid",
+    "name" : "Sequence1"
+  }],
+  "@context" : {
+    "start" : {
+      "@id" : "http://sbols.org/v3#start"
+    },
+    "orientation" : {
+      "@id" : "http://sbols.org/v3#orientation",
+      "@type" : "@id"
+    },
+    "hasSequence" : {
+      "@id" : "http://sbols.org/v3#hasSequence",
+      "@type" : "@id"
+    },
+    "end" : {
+      "@id" : "http://sbols.org/v3#end"
+    },
+    "displayId" : {
+      "@id" : "http://sbols.org/v3#displayId"
+    },
+    "instanceOf" : {
+      "@id" : "http://sbols.org/v3#instanceOf",
+      "@type" : "@id"
+    },
+    "hasLocation" : {
+      "@id" : "http://sbols.org/v3#hasLocation",
+      "@type" : "@id"
+    },
+    "name" : {
+      "@id" : "http://sbols.org/v3#name"
+    },
+    "encoding" : {
+      "@id" : "http://sbols.org/v3#encoding",
+      "@type" : "@id"
+    },
+    "elements" : {
+      "@id" : "http://sbols.org/v3#elements"
+    },
+    "description" : {
+      "@id" : "http://sbols.org/v3#description"
+    },
+    "type" : {
+      "@id" : "http://sbols.org/v3#type",
+      "@type" : "@id"
+    },
+    "role" : {
+      "@id" : "http://sbols.org/v3#role",
+      "@type" : "@id"
+    },
+    "hasParticipation" : {
+      "@id" : "http://sbols.org/v3#hasParticipation",
+      "@type" : "@id"
+    },
+    "participant" : {
+      "@id" : "http://sbols.org/v3#participant",
+      "@type" : "@id"
+    },
+    "hasFeature" : {
+      "@id" : "http://sbols.org/v3#hasFeature",
+      "@type" : "@id"
+    },
+    "hasInteraction" : {
+      "@id" : "http://sbols.org/v3#hasInteraction",
+      "@type" : "@id"
+    },
+    "@vocab" : "https://synbiohub.org/public/igem/",
+    "SBO" : "https://identifiers.org/SBO:",
+    "CHEBI" : "https://identifiers.org/CHEBI:",
+    "GO" : "https://identifiers.org/GO:",
+    "sbol" : "http://sbols.org/v3#",
+    "EDAM" : "https://identifiers.org/edam:",
+    "SO" : "https://identifiers.org/SO:",
+    "prov" : "http://www.w3.org/ns/prov#",
+    "om" : "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+  }
+}

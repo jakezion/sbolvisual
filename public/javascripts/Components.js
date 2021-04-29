@@ -28,11 +28,14 @@ module.exports = class Component {
         }) : null;
     }
 
+    //gets all subcomponents a component might have a children
     getSubComponents() {
         this.setSubComponents();
         return this.subcomponents;
     }
 
+
+    //get the coded version of the component sequence section
     setSequence() {
         let sequences = this.component.getSequences_() ? this.component.getSequences_().toArray_() : null;
         if (sequences !== null) {
@@ -133,20 +136,23 @@ module.exports = class Component {
         }
     }
 
+    //sets the display id for the component
     setDisplayID() {
         return this.component.getDisplayId_() ? this.component.getDisplayId_() : this.component.getName_();
     }
 
 
+    //sets the name for the component
     setName() {
         return this.component.getName_() ? this.component.getName_() : this.component.getDisplayId_();
     }
 
-
+    //sets the description for the component
     setDescription() {
         return this.component.getDescription_() ? this.component.getDescription_() : null;
     }
 
+    //sets the type for the component
     setType() {
         let sboType = null;
         if (this.types !== null) {

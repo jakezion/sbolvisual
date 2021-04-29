@@ -1,0 +1,83 @@
+{
+  "@graph" : [ {
+    "@id" : "ter_luxR",
+    "@type" : "sbol:Component",
+    "description" : "Terminator",
+    "displayId" : "ter_luxR",
+    "name" : "luxR terminator",
+    "role" : "SO:0000141",
+    "type" : "SBO:0000251"
+  } ],
+  "@context" : {
+    "type" : {
+      "@id" : "http://sbols.org/v3#type",
+      "@type" : "@id"
+    },
+    "role" : {
+      "@id" : "http://sbols.org/v3#role",
+      "@type" : "@id"
+    },
+    "name" : {
+      "@id" : "http://sbols.org/v3#name"
+    },
+    "displayId" : {
+      "@id" : "http://sbols.org/v3#displayId"
+    },
+    "description" : {
+      "@id" : "http://sbols.org/v3#description"
+    },
+    "instanceOf" : {
+      "@id" : "http://sbols.org/v3#instanceOf",
+      "@type" : "@id"
+    },
+    "hasParticipation" : {
+      "@id" : "http://sbols.org/v3#hasParticipation",
+      "@type" : "@id"
+    },
+    "participant" : {
+      "@id" : "http://sbols.org/v3#participant",
+      "@type" : "@id"
+    },
+    "inChildOf" : {
+      "@id" : "http://sbols.org/v3#inChildOf",
+      "@type" : "@id"
+    },
+    "hasFeature" : {
+      "@id" : "http://sbols.org/v3#hasFeature",
+      "@type" : "@id"
+    },
+    "hasConstraint" : {
+      "@id" : "http://sbols.org/v3#hasConstraint",
+      "@type" : "@id"
+    },
+    "subject" : {
+      "@id" : "http://sbols.org/v3#subject",
+      "@type" : "@id"
+    },
+    "restriction" : {
+      "@id" : "http://sbols.org/v3#restriction",
+      "@type" : "@id"
+    },
+    "object" : {
+      "@id" : "http://sbols.org/v3#object",
+      "@type" : "@id"
+    },
+    "orientation" : {
+      "@id" : "http://sbols.org/v3#orientation",
+      "@type" : "@id"
+    },
+    "hasInteraction" : {
+      "@id" : "http://sbols.org/v3#hasInteraction",
+      "@type" : "@id"
+    },
+    "@vocab" : "https://sbolstandard.org/examples/",
+    "SBO" : "https://identifiers.org/SBO:",
+    "CHEBI" : "https://identifiers.org/CHEBI:",
+    "GO" : "https://identifiers.org/GO:",
+    "sbol" : "http://sbols.org/v3#",
+    "EDAM" : "https://identifiers.org/edam:",
+    "SO" : "https://identifiers.org/SO:",
+    "prov" : "http://www.w3.org/ns/prov#",
+    "om" : "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+  }
+}

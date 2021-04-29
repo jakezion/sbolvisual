@@ -21,7 +21,7 @@
 const fs = require('fs');
 const java = require('java');
 const Component = require('./Components.js');
-const FeatureComponent = require('./FeatureComponents.js');
+const SubComponents = require('./SubComponents.js');
 
 java.classpath.push("./public/libSBOLj3.jar");
 
@@ -75,23 +75,30 @@ module.exports = class setDocument {
         return components.sort((a, b) => (a.start > b.start) ? 1 : -1);
     }
 
+    //gets a particular subcomponents data
     getSubComponents(subcomponent) {
-        this.componentFeatureTest = new FeatureComponent(subcomponent, this.doc, this.uri, this.Range);
+        this.componentFeatureTest = new SubComponents(subcomponent, this.doc, this.uri, this.Range);
         return this.componentFeatureTest.components();
     }
 
+    //gets all components within a sequence
     getComponents() {
-
-
         let map = new Map();
-        let testObjectComponents = [];
+        let componentObject = [];
+
+        //java bridge loop for getting all components
         for (let x = 0; x < this.doc.getComponents_().size_(); x++) {
-            let component = this.doc.getComponents_().get_(x);
-            let componentTest = new Component(component, this.doc, this.uri, this.Sequence);
-            testObjectComponents.push(componentTest.components());
+            let item = this.doc.getComponents_().get_(x);
+            let component = new Component(component, this.doc, this.uri, this.Sequence);
+            componentObject.push(component.components());
         }
 
-        testObjectComponents.filter(x => x.subcomponents.length !== 0).forEach((component) => {
+        /*
+        * filters each component to see if they have subcomponents.
+        *  if true then push each subcomponent into an array
+        *  where their data is gathered and then ordered
+         */
+        componentObject.filter(x => x.subcomponents.length !== 0).forEach((component) => {
             let subcomponentObject = [];
 
             component.subcomponents.forEach((subcomponent) => {
@@ -101,26 +108,33 @@ module.exports = class setDocument {
                     subcomponentObject.push(components);
                 }
             });
-
+            /*
+            sorts subcomponents by their position in the sequence
+            if subcomponent array has elements otherwise data is subcomponent
+            is pushed to array
+             */
             if (subcomponentObject.length !== 0) {
                 this.sortComponents(subcomponentObject);
                 component.subcomponents.length = 0;
                 component.subcomponents = subcomponentObject.slice(0);
-                //TODO FIX
+
             } else {
-                // console.log("component", component);
                 component.subcomponents.forEach((subcomponent) => {
                     subcomponentObject.push(this.getSubComponents(subcomponent));
                 });
                 component.subcomponents = subcomponentObject;
-                // testObjectComponents.push(subcomponentObject); //TODO FIX
+                // componentObject.push(subcomponentObject);
             }
-            //testObjectComponents.push(subcomponentObject);
-            //console.log("components2", subcomponentObject);
+            //componentObject.push(subcomponentObject);
         });
 
 
-        testObjectComponents.forEach((component) => {
+        /*
+        every component in a sequence is set in the map,
+         with its display ID matched to it
+         (for subcomponent matching when glyphs are assigned)
+         */
+        componentObject.forEach((component) => {
             map.set(component.displayID, component);
         });
 

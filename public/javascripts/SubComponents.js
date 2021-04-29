@@ -13,30 +13,35 @@ module.exports = class FeatureComponent {
 
     }
 
+    //set the instance (component) value of a subcomponent
     setInstanceOf() {
         return this.component.getIsInstanceOf_() ? this.component.getIsInstanceOf_().toString_().replace(/https:\/\/synbiohub.org\/public\/igem\//g, "") : "unspecified";
     }
 
+    //set the start value of the subcomponent in the overall sequence
     setStart(start) {
         return this.start = start;
     }
 
+    //get the start value of the subcomponent in the overall sequence
     getStart() {
         return this.start;
     }
 
 
+    //set the end value of the subcomponent in the overall sequence
     setEnd(end) {
         return this.end = end;
     }
 
+    //get the end value of the subcomponent in the overall sequence
     getEnd() {
         return this.end;
     }
 
 
 
-
+    //set the orientation of current subcomponent
     setOrientation() {
         // this.subcomponent.forEach()
         let resource = this.doc.getRDFModel_().getResource_(this.component.getUri_().toString_());

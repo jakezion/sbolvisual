@@ -58,7 +58,7 @@
                         </div>
                         <%end %>
                         <% else : %>
-                        <!--                        <p>Glyph is empty</p>-->
+                        <p class="text-center">Glyph Visualisation is not currently available for this design.</p>
                         <% end %>
 
 
@@ -77,11 +77,12 @@
                         <div class="accordion" id="accordion">
                             <div class="card">
                                 <div class="card-header" id="heading<%-component[1]%>">
-                                    <button class="btn btn-block" type="button" data-toggle="collapse" data-target="#collapse<%-component[1]%>" aria-expanded="true" aria-controls="collapse<%-component[1]%>" >
-                                    <a  href="https://synbiohub.org/public/igem/<%-component[0].displayID%>" target="_blank"><%= component[0].displayID %></a>
+                                    <button class="btn btn-block" type="button" data-toggle="collapse" data-target="#collapse<%-component[1]%>" aria-expanded="true"
+                                            aria-controls="collapse<%-component[1]%>">
+                                        <a href="https://synbiohub.org/public/igem/<%-component[0].displayID%>" target="_blank"><%= component[0].displayID %></a>
                                         <div class="card-subtitle">
-                                        <%= component[0].description %>
-                                    </div>
+                                            <%= component[0].description %>
+                                        </div>
                                     </button>
                                 </div>
 
