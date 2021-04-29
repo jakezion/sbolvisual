@@ -1,7 +1,7 @@
 const express = require('express'),
     router = express.Router();
 
-
+//about page router
 router.get('/', (req, res) => {
 
     res.render('about', {
@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
     });
 });
 
+//links page router
 router.get('/links', (req, res) => {
 
     res.render('links', {

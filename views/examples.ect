@@ -1,20 +1,18 @@
 <% extend 'layout' %>
 <!--<script src="node_modules/clipboard/dist/clipboard.min.js"></script>-->
 <script>
-    //new ClipboardJS('.copy');
-
-    function myFunction() {
-        console.log("here");
-        let copyText = document.getElementById("content");
-
-
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-        document.execCommand("copy");
-
-        alert("Copied the text: " + copyText.value);
-    }
+    // function myFunction() {
+    //     console.log("here");
+    //     let copyText = document.getElementById("content");
+    //
+    //
+    //     copyText.select();
+    //     copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    //
+    //     document.execCommand("copy");
+    //
+    //     alert("Copied the text: " + copyText.value);
+    // }
 </script>
     <div>
         <h1 class="text-center">Examples</h1>
@@ -25,34 +23,12 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-<!--                <div class="row">-->
-<!--                    <div class="col-4">-->
-<!--                        <div class="list-group" id="list-tab" role="tablist">-->
-<!--                            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>-->
-<!--                            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>-->
-<!--                            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>-->
-<!--                            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-8">-->
-<!--                        <div class="tab-content" id="nav-tabContent">-->
-<!--                            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">jj</div>-->
-<!--                            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">.kk..</div>-->
-<!--                            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">ll</div>-->
-<!--                            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">ii</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+
                 <div class="accordion" id="accordion">
                     <% if @files?.length : %>
                     <% for file in @files : %>
                     <div class="card">
-
                             <div class="card-header" id="heading<%-file[2]%>">
-<!--                                <button class="btn btn-dark" onclick="myFunction()">-->
-<!--                                    Copy to clipboard-->
-<!--                                </button>-->
-
                                 <a data-toggle="collapse" data-target="#collapse<%-file[2]%>" aria-expanded="true" aria-controls="collapse<%-file[2]%>">
                                 <h5 class="mb-0 text-center" id="content"><%= file[0] %></h5>
                                 </a>

@@ -2,7 +2,7 @@ const express = require('express'),
   // dragula = require('dragula'),
     router = express.Router();
 
-
+//drag and drop router
 router.all('/', (req, res) => {
 
     res.render('dragdrop', {

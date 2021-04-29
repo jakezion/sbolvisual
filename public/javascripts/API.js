@@ -1,23 +1,3 @@
-/*TODO
-   Check:
-        PopsReceiver => Works
-        Combine 2020 => Works
-        Annotation => FIX
-        Attachment => FIX
-        Collection => FIX
-        Component Urn Uri => FIX
-        Implementation => FIX
-        Interface => FIX
-        Model => FIX
-        Measurement => FIX
-        Measurement Using Units From OM => FIX
-        Multicellular => Works
-        Multicellular Simple => FIX
-        Activity => FIX
-        Agent => FIX
-        Plan => VERY BROKEN
-        Toggle Switch => Works
- */
 const fs = require('fs');
 const java = require('java');
 const Component = require('./Components.js');
@@ -62,9 +42,6 @@ module.exports = class setDocument {
             this.model = this.modelFactory.read_(this.is, "https://synbiohub.org/public/igem/", format);
             this.doc = new this.SBOLDocument(this.model);
 
-            //return components and their objects to be sent to middleware
-            //return this.getComponents(this.doc);
-
         } catch (e) {
             console.log(e);
         }
@@ -89,7 +66,7 @@ module.exports = class setDocument {
         //java bridge loop for getting all components
         for (let x = 0; x < this.doc.getComponents_().size_(); x++) {
             let item = this.doc.getComponents_().get_(x);
-            let component = new Component(component, this.doc, this.uri, this.Sequence);
+            let component = new Component(item, this.doc, this.uri, this.Sequence);
             componentObject.push(component.components());
         }
 
@@ -108,11 +85,13 @@ module.exports = class setDocument {
                     subcomponentObject.push(components);
                 }
             });
+
             /*
             sorts subcomponents by their position in the sequence
             if subcomponent array has elements otherwise data is subcomponent
             is pushed to array
              */
+
             if (subcomponentObject.length !== 0) {
                 this.sortComponents(subcomponentObject);
                 component.subcomponents.length = 0;
@@ -134,10 +113,12 @@ module.exports = class setDocument {
          with its display ID matched to it
          (for subcomponent matching when glyphs are assigned)
          */
+
         componentObject.forEach((component) => {
             map.set(component.displayID, component);
         });
 
+        //return mapped data back for browser use
         return map;
     }
 };

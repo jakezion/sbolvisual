@@ -188,6 +188,10 @@ function getJSON(json) {
     }
 }
 
+/*
+* gets the glyph based on a components type to allow it to be displayed in the browser
+* if correct glyph doesnt exist then a user-defined glyph is used (template glyph)
+ */
 function getGlyph(glyph) {
     if (glyph) {
         let URI = [];
@@ -253,11 +257,8 @@ function getGlyph(glyph) {
 
 }
 
-//TODO allow individual glyphs to be displayed
+//sets the list for the list view in the browser
 function setList(data) {
-    //  let temp = data;
-//let val = temp;
-    // temp.forEach(x => console.log("before",x));
 
     let count = 0;
     list.length = 0;
@@ -267,23 +268,21 @@ function setList(data) {
         if (component.subcomponents.length !== 0) {
 
             component.subcomponents.forEach((subcomponent) => {
-                //console.log(getComponent(data,subcomponent));
+
                 subcomponents.push(getComponent(data, subcomponent.instance));
                 count++;
+
             });
 
             component.subcomponents.length = 0;
             component.subcomponents = subcomponents.slice(0);
-
 
         }
 
         list.push([component, count]);
         count++;
     });
-//
-    //  val.forEach(x => console.log("x",x));
-    // return val;
+
 }
 
 module.exports = router;
@@ -295,6 +294,4 @@ and other details relating to the glyph for the setList view
 data sent back to parser where it will rendered in router request
 and displayed in the correct locations, using the view engine.
 Make repeatable
-
-
  */

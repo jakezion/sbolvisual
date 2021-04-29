@@ -47,7 +47,7 @@
                 </ul>
                 <div class="tab-content mt-5">
                     <div class="tab-pane active" role="tabpanel" id="glyph">
-                        <!-- TODO Hover glyphs for type details-->
+                        <!-- Hover glyphs for type details-->
                         <% if @glyphs?.length : %>
                         <% for section in @glyphs : %>
                         <div class="sbol-visual centered">
@@ -65,12 +65,6 @@
                     </div>
 
                     <div class="tab-pane" role="tabpanel" id="list">
-                        <!--                        <form method="get" role="form" action="/">-->
-                        <!--                            <div class="form-check">-->
-                        <!--                                <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-                        <!--                                <label class="form-check-label" for="exampleCheck1">Detailed</label>-->
-                        <!--                            </div>-->
-                        <!--                        </form>-->
                         <% if @list?.length : %>
 
                         <% for component in @list : %>
@@ -136,10 +130,8 @@
                                         </div>
                                         <% end %>
                                         <% else : %>
-                                        <!--                        <p>List is empty</p>-->
-                                        <% end %>
-                                        <!--                                        </pre>-->
 
+                                        <% end %>
 
                                     </div>
                                 </div>
@@ -149,7 +141,6 @@
                         </div>
                         <% end %>
                         <% else : %>
-                        <!--                        <p>List is empty</p>-->
                         <% end %>
                     </div>
                 </div>

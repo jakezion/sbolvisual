@@ -1,5 +1,14 @@
-# SBOL Viz v3.0
+# SBOL Viz [Standard 3.0]
 
+# How to Run:
+
+- Download and install <a href="https://nodejs.dev/download/">NodeJS</a>
+- Download Zip file of project or clone the repository
+- Locate repository location in Git Bash
+- Enter "node app.js"
+- Open Localhost:5858 on a browser
+
+# What its about
 SBOL Viz is a web-based visualisation tool for the 3rd iteration of the SBOL specification
 that will:
 

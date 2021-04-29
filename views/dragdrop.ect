@@ -1,5 +1,5 @@
 <% extend 'layout' %>
-
+<!--Drag and drop page-->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
 <style>
@@ -15,9 +15,6 @@
         <div class="col-md-12">
             <h4>Sequence</h4>
             <div class="card mt-4">
-
-                <!--                <div class="col-md">-->
-                <!--                <ul id="sequence" class="dragula-container list-group list-group-horizontal-md"></ul>-->
                 <div id="sequence" class="dragula-container p-4 list-group flex"></div>
 
             </div>
@@ -68,6 +65,7 @@
 </div>
 
 <script type="text/javascript">
+
     dragula(
         [document.getElementById("inventory"), document.getElementById("sequence")], {
             copy: function (el, source) {

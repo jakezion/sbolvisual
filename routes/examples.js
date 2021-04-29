@@ -6,7 +6,7 @@ const express = require('express'),
     multicellular = fs.readFileSync("./public/jsonld/multicellular/multicellular.jsonld").toString(),
     toggleSwitch = fs.readFileSync("./public/jsonld/toggle_switch/toggle_switch.jsonld").toString();
 
-
+//example page router
 router.get('/', (req, res) => {
 
     let files = [
