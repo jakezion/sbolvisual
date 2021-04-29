@@ -1,6 +1,6 @@
 # SBOL Viz [Standard 3.0]
 
-# How to Run:
+## How to Run:
 
 - Download and install <a href="https://nodejs.dev/download/">NodeJS</a>
 - Download Zip file of project or clone the repository
@@ -10,7 +10,7 @@
 
 Find examples of SBOL visual data in the "public/jsonld" folder
 
-# What its about
+## What its about
 SBOL Viz is a web-based visualisation tool for the 3rd iteration of the SBOL specification
 that will:
 
