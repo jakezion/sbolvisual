@@ -8,6 +8,8 @@
 - Enter "node app.js"
 - Open Localhost:5858 on a browser
 
+Find examples of SBOL visual data in the "public/jsonld" folder
+
 # What its about
 SBOL Viz is a web-based visualisation tool for the 3rd iteration of the SBOL specification
 that will:
