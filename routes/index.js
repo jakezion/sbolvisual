@@ -16,39 +16,6 @@ router.use(express.urlencoded({extended: true}));
 
 router.use(express.json());
 
-//route for post requests on index page
-router.post('/', (req, res) => {
-
-    //data being sent by user
-    let sboldata = req.body.sboldata;
-
-    //data format for XML
-    let format = req.body.format;
-
-    //if body data exists, then sync promise parse data and set list data
-    if (sboldata !== undefined) {
-        try {
-            let components = parser(sboldata, format);
-            setGlyphs(components);
-            setList(components);
-        } catch (e) {
-            //redirects back to index page if erroneous data is entered on input
-            res.redirect('/');
-        }
-
-    }
-
-    //actual data being rendered from post
-    res.render('index', {
-        sboldata: sboldata,
-        list: list,
-        placeholder: sboldata,
-        glyphs: displayGlyphs
-    });
-
-
-});
-
 //render of get request for index page
 router.get('/', (req, res) => {
 
@@ -67,6 +34,49 @@ router.get('/', (req, res) => {
     });
 });
 
+//route for post requests on index page
+router.post('/', (req, res) => {
+
+    //data being sent by user
+    let sboldata = req.body.sboldata;
+
+    //data format for XML
+    let format = req.body.format;
+
+    //if body data exists, then sync promise parse data and set list data
+    if (sboldata !== undefined) {
+        try {
+            let components = parser(sboldata, format);
+            setGlyphs(components);
+            setList(components);
+        } catch (e) {
+            //redirects back to index page if erroneous data is entered on input
+            res.redirect('/');
+
+        }
+
+    }
+
+    //actual data being rendered from post
+    res.render('index', {
+        description: 'SBOL Visual Homepage',
+        language: 'en-GB',
+        data: {author: 'Jake Sumner', university: 'Keele University'},
+        title: 'SBOL Visual',
+        tagline: 'SBOL Visual is a web-based visualisation tool',
+        keywords: ['SBOL', 'Visualisation', 'Synthetic Biology', 'SBOL v3', 'Glyph Creator'],
+        copyright: 'Jake Sumner &copy; 2020',
+        sboldata: sboldata,
+        list: list,
+        placeholder: sboldata,
+        glyphs: displayGlyphs
+    });
+
+
+});
+
+
+
 /*
     parser of sbol data and its format to the API,
     where it will be organised by position and all
@@ -74,8 +84,7 @@ router.get('/', (req, res) => {
  */
 const parser = (sbol, format) => {
     try {
-        let data = getJSON(sbol);
-        let API = new api(data, format);
+        const API = new api(getJSON(sbol), format);
         return API.getComponents();
     } catch (e) {
 

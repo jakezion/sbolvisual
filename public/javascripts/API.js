@@ -58,12 +58,17 @@ module.exports = class setDocument {
         return this.componentFeatureTest.components();
     }
 
+
+
     //gets all components within a sequence
     getComponents() {
+
         let map = new Map();
         let componentObject = [];
 
         //java bridge loop for getting all components
+        //todo for each component do a getFeatures() check, can do them individually to see what needs
+        // to be done to them for correct glyph display
         for (let x = 0; x < this.doc.getComponents_().size_(); x++) {
             let item = this.doc.getComponents_().get_(x);
             let component = new Component(item, this.doc, this.uri, this.Sequence);
@@ -85,6 +90,8 @@ module.exports = class setDocument {
                     subcomponentObject.push(components);
                 }
             });
+
+
 
             /*
             sorts subcomponents by their position in the sequence
@@ -108,11 +115,15 @@ module.exports = class setDocument {
         });
 
 
+
+
         /*
         every component in a sequence is set in the map,
          with its display ID matched to it
          (for subcomponent matching when glyphs are assigned)
          */
+
+
 
         componentObject.forEach((component) => {
             map.set(component.displayID, component);

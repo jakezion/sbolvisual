@@ -2,7 +2,7 @@
 
 const express = require('express'),
     path = require('path'), //possible remove
-    cookieParser = require('cookie-parser'),
+    //cookieParser = require('cookie-parser'),
     logger = require('morgan'),
     indexRouter = require('./routes/index'),
     dragdropRouter = require('./routes/dragdrop'),
@@ -13,8 +13,8 @@ const express = require('express'),
     app = express();
 
 
-app.hostname = 'http://localhost';
-app.port = 5858;
+app.hostname = 'https://localhost/';
+app.port = 8080;
 app.enable('strict routing');
 
 //sets view engine
@@ -24,7 +24,7 @@ app.engine('ect', ectRenderer.render);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
+//app.use(cookieParser());
 
 
 //static directory names
@@ -35,7 +35,6 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/
 app.use('/jq', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd')));
 app.use('/style', express.static(path.join(__dirname, 'public/stylesheets')));
-// app.use('/javascripts', express.static(path.join(__dirname, 'public/javascripts')));
 app.use('/public', express.static(path.join(__dirname, "public")));
 
 //routing paths
@@ -46,20 +45,25 @@ app.use('/github', staticRouter);
 app.use('/about', staticRouter);
 app.use('/links', staticRouter);
 
+
+//status code responses
 app.use((req, res, next) => {
-    res.status(404).send("Sorry can't find that!");
+    res.status(404).send("Sorry can't find this page!");
 });
 
 app.use((req, res, next) => {
     res.status(304).send("Not modified");
 });
 
+
 app.use((req, res, next) => {
     res.status(200).send("Working as intended");
 });
 
+
+//internal server error
 app.use( (req, res, next) => {
-    res.status(500).send('Something broke!');
+    res.status(500).send('Something broke internally!');
 });
 
 app.listen(app.port, () => {
